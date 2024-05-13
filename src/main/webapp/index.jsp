@@ -8,5 +8,7 @@
 </head>
 <body>
 	안녕하세요 12321ㅇㅈㅇㄴㅁㅇㅇㄴㄴ
+
+	<a href="<%=request.getContextPath()%>/feed/feedView.do">피드</a>
 </body>
 </html>

@@ -18,4 +18,6 @@ public class Inquiry {
 	private String inqTitle;
 	private String inqContent;
 	private Date inqDate;
+	private String writer;
+	private boolean answer;//답변유무
 }

@@ -146,7 +146,10 @@
                     <h3>공지사항</h3>
                 </button>
                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/faqlist.do')">
-                    <h3>고객센터</h3>
+                    <h3>faq</h3>
+                </button>
+                  <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/inquirylist.do')">
+                    <h3>1:1문의</h3>
                 </button>
                  <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/report/reportList.do')">
                     <h3>신고내역</h3>

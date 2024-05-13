@@ -71,10 +71,8 @@ ul li:hover > a{
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 <div class="faq-sec">
 	<div class="top-categry">
-		<span><button>faq</button></span>
-		<span><button onclick="location.assign('<%=request.getContextPath()%>/manager/inquirylist.do')">문의</button></span>
-	</div>
 		<h1>FAQ</h1>
+	</div>
 		<table class="table-size">
 			<tr>
 				<th>No</th>

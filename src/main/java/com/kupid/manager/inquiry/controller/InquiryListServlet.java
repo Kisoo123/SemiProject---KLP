@@ -96,7 +96,8 @@ public class InquiryListServlet extends HttpServlet {
 		
 		
 		List<Inquiry> inq=new InquiryService().selectInquiryAll(cPage, numPerpage);
-		
+		System.out.println(inq);
+//		String writer=inq.get(7);
 		request.setAttribute("inquiry", inq);//sql문에서 memeber와 join후 가져와야하나? 답변후에 처리는 어떻게 해야하나.....
 		
 		request.getRequestDispatcher("/WEB-INF/views/manager/inquiry/inquirylist.jsp").forward(request, response);

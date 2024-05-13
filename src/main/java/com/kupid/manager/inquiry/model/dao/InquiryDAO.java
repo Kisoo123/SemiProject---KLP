@@ -23,6 +23,7 @@ Properties sql=new Properties();
 		String path=InquiryDAO.class.getResource("/sql/sql_inquiry.properties").getPath();
 		try(FileReader fr=new FileReader(path)){
 			sql.load(fr);
+			System.out.println("test");
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +73,7 @@ Properties sql=new Properties();
 	public static Inquiry getInquiry(ResultSet rs) throws SQLException{
 		return Inquiry.builder()
 				.inqNo(rs.getInt("inq_no"))
-				.inqMember(rs.getString("inq_member"))
+				.inqMember(rs.getInt("inq_member"))
 				.inqTitle(rs.getString("inq_title"))
 				.inqContent(rs.getString("inq_content"))
 				.inqDate(rs.getDate("inq_date"))

@@ -16,5 +16,11 @@
 	<div>
 	<button onclick="location.assign('<%=request.getContextPath()%>/manager/noticelist.do')">공지사항</button>
 	</div>
+	<div>
+	<button onclick="">아티스트</button>
+	</div>
+	<div>
+	<button onclick="">faq</button>
+	</div>
 </body>
 </html>

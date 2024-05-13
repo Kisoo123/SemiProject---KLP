@@ -1,11 +1,15 @@
 package com.kupid.mypage.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kupid.member.model.dto.MemberDto;
+import com.kupid.member.model.service.MemberService;
 
 /**
  * Servlet implementation class MyProfileServlet
@@ -25,10 +29,10 @@ public class MyProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setAttribute("nickname", "");
-		request.setAttribute("introduce", "");
-		request.setAttribute("favorite", "");
+//		int no = Integer.parseInt(request.getAttribute("no"));
+		String id = (String) request.getAttribute("loginMember");
+		MemberDto m = new MemberService().selectMember(id);
+		request.setAttribute("member", m);
 		
 		request.getRequestDispatcher(getServletContext().getInitParameter("viewpath")+"mypage/myProfile.jsp")
 		.forward(request, response);

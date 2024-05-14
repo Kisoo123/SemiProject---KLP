@@ -4,13 +4,7 @@
 <%-- <%@ include file=""%> --%>
 <title>마이페이지</title>
 <div>
-My KUPID <button>로그아웃</button>
-	<ul>
-		<li>프로필</li>
-		<li>개인정보</li>
-		<li>내 활동</li>
-		<li>내 문의</li>
-	</ul>
+<%-- <%@ include file = "/WEB-INF/views/common/leftsidebar.jsp"%> --%>
 </div>
 <section>
 <h2>내 프로필</h2>

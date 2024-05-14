@@ -20,5 +20,8 @@
 	<div>
 		<button onclick="">faq</button>
 	</div>
+	<div>
+		<button onclick="location.assign('<%=request.getContextPath()%>/mypage/myprofile.do')">마이페이지</button>
+	</div>
 </body>
 </html>

@@ -14,7 +14,7 @@ import com.kupid.member.model.service.MemberService;
 /**
  * Servlet implementation class MyProfileServlet
  */
-@WebServlet("/mypage/profile.do")
+@WebServlet("/mypage/myprofile.do")
 public class MyProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,11 +30,11 @@ public class MyProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		int no = Integer.parseInt(request.getAttribute("no"));
-		String id = (String) request.getAttribute("loginMember");
-		MemberDto m = new MemberService().selectMember(id);
-		request.setAttribute("member", m);
+//		String id = (String) request.getAttribute("loginMember");
+//		MemberDto m = new MemberService().selectMember(id);
+//		request.setAttribute("member", m);
 		
-		request.getRequestDispatcher(getServletContext().getInitParameter("viewpath")+"mypage/myProfile.jsp")
+		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile2.jsp")
 		.forward(request, response);
 	}
 

@@ -34,7 +34,7 @@ public class MyProfileServlet extends HttpServlet {
 //		MemberDto m = new MemberService().selectMember(id);
 //		request.setAttribute("member", m);
 		
-		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile2.jsp")
+		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
 		.forward(request, response);
 	}
 

@@ -24,4 +24,5 @@
 		<button onclick="location.assign('<%=request.getContextPath()%>/mypage/myprofile.do')">마이페이지</button>
 	</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </html>

@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
-<html>
+<%@ page import="com.kupid.member.model.dto.MemberDto" %>
+<% 
+	//MemberDto m = (MemberDto) session.getAttribute("loginMember");
+	MemberDto m = (MemberDto) request.getAttribute("member");
+%>
+<!-- 임시디자인 -->
 <style>
 .sidebar-container{
 	min-width: 300px;
@@ -114,33 +117,28 @@
   color: black;
 }
 </style>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-</head>
-<!-- 임시디자인 -->
-    <div class="sidebar-container">
-        <div class="flex_col">
-            <div class="flex_col1">
-                <div class="flex_row">
-                    <h3 class="subtitle">My KUPID</h3>
-                    <button class="btn">로그아웃</button>
-                </div>
-            </div>
-            <div class="flex_col2">
-                <button class="btn1">
-                    <h3>프로필</h3>
-                </button>
-                <button class="btn2">
-                    <h3>개인정보</h3>
-                </button>
-                <button class="btn2">
-                    <h3>내 활동</h3>
-                </button>
-                <button class="btn2">
-                    <h3>내 문의</h3>
-                </button>
-           </div>
-    </div>
-    </div>
-</html>
+
+<div class="sidebar-container">
+	 <div class="flex_col">
+	     <div class="flex_col1">
+	         <div class="flex_row">
+	             <h3 class="subtitle">My KUPID</h3>
+	             <button class="btn">로그아웃</button>
+	         </div>
+	     </div>
+	     <div class="flex_col2">
+	         <button class="btn1" onclick="location.assign('<%=request.getContextPath()%>/mypage/myprofile.do')">
+	             <h3>프로필</h3>
+	         </button>
+	         <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/mypage/myinfo.do')">
+	                <h3>개인정보</h3>
+	            </button>
+	            <button class="btn2">
+	                <h3>내 활동</h3>
+	            </button>
+	            <button class="btn2">
+	                <h3>내 문의</h3>
+	            </button>
+	       </div>
+	</div>
+</div>

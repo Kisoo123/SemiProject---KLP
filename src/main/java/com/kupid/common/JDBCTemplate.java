@@ -16,12 +16,13 @@ public class JDBCTemplate {
 	public static Connection getConnection() {
 		Connection conn=null;
 		String path=JDBCTemplate.class.getResource("/driver.properties").getPath();
-		try (FileReader fr= new FileReader(path);){
-		Properties driver=new Properties();
-		driver.load(fr);
-		Class.forName(driver.getProperty("driver"));
-		conn=DriverManager.getConnection(driver.getProperty("url"),driver.getProperty("user"),driver.getProperty("pw"));
-		conn.setAutoCommit(false);
+		try (FileReader fr= new FileReader(path)){
+			Properties driver=new Properties();
+			driver.load(fr);
+			Class.forName(driver.getProperty("driver"));
+			conn=DriverManager.getConnection(driver.getProperty("url"),
+					driver.getProperty("user"),driver.getProperty("pw"));
+			conn.setAutoCommit(false);
 		}catch(ClassNotFoundException | SQLException | IOException e) {
 			e.printStackTrace();
 		}

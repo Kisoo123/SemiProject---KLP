@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Feed {
 	private int feedNo;
+	private String feedMemberName;
 	private String feedWriterName;
 	private int feedViewCount;
 	private Date feedWriteDate;
+	private Date feedUpdateDate;
 	private String	feedContent;
 	private String filePath;
 	private int likes;

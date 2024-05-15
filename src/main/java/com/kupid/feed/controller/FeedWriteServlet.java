@@ -47,14 +47,12 @@ public class FeedWriteServlet extends HttpServlet {
 				DefaultFileRenamePolicy dfrp=new DefaultFileRenamePolicy();
 				
 				//멀티파트 리퀘스트 객체 만들기
-				MultipartRequest mr=new MultipartRequest(
-						request,path,maxSize,encode,dfrp);
+				MultipartRequest mr=new MultipartRequest(request,path,maxSize,encode,dfrp);
 				
 				//나머지 정보를 가져오기
 				String writer=mr.getParameter("writer");
 				String content=mr.getParameter("content");
 				
-				//업로드된 파일정보
 				//원본파일명
 				String oriname=mr.getOriginalFileName("upfile");
 				//리네임파일명
@@ -72,7 +70,7 @@ public class FeedWriteServlet extends HttpServlet {
 					File delFile=new File(path+"/"+rename);
 					if(delFile.exists()) delFile.delete();
 				}
-				request.getRequestDispatcher("feedView.do").forward(request, response);
+				request.getRequestDispatcher(request.getContextPath()+"/feedView.do").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

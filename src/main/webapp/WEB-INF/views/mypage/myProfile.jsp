@@ -12,6 +12,7 @@
 <style>
 .myprofile-container{
 	display: flex;
+	justify-content: left;
 }
 .myProfile.main {
   position: relative;

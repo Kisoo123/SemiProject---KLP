@@ -5,12 +5,15 @@
 <html>
 <style>
 .sidebar-container{
-	min-width: 300px;
+	/* min-width: 250px;*/
+	width:100%;
 	margin : 0px auto;
 	background-color: #faf0ff;
+	justify-content: left;
+	align-items: left;
 }
 .sidebar-container .flex_col {
-  width : 90%;
+  width : 80%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -113,36 +116,89 @@
   min-width: 0px;
   color: black;
 }
+.aside{
+        width: 15%;
+        height: 1000px;
+        border: 1px solid blue; 
+        display: flex;
+        justify-content: left;
+        /* align-items: top; */
+        }
 </style>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 </head>
 <!-- 임시디자인 -->
+<aside class="aside">
     <div class="sidebar-container">
         <div class="flex_col">
             <div class="flex_col1">
                 <div class="flex_row">
-                    <h3 class="subtitle">관리자 화면</h3>
+                    <h2 class="subtitle">관리자 메뉴</h2>
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="btn1">
+                <button class="btn2">
                     <h3>메인화면</h3>
                 </button>
                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/noticelist.do')">
                     <h3>공지사항</h3>
                 </button>
                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/faqlist.do')">
-                    <h3>faq</h3>
-                </button>
-                <button class="btn2">
-                    <h3>문의</h3>
+                    <h3>고객센터</h3>
                 </button>
                  <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/report/reportList.do')">
                     <h3>신고내역</h3>
                 </button>
            </div>
+           <br>
+           <div class="flex_col1">
+                <div class="flex_row">
+                    <h3 class="subtitle">회원 관리</h3>
+                </div>
+            </div>
+            <div class="flex_col2">
+                <button class="btn2">
+                    <h3>아티스트</h3>
+                </button>
+                <button class="btn2" onclick="">
+                    <h3>팬</h3>
+                </button>
+           </div>
+           <br>
+           <div class="flex_col1">
+                <div class="flex_row">
+                    <h3 class="subtitle">피드 관리</h3>
+                </div>
+            </div>
+            <div class="flex_col2">
+                <button class="btn2">
+                    <h3>아티스트</h3>
+                </button>
+                <button class="btn2" onclick="">
+                    <h3>팬</h3>
+                </button>
+           </div>
+           <br>
+           <div class="flex_col1">
+                <div class="flex_row">
+                    <h3 class="subtitle">상점 관리</h3>
+                </div>
+            </div>
+            <div class="flex_col2">
+                <button class="btn2">
+                    <h3>배너</h3>
+                </button>
+                <button class="btn2" onclick="">
+                    <h3>상품</h3>
+                </button>
+                <button class="btn2" onclick="">
+                    <h3>결제내역</h3>
+                </button>
+           </div>
+           
+    	</div>
     </div>
-    </div>
+</aside>
 </html>

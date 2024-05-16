@@ -42,36 +42,77 @@ ul li:hover{
 ul li:hover > a{
    color:#FFF; /* 글자색*/
 }
+.notice-container{
+	display: flex;
+	
+}
+.notice-sec{
+	width:100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.table-size{
+	width:85%;
+	height:650px;
+	font-size:30px;
+	border :1px solid blue;
+}
+.section{
+	width:95%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+#btn{
+	float: right;
+}
+
 </style>
 </head>
 <body>
-	<h1>공지사항</h1>
-	<table>
-		<tr>
-			<th>No</th>
-			<th>카테고리</th>
-			<th>제목</th>
-			<th>작성일</th>
-		</tr>
-	
-		<%if(notices!=null){ %>
-			<%for(Notice n : notices){ %>
+<div class="notice-container">
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
+	<div class="notice-sec">
+		<h1>
+			<div>
+				<select></select>
+				<input type="text" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+				<button style="width:50px; height:50px">검색</button>
+			</div>
+		</h1>
+		<section class="section">
+		<table class="table-size">
 			<tr>
-				<td><%=n.getNoticeNo()%></td>
-				<td><%=n.getNoticeCategory()%></td>
-				<td><%=n.getNoticeTitle() %></td>
-				<td><%=n.getNoticeDate() %></td>
-				<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeupdate.do?no=<%=n.getNoticeNo()%>')">수정</button></td>
-				<td><button onclick="deleteNotice(<%=n.getNoticeNo()%>);">삭제</button></td>
+				<th>No</th>
+				<th>카테고리</th>
+				<th style="text-align:left;">제목</th>
+				<th>작성일</th>
 			</tr>
-			<%} 
-		}else{%>
-			<span>공지사항이 없습니다</span>
-		<%} %>
-	</table>
-		<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
-		<br><br><br>
-		<div><%=pagebar %></div>
+		
+			<%if(notices!=null){ %>
+				<%for(Notice n : notices){ %>
+				<tr>
+					<td style="text-align:center;"><%=n.getNoticeNo()%></td>
+					<td style="text-align:center;"><%=n.getNoticeCategory()%></td>
+					<td><%=n.getNoticeTitle() %></td>
+					<td style="text-align:center;"><%=n.getNoticeDate() %></td>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeupdate.do?no=<%=n.getNoticeNo()%>')">수정</button></td>
+					<td><button onclick="deleteNotice(<%=n.getNoticeNo()%>);">삭제</button></td>
+				</tr>
+				<%} 
+			}else{%>
+				<span>공지사항이 없습니다</span>
+			<%} %>
+		</table>
+		</section>
+			<div id="btn"><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
+			<br><br>
+			<div><%=pagebar %></div>
+	</div>
+</div>
 	<script>
 		const deleteNotice=(n)=>{
 			if(confirm("정말 삭제 하시겠습니까?")){

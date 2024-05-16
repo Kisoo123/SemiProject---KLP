@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.kupid.manager.notice.model.dto.Notice" %>
+<%@ page import="java.util.List,com.kupid.manager.inquiry.model.dto.Inquiry" %>
 <%
-	List<Notice> notices=(List<Notice>)request.getAttribute("notice");
+	List<Inquiry> inq=(List<Inquiry>)request.getAttribute("inquiry");
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
 %>
 <!DOCTYPE html>
@@ -49,38 +49,26 @@ ul li:hover > a{
 	<table>
 		<tr>
 			<th>No</th>
-			<th>카테고리</th>
 			<th>제목</th>
 			<th>작성일</th>
+			<th>작성자</th>
 		</tr>
-	
-		<%if(notices!=null){ %>
-			<%for(Notice n : notices){ %>
+	<%if(inq!=null){ %>
+			<%for(Inquiry i : inq){ %>
 			<tr>
-				<td><%=n.getNoticeNo()%></td>
-				<td><%=n.getNoticeCategory()%></td>
-				<td><%=n.getNoticeTitle() %></td>
-				<td><%=n.getNoticeDate() %></td>
-				<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeupdate.do?no=<%=n.getNoticeNo()%>')">수정</button></td>
-				<td><button onclick="deleteNotice(<%=n.getNoticeNo()%>);">삭제</button></td>
+				<td><%=i.getInqNo()%></td>
+				<td><%=i.getInqTitle()%></td>
+				<td><%=i.getInqContent()%></td>
+				<td><%=%></td>
+				<td><button onclick="">답변</button></td>
 			</tr>
 			<%} 
 		}else{%>
-			<span>공지사항이 없습니다</span>
+			<span>문의내역이 없습니다</span>
 		<%} %>
 	</table>
 		<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
 		<br><br><br>
 		<div><%=pagebar %></div>
-	<script>
-		const deleteNotice=(n)=>{
-			if(confirm("정말 삭제 하시겠습니까?")){
-				location.assign("<%=request.getContextPath()%>/manager/noticedelete.do?no="+n)
-			}else{
-				alert("삭제가 취소되었습니다");
-			}
-		}
-	</script>
-	
 </body>
 </html>

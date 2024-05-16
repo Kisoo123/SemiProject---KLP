@@ -18,10 +18,13 @@
 		<button onclick="">아티스트</button>
 	</div>
 	<div>
-		<button onclick="">faq</button>
+		<button onclick="location.assign('<%=request.getContextPath()%>/manager/faqlist.do')">faq</button>
 	</div>
 	<div>
 		<button onclick="location.assign('<%=request.getContextPath()%>/mypage/myprofile.do')">마이페이지</button>
+	</div>
+	<div>
+		<button onclick="location.assign('<%=request.getContextPath()%>/manager/home.do')">관리자페이지</button>
 	</div>
 </body>
 </html>

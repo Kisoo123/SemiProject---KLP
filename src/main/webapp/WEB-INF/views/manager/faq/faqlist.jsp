@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.kupid.manager.notice.model.dto.Notice" %>
+<%@ page import="java.util.List,com.kupid.manager.faq.model.dto.Faq" %>
 <%
-	List<Notice> notices=(List<Notice>)request.getAttribute("notice");
+	List<Faq> faqs=(List<Faq>)request.getAttribute("faq");
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
 %>
 <!DOCTYPE html>
@@ -45,7 +45,8 @@ ul li:hover > a{
 </style>
 </head>
 <body>
-	<h1>공지사항</h1>
+
+<h1>FAQ</h1>
 	<table>
 		<tr>
 			<th>No</th>
@@ -54,33 +55,35 @@ ul li:hover > a{
 			<th>작성일</th>
 		</tr>
 	
-		<%if(notices!=null){ %>
-			<%for(Notice n : notices){ %>
+		<%if(faqs!=null){ %>
+			<%for(Faq f : faqs){ %>
 			<tr>
-				<td><%=n.getNoticeNo()%></td>
-				<td><%=n.getNoticeCategory()%></td>
-				<td><%=n.getNoticeTitle() %></td>
-				<td><%=n.getNoticeDate() %></td>
-				<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeupdate.do?no=<%=n.getNoticeNo()%>')">수정</button></td>
-				<td><button onclick="deleteNotice(<%=n.getNoticeNo()%>);">삭제</button></td>
+				<td><%=f.getFaqNo()%></td>
+				<td><%=f.getFaqCategory()%></td>
+				<td><%=f.getFaqTitle()%></td>
+				<td><%=f.getFaqDate()%></td>
+				<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/faqupdate.do?no=<%=f.getFaqNo()%>')">수정</button></td>
+				<td><button onclick="deleteFaq(<%=f.getFaqNo()%>);">삭제</button></td>
 			</tr>
 			<%} 
 		}else{%>
-			<span>공지사항이 없습니다</span>
+			<span>등록된 faq가 없습니다</span>
 		<%} %>
 	</table>
-		<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
+		<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/faqinsert.do')">작성</button></div>
 		<br><br><br>
-		<div><%=pagebar %></div>
+		<div><%=pagebar%></div>
+
 	<script>
-		const deleteNotice=(n)=>{
+		const deleteFaq=(n)=>{
 			if(confirm("정말 삭제 하시겠습니까?")){
-				location.assign("<%=request.getContextPath()%>/manager/noticedelete.do?no="+n)
+				location.assign("<%=request.getContextPath()%>/manager/faqdelete.do?no="+n)
 			}else{
 				alert("삭제가 취소되었습니다");
 			}
 		}
 	</script>
-	
+
 </body>
 </html>
+

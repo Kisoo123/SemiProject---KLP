@@ -125,6 +125,21 @@ public class NoticeDAO {
 		return result;
 	}
 	
+	public int noticeDelete(Connection conn,int no) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("noticeDelete"));
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 	
 	
 	public static Notice getNotice(ResultSet rs) throws SQLException{

@@ -82,6 +82,8 @@ ul li:hover > a{
         		<option value="common" >일반</option>
         		<option value="goods" >굿즈</option>
         		<option value="event" >행사</option>
+        		<option value="event" >행사</option>
+        		
         	</select>
 				<input type="text" name="search" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
 				<button style="width:50px; height:50px">검색</button>

@@ -24,5 +24,13 @@ public class FeedService {
 		return result;
 	}
 	
+	public int selectFeedCount() {
+		Connection conn = getConnection();
+		int result = dao.selectFeedCount(conn);
+		close(conn);
+		return result;
+		
+	}
+	
 	
 }

@@ -46,6 +46,24 @@ public class FeedDao {
 				
 	}
 	
+	public int selectFeedCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectFeedCount"));
+			rs=pstmt.executeQuery();
+			rs.next();
+			result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public List<Feed> selectFeedAll(Connection conn,int cPage,int numPerpage){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;

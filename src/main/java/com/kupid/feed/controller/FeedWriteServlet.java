@@ -70,7 +70,7 @@ public class FeedWriteServlet extends HttpServlet {
 					File delFile=new File(path+"/"+rename);
 					if(delFile.exists()) delFile.delete();
 				}
-				request.getRequestDispatcher(request.getContextPath()+"/feedView.do").forward(request, response);
+				request.getRequestDispatcher("feedView.do").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

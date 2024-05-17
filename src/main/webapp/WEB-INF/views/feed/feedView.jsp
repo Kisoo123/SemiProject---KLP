@@ -35,6 +35,7 @@
     </form>
     <div id="result"></div>
 	
+	<div style="height:1000px"></div>
 	<div class="container" id="container"> </div>
     
     <!--  -->
@@ -61,8 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
         	$.ajax({
                 type:"POST",
                 url:"<%=request.getContextPath()%>/feed/InfiniteScroll.do",
-                data: {"cPage":page,
-                "numPerPage":perPage},
+                data: {
+                	"cPage":page,
+                	"numPerPage":perPage
+                },
                 success :
                 	function(data){
                 			$.each(data,function(idx, element) {
@@ -74,13 +77,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 				$(container).append('<h3>' + element.feedContent+ '</h3>');
                 				$(container).append('<h3>' + element.likes+ '</h3>');
                 				$(container).append('<h3>' + element.report+ '</h3>');
-                			})
-                			page++
-                		if(data.success) {
-                		}
-                	},
+                			}) 
+                			
+                	    page++
+
+                	}
+
+            	/* if ($(document).ready()) loadPage(data);
+            	if (scrollTop + windowHeight >= scrollHeight - 150) {
+            	loadPage(data)} */
+                ,
                 error : function(request,status,error){
-                    alert('code:'+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); //에러 상태에 대한 세부사항 출력
+                    alert('code:'+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                     alert(e);
                 }
             })

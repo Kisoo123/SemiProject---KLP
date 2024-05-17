@@ -69,10 +69,13 @@ public class InfiniteScrollServlet extends HttpServlet {
 //	               }
 //               ]
 //			""";
+		
+			int totalData=new FeedService().selectFeedCount();
+			
 	           
-           JSONArray jsonRequest = new JSONArray(feeds);
+			JSONArray jsonRequest = new JSONArray(feeds);
 
-           JSONArray jsonResponse = new JSONArray();
+			JSONArray jsonResponse = new JSONArray();
            
            for (int i = 0; i < jsonRequest.length(); i++) {
                JSONObject feed = jsonRequest.getJSONObject(i);
@@ -97,6 +100,7 @@ public class InfiniteScrollServlet extends HttpServlet {
 
                jsonResponse.put(jsonFeed);
            }
+           
 
            // 응답 설정
            response.setContentType("application/json");
@@ -106,6 +110,11 @@ public class InfiniteScrollServlet extends HttpServlet {
            PrintWriter out = response.getWriter();
            out.print(jsonResponse.toString());
            out.flush();
+           
+//       		PrintWriter out = response.getWriter();
+//           	request.setAttribute("feeds", jsonResponse.toString());
+//   			request.getRequestDispatcher("/views/feedViewHtml.jsp").forward(request, response);
+//   			out.flush();
        }
 	
 

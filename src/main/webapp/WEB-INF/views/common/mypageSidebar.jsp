@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kupid.member.model.dto.MemberDto" %>
-<% 
-	//MemberDto m = (MemberDto) session.getAttribute("loginMember");
-	MemberDto m = (MemberDto) request.getAttribute("member");
-%>
 <!-- 임시디자인 -->
 <style>
 .sidebar-container{
 	min-width: 300px;
 	margin : 0px auto;
 	background-color: #faf0ff;
+	justify-content: left;
 }
 .sidebar-container .flex_col {
   width : 90%;

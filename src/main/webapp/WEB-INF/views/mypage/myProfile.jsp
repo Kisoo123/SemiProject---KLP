@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	//MemberDto m = (MemberDto) session.getAttribute("loginMember"); 
+	//MemberDto m = (MemberDto) session.getAttribute("loginMember");
+	MemberDto m = (MemberDto) request.getAttribute("member");
+	String src = "";
+	if(m.getProfileImgOriname().equals("기본프로필.png")){
+		src=request.getContextPath()+"/image/member/"+m.getProfileImgOriname();
+	}else{
+		src=m.getProfileImgOriname();
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +18,7 @@
 <style>
 .myprofile-container{
 	display: flex;
-	justify-content: left;
+	width: 100%;
 }
 .myProfile.main {
   position: relative;
@@ -76,8 +83,9 @@
 }
 .myProfile .profile_img {
   position: relative;
-  width: 50%;
+  width: 80%;
   border-radius: 148.5px 148.5px 148.5px 148.5px;
+  border: 3px #faf0ff solid;
 }
 .myProfile .btn {
   position: relative;
@@ -225,7 +233,7 @@
                 <div class="content_box1 content_box">
                     <div class="flex_row">
                         <div class="flex_col1">
-                            <img class="profile_img" src="<%=request.getContextPath() %>/upload/<%=m.getProfileImgOriginal() %>" alt="profile_img" />
+                            <img class="profile_img" src="<%=src %>" alt="profile_img" />
                             <button class="btn btn_chane_img">사진 변경</button>
                         </div>
                         <form action="" method="post">
@@ -236,11 +244,11 @@
                             </div>
                             <h3>소개</h3>
                             <div class="favorite1_box" >
-	                            <textarea name="introduce" cols="55" rows="5" class="favorite1"  placeholder="소개를 적어주세요 :)" style="resize: none" ></textarea>
+	                            <textarea name="introduce" cols="55" rows="5" class="favorite1" placeholder="소개를 적어주세요 :)" style="resize: none" ><%=m.getIntroduce()%></textarea>
                             </div>
                             <h3>관심 아티스트</h3>
                             <div class="favorite1_box">
-                            	<input type="text" class="favorite1" placeholder="아이유, 에스파" />
+                            	<input type="text" class="favorite1" placeholder="아이유, 에스파">
                             </div>
                          </div>
                          <br>

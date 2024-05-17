@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <% 
 	//MemberDto m = (MemberDto) session.getAttribute("loginMember"); 
+	MemberDto m = (MemberDto) request.getAttribute("member"); 
 %>
 <!DOCTYPE html>
 <html>
@@ -11,12 +12,14 @@
 <style>
 .myInfo-container{
 	display: flex;
+	width: 100%;
 }
 .myInfo.main {
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: white;
+  width: 100%;
 }
 .myInfo .section1 {
   position: relative;
@@ -235,10 +238,10 @@
                             <h3>주소</h3>
                             	<button onclick="">주소 검색</button>
                             <div class="input_box">
-                            	<input type="text" class="inputTag" value="<%=m.getAddress()%>">
+                            	<input type="text" class="inputTag" value="<%if(m.getAddress() != null) %><%=m.getAddress()%>">
                             </div>
                             <div class="input_box">
-                            	<input type="text" class="inputTag" placeholder="상세주소 입력">
+                            	<input type="text" class="inputTag" placeholder="상세주소 입력"  value="<%if(m.getAddressDetail() != null) %><%=m.getAddressDetail()%>">
                             </div>
                         	 <br>
 	                		<button name="submit" class="btn btn_chane_img">수정</button>

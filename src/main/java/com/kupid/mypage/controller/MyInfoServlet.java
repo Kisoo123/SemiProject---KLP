@@ -34,7 +34,7 @@ public class MyInfoServlet extends HttpServlet {
 //		MemberDto m = new MemberService().selectMember(id);
 		
 		//임의 멤버를 가져오는 메소드
-		MemberDto m = new MemberService().selectMember("");
+		MemberDto m = new MemberService().selectMember("qwerty");
 		request.setAttribute("member", m);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/myInfo.jsp")
 		.forward(request, response);

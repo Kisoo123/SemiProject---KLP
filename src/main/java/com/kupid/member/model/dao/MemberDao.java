@@ -1,5 +1,7 @@
 package com.kupid.member.model.dao;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,15 +12,15 @@ import com.kupid.member.model.dto.MemberDto;
 
 public class MemberDao {
 	private Properties sql = new Properties();
-//	{
-//		String path = MemberDao.class.getResource("/sql/member/sql_admin.properties").getPath();
-//
-//		try (FileReader fr = new FileReader(path)){
-//			sql.load(fr);
-//		} catch(IOException e){
-//			e.printStackTrace();
-//		}
-//	}
+	{
+		String path = MemberDao.class.getResource("/sql/member/member.properties").getPath();
+
+		try (FileReader fr = new FileReader(path)){
+			sql.load(fr);
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	//임의 builder를 사용하는 메소드 DB가 생기면 아래 내용으로 바꾸자.
 //	public MemberDto selectMember(Connection conn, String id) {
 //		PreparedStatement pstmt = null;
@@ -40,7 +42,9 @@ public class MemberDao {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
+				System.out.println("rs.next");
 				m = memberBuilder(rs);
+				System.out.println(m.toString());
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -50,19 +54,21 @@ public class MemberDao {
 	public static MemberDto memberBuilder(ResultSet rs) throws SQLException {
 		return MemberDto.builder()
 						.memberNo(rs.getInt("member_no"))
+						.memberId(rs.getString("member_id"))
 						.memberPw(rs.getString("member_pw"))
 						.memberName(rs.getString("member_name"))
-						.address(rs.getString("address"))
-						.phone(rs.getString("phone"))
-						.email(rs.getString("email"))
 						.gender(rs.getString("gender"))
+						.phone(rs.getString("phone"))
+						.address(rs.getString("address"))
+						.addressDetail(rs.getString("address_detail"))
+						.email(rs.getString("email"))
 						.birth(rs.getDate("birth"))
 						.introduce(rs.getString("introduce"))
 						.nickname(rs.getString("nickname"))
-						.profileImgOriname(rs.getString("profile_img_original"))
-						.profileImgRenamed(rs.getString("profile_img_renamed"))
+						.profileImgOriname(rs.getString("profile_img_oriname"))
+						//.profileImgRenamed(rs.getString("profile_img_renamed"))
 						.memberGrade(rs.getString("member_grade"))
-						.enrollDate(rs.getDate("enrollDate"))
+						.enrollDate(rs.getDate("enroll_date"))
 						.build();
 	}
 	//db생기기 전 사용한 빌더

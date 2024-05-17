@@ -21,7 +21,7 @@ public class MemberDto {
 	private String gender;
 	private String phone;
 	private String address;
-	private String address_detail;
+	private String addressDetail;
 	private String email;
 	private Date birth;
 	private String nickname;

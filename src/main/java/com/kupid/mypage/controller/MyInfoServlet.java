@@ -14,14 +14,14 @@ import com.kupid.member.model.service.MemberService;
 /**
  * Servlet implementation class MyProfileServlet
  */
-@WebServlet("/mypage/myprofile.do")
-public class MyProfileServlet extends HttpServlet {
+@WebServlet("/mypage/myinfo.do")
+public class MyInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfileServlet() {
+    public MyInfoServlet() {
         super();
     }
 
@@ -36,7 +36,7 @@ public class MyProfileServlet extends HttpServlet {
 		//임의 멤버를 가져오는 메소드
 		MemberDto m = new MemberService().selectMember("");
 		request.setAttribute("member", m);
-		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
+		request.getRequestDispatcher("/WEB-INF/views/mypage/myInfo.jsp")
 		.forward(request, response);
 	}
 

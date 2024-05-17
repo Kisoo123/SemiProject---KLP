@@ -1,49 +1,39 @@
-package com.kupid.mypage.controller;
+package com.kupid.feed.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.member.model.dto.MemberDto;
-import com.kupid.member.model.service.MemberService;
-
 /**
- * Servlet implementation class MyProfileServlet
+ * Servlet implementation class FeedViewServlet
  */
-@WebServlet("/mypage/myprofile.do")
-public class MyProfileServlet extends HttpServlet {
+@WebServlet("/feed/feedView.do")
+public class FeedViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfileServlet() {
+    public FeedViewServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		int no = Integer.parseInt(request.getAttribute("no"));
-//		String id = (String) request.getAttribute("loginMember");
-//		MemberDto m = new MemberService().selectMember(id);
-		
-		//임의 멤버를 가져오는 메소드
-		MemberDto m = new MemberService().selectMember("");
-		request.setAttribute("member", m);
-		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
-		.forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/feed/feedView.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -31,7 +31,6 @@ public class NoticeDAO {
 		
 	}
 	
-	
 
 	public List<Notice> selectNoticeAll(Connection conn,int cPage,int numPerpage){
 		PreparedStatement pstmt=null;

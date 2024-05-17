@@ -2,8 +2,5 @@
 /src/main/resources/
 /src/main/webapp/upload/
 /src/main/webapp/images/
-<<<<<<< HEAD
-.DStore
-=======
-.DStore
->>>>>>> branch 'dev' of https://github.com/Kisoo123/SemiProject---KLP.git
+.DS_Store
+.dbeaver/

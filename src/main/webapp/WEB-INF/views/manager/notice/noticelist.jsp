@@ -78,8 +78,12 @@ ul li:hover > a{
 	<div class="notice-sec">
 		<h1>
 			<div>
-				<select></select>
-				<input type="text" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+				<select id="searchType">
+        		<option value="common" >일반</option>
+        		<option value="goods" >굿즈</option>
+        		<option value="event" >행사</option>
+        	</select>
+				<input type="text" name="search" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
 				<button style="width:50px; height:50px">검색</button>
 			</div>
 		</h1>

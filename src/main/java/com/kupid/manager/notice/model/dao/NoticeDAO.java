@@ -140,6 +140,57 @@ public class NoticeDAO {
 		
 	}
 	
+	public List<Notice> searchNotice(Connection conn,String type,String keyword, int cPage,int numPerpage) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Notice> notice=new ArrayList<>();
+		System.out.println(type);
+		System.out.println(keyword);
+		try { 
+			pstmt=conn.prepareStatement(sql.getProperty("selectSearchNotice"));
+			pstmt.setString(1,type);
+			pstmt.setString(2,"%"+keyword+"%");
+			pstmt.setInt(3, (cPage-1)*numPerpage+1);
+			pstmt.setInt(4, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				notice.add(NoticeDAO.getNotice(rs));
+			}
+			System.out.println(notice);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return notice;
+	}
+	
+	public int searchNoticeCount(Connection conn,String type,String keyword) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=this.sql.getProperty("searchNoticeCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,type);
+			pstmt.setString(2,"%"+keyword+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+			
+		}catch(SQLException e) {
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
 	
 	public static Notice getNotice(ResultSet rs) throws SQLException{
 		return Notice.builder()

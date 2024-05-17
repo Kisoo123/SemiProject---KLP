@@ -78,16 +78,16 @@ ul li:hover > a{
 	<div class="notice-sec">
 		<h1>
 			<div>
-				<select id="searchType">
-        		<option value="common" >일반</option>
-        		<option value="goods" >굿즈</option>
-        		<option value="event" >행사</option>
-        		<option value="event" >행사</option>
-        		
-        	</select>
-				<input type="text" name="search" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
-				<button style="width:50px; height:50px">검색</button>
-			</div>
+				<form action="<%=request.getContextPath()%>/manager/searchNotice.do">
+					<select id="searchType" name="searchCategory">
+	        		<option value="일반">일반</option>
+	        		<option value="굿즈" >굿즈</option>
+	        		<option value="행사" >행사</option>
+	        		</select>
+					<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+					<button type="submit" style="width:50px; height:50px">검색</button>
+				</form>
+			</div> 
 		</h1>
 		<section class="section">
 		<table class="table-size">

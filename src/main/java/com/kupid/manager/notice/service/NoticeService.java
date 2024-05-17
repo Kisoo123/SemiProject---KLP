@@ -1,8 +1,8 @@
 package com.kupid.manager.notice.service;
 
 import static com.kupid.common.JDBCTemplate.close;
-import static com.kupid.common.JDBCTemplate.getConnection;
 import static com.kupid.common.JDBCTemplate.commit;
+import static com.kupid.common.JDBCTemplate.getConnection;
 import static com.kupid.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
@@ -64,7 +64,19 @@ public class NoticeService {
 		return result;
 	}
 	
+	public List<Notice> searchNotice(String type,String keyword,int cPage,int numPerpage){
+		Connection conn=getConnection();
+		List<Notice> notices=dao.searchNotice(conn,type,keyword,cPage,numPerpage);
+		close(conn);
+		return notices;
+	}
 	
+	public int searchNoticeCount(String type,String keyword) {
+		Connection conn=getConnection();
+		int count=dao.searchNoticeCount(conn,type,keyword);
+		close(conn);
+		return count;
+	}
 	
 	
 	

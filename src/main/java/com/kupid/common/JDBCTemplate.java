@@ -15,7 +15,7 @@ import com.kupid.common.JDBCTemplate;
 public class JDBCTemplate {
 	public static Connection getConnection() {
 		Connection conn=null;
-		String path=JDBCTemplate.class.getResource("/driver2.properties").getPath();
+		String path=JDBCTemplate.class.getResource("/driver.properties").getPath();
 		try (FileReader fr= new FileReader(path);){
 		Properties driver=new Properties();
 		driver.load(fr);

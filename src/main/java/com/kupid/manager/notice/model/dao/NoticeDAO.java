@@ -144,8 +144,8 @@ public class NoticeDAO {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<Notice> notice=new ArrayList<>();
-		System.out.println(type);
-		System.out.println(keyword);
+//		System.out.println(type);
+//		System.out.println(keyword);
 		try { 
 			pstmt=conn.prepareStatement(sql.getProperty("selectSearchNotice"));
 			pstmt.setString(1,type);

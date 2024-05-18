@@ -42,37 +42,67 @@ ul li:hover{
 ul li:hover > a{
    color:#FFF; /* 글자색*/
 }
+.faq-container{
+	display:flex;
+}
+.faq-sec{
+	width:85%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.table-size{
+	width:85%;
+	height:650px;
+	font-size:30px;
+	border :1px solid blue;
+}
+.top-categry{
+	display:flex;
+	border :1px solid blue;
+	width:100%;
+}
 </style>
 </head>
 <body>
 
-<h1>FAQ</h1>
-	<table>
-		<tr>
-			<th>No</th>
-			<th>카테고리</th>
-			<th>제목</th>
-			<th>작성일</th>
-		</tr>
-	
-		<%if(faqs!=null){ %>
-			<%for(Faq f : faqs){ %>
+<div class="faq-container">
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
+<div class="faq-sec">
+	<div class="top-categry">
+		<span><button>faq</button></span>
+		<span><button onclick="location.assign('<%=request.getContextPath()%>/manager/inquirylist.do')">문의</button></span>
+	</div>
+		<h1>FAQ</h1>
+		<table class="table-size">
 			<tr>
-				<td><%=f.getFaqNo()%></td>
-				<td><%=f.getFaqCategory()%></td>
-				<td><%=f.getFaqTitle()%></td>
-				<td><%=f.getFaqDate()%></td>
-				<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/faqupdate.do?no=<%=f.getFaqNo()%>')">수정</button></td>
-				<td><button onclick="deleteFaq(<%=f.getFaqNo()%>);">삭제</button></td>
+				<th>No</th>
+				<th>카테고리</th>
+				<th>제목</th>
+				<th>작성일</th>
 			</tr>
-			<%} 
-		}else{%>
-			<span>등록된 faq가 없습니다</span>
-		<%} %>
-	</table>
-		<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/faqinsert.do')">작성</button></div>
-		<br><br><br>
-		<div><%=pagebar%></div>
+		
+			<%if(faqs!=null){ %>
+				<%for(Faq f : faqs){ %>
+				<tr>
+					<td><%=f.getFaqNo()%></td>
+					<td><%=f.getFaqCategory()%></td>
+					<td><%=f.getFaqTitle()%></td>
+					<td><%=f.getFaqDate()%></td>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/faqupdate.do?no=<%=f.getFaqNo()%>')">수정</button></td>
+					<td><button onclick="deleteFaq(<%=f.getFaqNo()%>);">삭제</button></td>
+				</tr>
+				<%} 
+			}else{%>
+				<span>등록된 faq가 없습니다</span>
+			<%} %>
+		</table>
+			<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/faqinsert.do')">작성</button></div>
+			<br><br><br>
+			<div><%=pagebar%></div>
+		</div>
+</div>
 
 	<script>
 		const deleteFaq=(n)=>{

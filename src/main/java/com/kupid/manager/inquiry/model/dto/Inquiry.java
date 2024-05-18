@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Inquiry {
 	private int inqNo;
-	private int memberRef;//참조 memberNo 문의한 회원번호
+	private String inqMember;//참조 memberNo 문의한 회원번호
 	private String inqTitle;
 	private String inqContent;
 	private Date inqDate;

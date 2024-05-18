@@ -69,7 +69,7 @@ ul li:hover > a{
 	justify-content: center;
 	align-items: center;
 }
-#btn{
+.btn{
 	float: right;
 }
 
@@ -82,6 +82,7 @@ div#search-행사{display:none;}
 <div class="notice-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 	<div class="notice-sec">
+		<h1>공지사항</h1>
 		<h1>
 			<div>
 				<select id="searchType">
@@ -137,7 +138,7 @@ div#search-행사{display:none;}
 			<%} %>
 		</table>
 		</section>
-			<div id="btn"><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
+			<div class="btn"><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
 			<br><br>
 			<div><%=pagebar %></div>
 	</div>

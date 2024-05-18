@@ -45,7 +45,7 @@ ul li:hover > a{
 </style>
 </head>
 <body>
-	<h1>공지사항</h1>
+	<h1>문의</h1>
 	<table>
 		<tr>
 			<th>No</th>
@@ -59,12 +59,12 @@ ul li:hover > a{
 				<td><%=i.getInqNo()%></td>
 				<td><%=i.getInqTitle()%></td>
 				<td><%=i.getInqContent()%></td>
-				<td><%=%></td>
+				<td></td>
 				<td><button onclick="">답변</button></td>
 			</tr>
 			<%} 
 		}else{%>
-			<span>문의내역이 없습니다</span>
+			<tr><td>문의내역이 없습니다</td></tr>
 		<%} %>
 	</table>
 		<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>

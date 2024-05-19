@@ -72,7 +72,6 @@ ul li:hover > a{
 			<th>제목</th>
 			<th>작성일</th>
 			<th>작성자</th>
-			<th>답변</th>
 		</tr>
 	<%if(inq!=null){ %>
 			<%for(Inquiry i : inq){ %>
@@ -81,7 +80,6 @@ ul li:hover > a{
 				<td><%=i.getInqTitle()%></td>
 				<td><%=i.getInqDate()%></td>
 				<td><%=i.getWriter()%></td>
-				<td><%=i.isAnswer()%></td>
 				<%if(i.isAnswer()){ %>
 					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/answerinsert.do?no=<%=i.getInqNo()%>')">답변</button></td>
 				<%}else{ %>

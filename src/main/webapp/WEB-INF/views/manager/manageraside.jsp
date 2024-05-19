@@ -118,7 +118,7 @@
 }
 .aside{
         width: 15%;
-        height: 1000px;
+        height: 1100px;
         border: 1px solid blue; 
         display: flex;
         justify-content: left;
@@ -162,8 +162,11 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="btn2">
+                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/artistlist.do')">
                     <h3>아티스트</h3>
+                </button>
+                <button class="btn2" onclick="">
+                    <h3>그룹</h3>
                 </button>
                 <button class="btn2" onclick="">
                     <h3>팬</h3>

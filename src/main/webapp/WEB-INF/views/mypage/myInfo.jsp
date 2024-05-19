@@ -4,6 +4,7 @@
 	//MemberDto m = (MemberDto) session.getAttribute("loginMember"); 
 	MemberDto m = (MemberDto) request.getAttribute("member"); 
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -39,6 +39,7 @@ public class FeedWriteServlet extends HttpServlet {
 				File dir=new File(path);
 				if(!dir.exists()) dir.mkdirs();
 				
+				System.out.println("Dasdass");
 				//인코딩 방식
 				String encode="UTF-8";
 				

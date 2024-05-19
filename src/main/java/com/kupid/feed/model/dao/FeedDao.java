@@ -25,9 +25,12 @@ public class FeedDao {
 			e.printStackTrace();
 		}
 	}
-	public int insertFeed(Connection conn, Feed f) {
+	public int insertFeed(Connection conn, Feed f,String filePath) {
 		PreparedStatement pstmt = null;
+		ResultSet rs=null;
 		int result = 0;
+		int seqFeed=0;
+		
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertFeed"));
 			pstmt.setString(1,"dsads");
@@ -36,15 +39,60 @@ public class FeedDao {
 			pstmt.setInt(4,f.getReport());
 			
 			result = pstmt.executeUpdate();
-			System.out.println(result);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
+		
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectSeqFeed"));
+			rs=pstmt.executeQuery();
+			rs.next();
+			seqFeed=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertFeedFile"));
+			pstmt.setInt(1, seqFeed);
+			pstmt.setString(2, filePath);
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 				
 	}
+	
+	
+//	public int insertFile(Connection conn,String filePath ) {
+//		PreparedStatement pstmt = null;
+//		int result = 0;
+//		
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql.getProperty("insertFeedFile"));
+//			pstmt.setString(1, filePath);
+//			result = pstmt.executeUpdate();
+//			
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(pstmt);
+//		}
+//		return result;
+//	}
 	
 	public int selectFeedCount(Connection conn) {
 		PreparedStatement pstmt=null;
@@ -95,6 +143,7 @@ public class FeedDao {
 				.feedUpdateDate(rs.getDate("UPDATEDATE"))
 				.likes(rs.getInt("LIKES"))
 				.report(rs.getInt("REPORT"))
+				.filePath(rs.getString("FILE_PATH"))
 				.build();
 	}
 }

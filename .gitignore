@@ -4,3 +4,4 @@
 /src/main/webapp/images/
 .DS_Store
 .dbeaver/
+.idea/

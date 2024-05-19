@@ -1,6 +1,7 @@
 package com.kupid.feed.model.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,7 @@ public class Feed {
 	private int feedViewCount;
 	private Date feedWriteDate;
 	private Date feedUpdateDate;
-	private String	feedContent;
+	private String feedContent;
 	private String filePath;
 	private int likes;
 	private int report;

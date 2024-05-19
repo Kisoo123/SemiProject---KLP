@@ -21,18 +21,6 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 	}
-	//임의 builder를 사용하는 메소드 DB가 생기면 아래 내용으로 바꾸자.
-//	public MemberDto selectMember(Connection conn, String id) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		MemberDto m = null;	
-//		try {
-//				m= memberBuilder();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		return m;
-//	}
 	public MemberDto selectMember(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		MemberDto m = null;
@@ -42,14 +30,42 @@ public class MemberDao {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				System.out.println("rs.next");
 				m = memberBuilder(rs);
-				System.out.println(m.toString());
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return m; 
+	}
+	//닉네임 중복 조회: count(*)
+	public int checkNickname(Connection conn, String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("checkNickname"));
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
+	}
+	public int updateProfile(Connection conn, String nickname, String introduce) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("updateProfile"));
+			pstmt.setString(1, nickname);
+			pstmt.setString(2, introduce);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
 	}
 	public static MemberDto memberBuilder(ResultSet rs) throws SQLException {
 		return MemberDto.builder()
@@ -71,6 +87,18 @@ public class MemberDao {
 						.enrollDate(rs.getDate("enroll_date"))
 						.build();
 	}
+	//임의 builder를 사용하는 메소드
+//	public MemberDto selectMember(Connection conn, String id) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		MemberDto m = null;	
+//		try {
+//				m= memberBuilder();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		return m;
+//	}
 	//db생기기 전 사용한 빌더
 //	public static MemberDto memberBuilder() throws SQLException {
 //		//임의 날짜 생성

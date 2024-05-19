@@ -15,4 +15,18 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	public int checkNickname(String nickname) {
+		Connection conn = getConnection();
+		int result = dao.checkNickname(conn, nickname);
+		close(conn);
+		return result;
+	}
+	public int updateProfile(String nickname, String introduce) {
+		Connection conn = getConnection();
+		int result = dao.updateProfile(conn, nickname, introduce);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

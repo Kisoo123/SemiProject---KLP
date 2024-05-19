@@ -13,6 +13,7 @@
 .myInfo-container{
 	display: flex;
 	width: 100%;
+	height: 100vh;
 }
 .myInfo.main {
   position: relative;
@@ -200,7 +201,7 @@
 
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
-    <main class="untitled-page main">
+    <main class="main">
         <section class="myInfo">
             <div class="flex_col">
                 <h1 class="title">개인정보 수정</h1>
@@ -219,13 +220,13 @@
                             <h3>비밀번호</h3>
                             <p>4~20글자 / 영문, 숫자 사용가능</p>
                             <div class="input_box">
-	                            <input type="text" class="inputTag" placeholder="현재 비밀번호 입력">
+	                            <input type="password" class="inputTag" placeholder="현재 비밀번호 입력">
                             </div>
                             <div class="input_box">
-	                            <input type="text" class="inputTag" placeholder="변경할 비밀번호 입력">
+	                            <input type="password" class="inputTag" placeholder="변경할 비밀번호 입력">
                             </div>
                             <div class="input_box">
-	                            <input type="text" class="inputTag" placeholder="비밀번호 확인">
+	                            <input type="password" class="inputTag" placeholder="비밀번호 확인">
                             </div>
                             <h3>연락처</h3>
                             <div class="input_box">

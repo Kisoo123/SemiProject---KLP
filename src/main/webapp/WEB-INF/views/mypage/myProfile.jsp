@@ -19,6 +19,7 @@
 .myprofile-container{
 	display: flex;
 	width: 100%;
+	height: 100vh;
 }
 .myProfile.main {
   position: relative;
@@ -81,11 +82,21 @@
   width: 297px;
   min-width: 0px;
 }
-.myProfile .profile_img {
-  position: relative;
-  width: 80%;
+
+.myProfile .profile_img_container {
   border-radius: 148.5px 148.5px 148.5px 148.5px;
   border: 3px #faf0ff solid;
+  width: 200px; /* 이미지 크기를 유지하기 위한 컨테이너 크기 */
+  height: 200px; /* 이미지 크기를 유지하기 위한 컨테이너 크기 */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+.myProfile .profile_img {
+	width: 80%;
+	height: auto;
 }
 .myProfile .btn {
   position: relative;
@@ -109,6 +120,12 @@
   width: 318px;
   min-width: 0px;
 }
+.myProfile .nickname-container{
+	display: flex;
+}
+.myProfile #nicknameResult{
+	margin-left: 10px;
+}
 .myProfile .nickname {
   position: relative;
   color: black;
@@ -130,7 +147,6 @@
 }
 .myProfile .highlight {
   width: 100%;
-  font: 500 16px/1.5 "Inter", Helvetica, Arial, serif;
   color: black;
   background-color: transparent;
   border: 0px;
@@ -233,14 +249,19 @@
                 <div class="content_box1 content_box">
                     <div class="flex_row">
                         <div class="flex_col1">
-                            <img class="profile_img" src="<%=src %>" alt="profile_img" />
-                            <button class="btn btn_chane_img">사진 변경</button>
+                        	<div class="profile_img_container">
+                            	<img class="profile_img" src="<%=src %>" alt="profile_img">
+                           	</div>
+                            <button class="btn btn_chane_img" id="changeImg">사진 변경</button>
                         </div>
-                        <form action="" method="post">
+                        <form action='<%=request.getContextPath() %>/mypage/profileupdate.do' method="post">
                        	<div class="content-container">
-                            <h3 >닉네임</h3>
+                       		<div class="nickname-container">
+                            <h3>닉네임</h3>
+                            	<h5 id="nicknameResult"></h5>
+                           	</div>
                             <div class="favorite1_box">
-	                            <input type="text" class="favorite1" value="<%=m.getNickname()%>">
+	                            <input type="text" name="nickname" id="nickname" class="favorite1" value="<%=m.getNickname()%>">
                             </div>
                             <h3>소개</h3>
                             <div class="favorite1_box" >
@@ -248,7 +269,7 @@
                             </div>
                             <h3>관심 아티스트</h3>
                             <div class="favorite1_box">
-                            	<input type="text" class="favorite1" placeholder="아이유, 에스파">
+                            	<input type="text" name="favorite" class="favorite1" placeholder="아이유, 에스파">
                             </div>
                          </div>
                          <br>
@@ -260,4 +281,39 @@
         </section>
     </main>
 </div>
+<script>
+	$("#changeImg").click(e=>{
+		console.log('hi');
+	});
+	
+	const nowNickname = '<%=m.getNickname() %>';
+	$("#nickname").keyup(e=>{
+		console.log(e.target.value);
+		let target = e.target.value;
+		//정규식 활용한 문자열 필터링
+		target = target.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣]/g, '');
+		e.target.value = target;
+		//빈칸 입력 방지
+		if(e.target.value !== ""){
+		//중복검사
+		$.ajax({
+			url: "<%=request.getContextPath()%>/mypage/checknickname.do",
+			type: "post",
+			data: {"nickname": target},
+			success: data=>{
+				console.dir(data);
+				if(target===(nowNickname)){
+					$("#nicknameResult").text("");
+				}else if(data==0){
+					$("#nicknameResult").text("* 사용가능한 닉네임입니다.").css("color","#c552ff");
+				} else if(data!=0){
+					$("#nicknameResult").text("* 이미 사용중인 닉네임입니다.").css("color","#ff5e5e");
+				} 
+			}
+		});
+		}else{
+			$("#nicknameResult").text("* 변경할 닉네임을 입력해주세요").css("color","gray");
+		}
+	});
+</script>
 </html>

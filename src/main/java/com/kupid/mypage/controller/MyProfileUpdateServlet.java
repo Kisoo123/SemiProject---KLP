@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.member.model.dto.MemberDto;
 import com.kupid.member.model.service.MemberService;
 
 /**
- * Servlet implementation class MyProfileServlet
+ * Servlet implementation class MyInfoUpdateServlet
  */
-@WebServlet("/mypage/myinfo.do")
-public class MyInfoServlet extends HttpServlet {
+@WebServlet(name = "profileUpdate", urlPatterns = { "/mypage/profileupdate.do" })
+public class MyProfileUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyInfoServlet() {
+    public MyProfileUpdateServlet() {
         super();
     }
 
@@ -29,15 +28,15 @@ public class MyInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		int no = Integer.parseInt(request.getAttribute("no"));
-//		String id = (String) request.getAttribute("loginMember");
-//		MemberDto m = new MemberService().selectMember(id);
-		
-		//해당 아이디의 멤버를 가져오는 메소드
-		MemberDto m = new MemberService().selectMember("qwerty");
-		request.setAttribute("member", m);
-		request.getRequestDispatcher("/WEB-INF/views/mypage/myInfo.jsp")
-		.forward(request, response);
+		System.out.println("프로필 업데이트 실행");
+		String nickname=request.getParameter("nickname");
+		String introduce=request.getParameter("introduce");
+		int result = new MemberService().updateProfile(nickname, introduce);
+		if(result>0) {
+			
+		} else {
+			
+		}
 	}
 
 	/**

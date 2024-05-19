@@ -19,12 +19,12 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
-	public List<Object> selectMemberForProfile(String id) {
-		Connection conn = getConnection();
-		List<Object> result = dao.selectMemberForProfile(conn, id);
-		close(conn);
-		return result;
-	}
+//	public List<Object> selectMemberForProfile(String id) {
+//		Connection conn = getConnection();
+//		List<Object> result = dao.selectMemberForProfile(conn, id);
+//		close(conn);
+//		return result;
+//	}
 	public int checkNickname(String nickname) {
 		Connection conn = getConnection();
 		int result = dao.checkNickname(conn, nickname);

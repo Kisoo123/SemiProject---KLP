@@ -1,4 +1,4 @@
-package com.kupid.member.model.dao;
+ package com.kupid.member.model.dao;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,12 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
-import com.kupid.group.model.dao.GroupDao;
-import com.kupid.group.model.dto.GroupDto;
 import com.kupid.member.model.dto.MemberDto;
 
 public class MemberDao {
@@ -40,23 +36,6 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 		return m; 
-	}
-	public List<Object> selectMemberForProfile(Connection conn, String id) {
-		PreparedStatement pstmt = null;
-		List<Object> result = new ArrayList<>();
-		ResultSet rs = null;
-		try{
-			pstmt = conn.prepareStatement(sql.getProperty("selectMemberForProfile"));
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result.add((MemberDto)memberBuilder(rs));
-				result.add((GroupDto) new GroupDao().groupBuilder(rs));
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return result; 
 	}
 	//닉네임 중복 조회: count(*)
 	public int checkNickname(Connection conn, String nickname) {

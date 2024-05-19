@@ -165,7 +165,7 @@
                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/artistlist.do')">
                     <h3>아티스트</h3>
                 </button>
-                <button class="btn2" onclick="">
+                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/grouplist.do')">
                     <h3>그룹</h3>
                 </button>
                 <button class="btn2" onclick="">

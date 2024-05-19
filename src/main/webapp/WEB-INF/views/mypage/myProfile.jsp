@@ -286,6 +286,7 @@
 		console.log('hi');
 	});
 	
+	
 	const nowNickname = '<%=m.getNickname() %>';
 	$("#nickname").keyup(e=>{
 		console.log(e.target.value);
@@ -314,6 +315,10 @@
 		}else{
 			$("#nicknameResult").text("* 변경할 닉네임을 입력해주세요").css("color","gray");
 		}
+	});
+	
+	$('#favorite1_box').click(e=>{
+		window.open('<%=request.getContextPath()%>/mypage/favoriteArtist.select','_blank','width:500px height: 800px');
 	});
 </script>
 </html>

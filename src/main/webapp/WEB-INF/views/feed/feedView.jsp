@@ -12,10 +12,10 @@
 </head>
 <body>
 	<div>
-		 <form action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post">
+		 <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();">
 			<%-- <input type ="hidden" name="writer" value="<%=로그인정보%>"> --%>
 			<div>
-				<input type ="file" name="upfile" id="upfile" multiple>
+				<input type ="file" id="upfile" multiple>
 			</div>
 			<div>
 				<textarea class="form-control" cols="40" rows="5" name="content" id="content"></textarea>
@@ -51,13 +51,29 @@
 	form.append("content",$("#content".val))
 	console.log(form);
 }) */
+
+	function submitFeed() {
+		$.each($('#upfile')[0].files, function(idx, file) {
+
+			var fileInput = $('<input>')
+				.attr('type', "file")
+				.attr('name', file.name)
+				.css('display', 'none');
+			
+			fileInput[0].file = file
+			console.log(fileInput[0].file);
+			$('#feedForm').append(fileInput);
+		})
+		return true;
+	}
+				
 				
    const container = document.getElementById("container");
    let page = 1; 
    const perPage = 10;
    let time=true;
 const loadPage=()=>{	
-  	$.ajax({
+	$.ajax({
 	    type:"POST",
 	    url:"<%=request.getContextPath()%>/feed/InfiniteScroll.do",
 	    data: {
@@ -77,13 +93,17 @@ const loadPage=()=>{
 	    				$div.append('<h3>' + element.feedContent+ '</h3>');
 	    				$div.append('<h3>' + element.likes+ '</h3>');
 	    				$div.append('<h3>' + element.report+ '</h3>');
-	    				if(element.filePath!="/SemiProject-KLP/upload/feed/null"){
+	    				
+	    				const fileArr = element.filePath.split(",");
+
+	    				for(let i =0; i<fileArr.length;i++){
+	    					if(fileArr[i]!="/SemiProject-KLP/upload/feed/null"){
 		    					$div.append($('<img>').attr({
-		    					    'src': element.filePath,'width': '100px','height': '100px' 
+		    					    'src': fileArr[i],'width': '100px','height': '100px' 
 		    					}));
 		    				}
-	    				$(container).append($div);
-
+	    				}
+    					$(container).append($div);
 	    			}) 
 	            time=true;
 	        	page++;

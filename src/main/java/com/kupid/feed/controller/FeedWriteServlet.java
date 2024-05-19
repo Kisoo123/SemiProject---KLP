@@ -2,7 +2,9 @@ package com.kupid.feed.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +41,6 @@ public class FeedWriteServlet extends HttpServlet {
 				File dir=new File(path);
 				if(!dir.exists()) dir.mkdirs();
 				
-				System.out.println("Dasdass");
 				//인코딩 방식
 				String encode="UTF-8";
 				
@@ -55,35 +56,40 @@ public class FeedWriteServlet extends HttpServlet {
 				//나머지 정보를 가져오기
 				String writer=mr.getParameter("writer");
 				String content=mr.getParameter("content");
-				//원본파일명
-				String oriname=mr.getOriginalFileName("upfile");
-				//리네임파일명
-				String rename=mr.getFilesystemName("upfile");
-				System.out.println(mr.getFilesystemName("upfile"));
-				String filePath = request.getContextPath()+"/upload/feed"+"/"+rename;
-				
 				
 				Enumeration<String> formNames = mr.getFileNames();
+				List<String> fileNames = new ArrayList<String>();
 				
-				while(formNames.hasMoreElements()) {					
-					System.out.println(formNames.nextElement());
-				}
-				
-
-
 				Feed f = Feed.builder()
 						.feedWriterName(writer)
 						.feedContent(content)
-						.filePath(rename)
 						.build();
 				
-				int result=new FeedService().insertFeed(f,filePath);
-//				int fileResult = new FeedService().insertFile(filePath);
 				
-				if(result==0) {
-					File delFile=new File(filePath);
-					if(delFile.exists()) delFile.delete();
+				while(formNames.hasMoreElements()) {
+				
+					//원본파일명
+					String oriname=mr.getOriginalFileName("upfile");
+					//리네임파일명
+					String rename=mr.getFilesystemName("upfile");
+					String filePath = request.getContextPath()+"/upload/feed"+"/"+rename;
+					
+					
+					String name = formNames.nextElement();
+					String fileSavePath = request.getContextPath()+ "/upload/feed" + File.separator + name;
+					
+					
+	//				int fileResult = new FeedService().insertFile(filePath);
+					fileNames.add(fileSavePath);
 				}
+				
+				new FeedService().insertProcess(f, fileNames);
+
+				
+				
+				
+
+
 				request.getRequestDispatcher("/feed/feedwriteend.do").forward(request, response);
 	}
 

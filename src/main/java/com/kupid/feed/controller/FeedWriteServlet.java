@@ -2,6 +2,8 @@ package com.kupid.feed.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,25 +54,36 @@ public class FeedWriteServlet extends HttpServlet {
 				//나머지 정보를 가져오기
 				String writer=mr.getParameter("writer");
 				String content=mr.getParameter("content");
-				
 				//원본파일명
 				String oriname=mr.getOriginalFileName("upfile");
 				//리네임파일명
 				String rename=mr.getFilesystemName("upfile");
+				System.out.println(mr.getFilesystemName("upfile"));
+				String filePath = request.getContextPath()+"/upload/feed"+"/"+rename;
 				
+				
+				Enumeration<String> formNames = mr.getFileNames();
+				
+				while(formNames.hasMoreElements()) {					
+					System.out.println(formNames.nextElement());
+				}
+				
+
+
 				Feed f = Feed.builder()
 						.feedWriterName(writer)
 						.feedContent(content)
 						.filePath(rename)
 						.build();
 				
-				int result=new FeedService().insertFeed(f);
+				int result=new FeedService().insertFeed(f,filePath);
+//				int fileResult = new FeedService().insertFile(filePath);
 				
 				if(result==0) {
-					File delFile=new File(path+"/"+rename);
+					File delFile=new File(filePath);
 					if(delFile.exists()) delFile.delete();
 				}
-				request.getRequestDispatcher("feedView.do").forward(request, response);
+				request.getRequestDispatcher("/feed/feedwriteend.do").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

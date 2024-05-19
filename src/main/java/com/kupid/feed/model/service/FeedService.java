@@ -10,9 +10,10 @@ import com.kupid.feed.model.dao.FeedDao;
 import com.kupid.feed.model.dto.Feed;
 public class FeedService {
 	private FeedDao dao = new FeedDao();
-	public int insertFeed(Feed f){
+	
+	public int insertFeed(Feed f,String filePath){
 		Connection conn = getConnection();
-		int result = dao.insertFeed(conn,f);
+		int result = dao.insertFeed(conn,f,filePath);
 		close(conn);
 		return result;
 	}
@@ -31,6 +32,12 @@ public class FeedService {
 		return result;
 		
 	}
+//	public int insertFile(String filePath) {
+//		Connection conn = getConnection();
+//		int result = dao.insertFile(conn,filePath);
+//		close(conn);
+//		return result;
+//	}
 	
 	
 }

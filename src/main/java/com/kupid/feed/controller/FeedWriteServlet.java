@@ -88,7 +88,6 @@ public class FeedWriteServlet extends HttpServlet {
 				
 				
 
-
 				request.getRequestDispatcher("/feed/feedwriteend.do").forward(request, response);
 	}
 

@@ -157,7 +157,6 @@ $("")
 	                const $div = $("<div>").css({
 	                    "border": "1px solid red",
 	                    "width": "800px",
-	                    "height": "1000px",
 	                    'overflow': 'hidden'
 	                }).attr("class", "board");
 
@@ -208,27 +207,32 @@ $("")
 	    });
 	}
 
-	const initializeCarousel = (carousel) => {
+   const initializeCarousel = (carousel) => {
 	    const imgListBt = carousel.find('.img_listBt');
+	    const slides = imgListBt.children();
+	    const totalSlides = slides.length;
 	    let index = 0;
 
 	    const showSlide = (idx) => {
-	        const totalSlides = imgListBt.children().length;
-	        if (idx >= totalSlides) index = 0;
-	        if (idx < 0) index = totalSlides - 1;
-	        imgListBt.css('transform', 'translateX(' + (-idx * 500) + 'px)');
+	        const slideWidth = slides.first().outerWidth();
+	        if (idx >= totalSlides) idx = 0;
+	        if (idx < 0) idx = totalSlides - 1;
+	        imgListBt.css('transform', 'translateX(' + (-idx * slideWidth) + 'px)');
+	        index = idx;  // Update the global index after correction
 	    }
 
 	    carousel.find('.prev').click(() => {
-	        index--;
-	        showSlide(index);
+	        showSlide(index - 1);
 	    });
 
 	    carousel.find('.next').click(() => {
-	        index++;
-	        showSlide(index);
+	        showSlide(index + 1);
 	    });
+
+	    // Initial display of the first slide
+	    showSlide(index);
 	}
+
 
 /* function switchingLikes(){
 	$.ajax({
@@ -250,7 +254,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	if (scrollTop + windowHeight >= scrollHeight - 150) {
      		if(time){
 	      time=false;
-        	console.log(page);
         	loadPage();
 	        	
       		}

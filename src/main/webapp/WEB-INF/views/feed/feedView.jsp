@@ -75,7 +75,7 @@
     overflow: hidden;
     justify-content: center;
     align-items: center;
-        margin-left: 150px;
+    left: 150px;
     
 }
 
@@ -134,6 +134,10 @@ $("")
 				
 				
    const container = document.getElementById("container");
+   $(container).css({"display": "flex",
+	   		"flex-direction":"column",
+		    "justify-content": "center", 
+   			"align-items": "center"});
    let page = 1; 
    const perPage = 10;
    let time=true;

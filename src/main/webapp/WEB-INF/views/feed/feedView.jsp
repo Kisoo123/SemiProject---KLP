@@ -94,15 +94,17 @@ const loadPage=()=>{
 	    				$div.append('<h3>' + element.likes+ '</h3>');
 	    				$div.append('<h3>' + element.report+ '</h3>');
 	    				
-	    				const fileArr = element.filePath.split(",");
-
-	    				for(let i =0; i<fileArr.length;i++){
-	    					if(fileArr[i]!="/SemiProject-KLP/upload/feed/null"){
-		    					$div.append($('<img>').attr({
-		    					    'src': fileArr[i],'width': '100px','height': '100px' 
-		    					}));
+	    				if(element.filePath != undefined) {
+	    					const fileArr = element.filePath.split(",");
+		    				for(let i =0; i<fileArr.length;i++){
+		    					if(fileArr[i]!="/SemiProject-KLP/upload/feed/null"){
+			    					$div.append($('<img>').attr({
+			    					    'src': fileArr[i],'width': '100px','height': '100px' 
+			    					}));
+			    				}
 		    				}
 	    				}
+
     					$(container).append($div);
 	    			}) 
 	            time=true;

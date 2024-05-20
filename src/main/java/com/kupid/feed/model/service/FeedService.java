@@ -22,7 +22,6 @@ public class FeedService {
 		int seq = dao.selectSeqFeed(conn);
 		int result = dao.insertFeed(conn,f,seq);
 		Iterator<String>iter = filePath.iterator();
-		
 		while(iter.hasNext()) {
 			String nextPath = iter.next();
 			System.out.println(nextPath);
@@ -32,9 +31,9 @@ public class FeedService {
 				File delFile=new File(nextPath);
 				if(delFile.exists()) delFile.delete();
 			}
-			if(result>0) commit(conn);
-		      else rollback(conn);
 		}
+		if(result>0) commit(conn);
+		else rollback(conn);
 		return result;
 	}
 	

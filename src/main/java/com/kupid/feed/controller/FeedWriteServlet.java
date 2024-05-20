@@ -65,7 +65,6 @@ public class FeedWriteServlet extends HttpServlet {
 						.feedContent(content)
 						.build();
 				
-				
 				while(formNames.hasMoreElements()) {
 				
 					//원본파일명

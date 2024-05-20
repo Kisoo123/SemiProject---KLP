@@ -1,4 +1,4 @@
-package com.kupid.member.model.dao;
+package com.kupid.mypage.dao;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.kupid.group.model.dao.GroupDao;
 import com.kupid.group.model.dto.GroupDto;
 import com.kupid.member.model.dto.MemberDto;
 
-public class MemberDao {
+public class MyPageDao {
 	private Properties sql = new Properties();
 	{
-		String path = MemberDao.class.getResource("/sql/member/member.properties").getPath();
+		String path = MyPageDao.class.getResource("/sql/member/mypage.properties").getPath();
 
 		try (FileReader fr = new FileReader(path)){
 			sql.load(fr);
@@ -41,22 +40,39 @@ public class MemberDao {
 		}
 		return m; 
 	}
-	public List<Object> selectMemberForProfile(Connection conn, String id) {
+	//확장형 builder를 이용
+	public List<MemberDto> selectMemberForProfile(Connection conn, String id) {
 		PreparedStatement pstmt = null;
-		List<Object> result = new ArrayList<>();
+		List<MemberDto> result = new ArrayList<>();
 		ResultSet rs = null;
 		try{
 			pstmt = conn.prepareStatement(sql.getProperty("selectMemberForProfile"));
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result.add((MemberDto)memberBuilder(rs));
-				result.add((GroupDto) new GroupDao().groupBuilder(rs));
+			while(rs.next()) {
+				result.add((MemberDto)profileBuilder(rs));
 			}
+			System.out.println(result.size());
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return result; 
+	}
+	public List<MemberDto> selectMemberFavorite(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		List<MemberDto> m = new ArrayList<>();
+		ResultSet rs = null;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("selectMemberFavorite"));
+//			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				m.add(favoriteGroupBuilder(rs));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return m; 
 	}
 	//닉네임 중복 조회: count(*)
 	public int checkNickname(Connection conn, String nickname) {
@@ -107,6 +123,27 @@ public class MemberDao {
 						.memberGrade(rs.getString("member_grade"))
 						.enrollDate(rs.getDate("enroll_date"))
 						.build();
+	}
+	public static MemberDto profileBuilder(ResultSet rs) throws SQLException {
+		return MemberDto.builder()
+				.memberNo(rs.getInt("member_no"))
+				.memberId(rs.getString("member_id"))
+				.introduce(rs.getString("introduce"))
+				.nickname(rs.getString("nickname"))
+				.profileImgOriname(rs.getString("profile_img_oriname"))
+				.groupNo(rs.getInt("group_no"))
+				.groupName(rs.getString("group_name"))
+				.groupImg(rs.getString("group_Img"))
+				//.profileImgRenamed(rs.getString("profile_img_renamed"))
+				.build();
+	}
+	public static MemberDto favoriteGroupBuilder(ResultSet rs) throws SQLException {
+		return MemberDto.builder()
+				.memberNo(rs.getInt("member_no"))
+				.memberId(rs.getString("member_id"))
+				.groupName(rs.getString("group_name"))
+				.groupImg(rs.getString("group_img"))
+				.build();
 	}
 	//임의 builder를 사용하는 메소드
 //	public MemberDto selectMember(Connection conn, String id) {

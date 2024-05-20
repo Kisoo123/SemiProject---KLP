@@ -14,7 +14,6 @@
 .myInfo-container{
 	display: flex;
 	width: 100%;
-	height: 100vh;
 }
 .myInfo.main {
   position: relative;
@@ -246,7 +245,7 @@
                             	<input type="text" class="inputTag" placeholder="상세주소 입력"  value="<%if(m.getAddressDetail() != null) %><%=m.getAddressDetail()%>">
                             </div>
                         	 <br>
-	                		<button name="submit" class="btn btn_chane_img">수정</button>
+	                		<button name="submit" class="btn">수정</button>
                         </div>
                         </form>
                     </div>

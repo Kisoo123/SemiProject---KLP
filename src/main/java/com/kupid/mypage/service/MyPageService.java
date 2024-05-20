@@ -1,4 +1,4 @@
-package com.kupid.member.model.service;
+package com.kupid.mypage.service;
 
 import static com.kupid.common.JDBCTemplate.close;
 import static com.kupid.common.JDBCTemplate.commit;
@@ -8,20 +8,27 @@ import static com.kupid.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
-import com.kupid.member.model.dao.MemberDao;
+import com.kupid.group.model.dto.GroupDto;
 import com.kupid.member.model.dto.MemberDto;
+import com.kupid.mypage.dao.MyPageDao;
 
-public class MemberService {
-	private MemberDao dao = new MemberDao();
+public class MyPageService {
+	private MyPageDao dao = new MyPageDao();
 	public MemberDto selectMember(String id) {
 		Connection conn = getConnection();
 		MemberDto m = dao.selectMember(conn, id);
 		close(conn);
 		return m;
 	}
-	public List<Object> selectMemberForProfile(String id) {
+	public List<MemberDto> selectMemberForProfile(String id) {
 		Connection conn = getConnection();
-		List<Object> result = dao.selectMemberForProfile(conn, id);
+		List<MemberDto> result = dao.selectMemberForProfile(conn, id);
+		close(conn);
+		return result;
+	}
+	public List<MemberDto> selectMemberFavorite(int no) {
+		Connection conn = getConnection();
+		List<MemberDto> result = dao.selectMemberFavorite(conn, no);
 		close(conn);
 		return result;
 	}

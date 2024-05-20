@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.member.model.service.MemberService;
+import com.kupid.mypage.service.MyPageService;
 
 /**
  * Servlet implementation class MyInfoUpdateServlet
@@ -28,10 +28,13 @@ public class MyProfileUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int pagenum = 0;
+		if(request.getParameter("pagenum")!=null) pagenum = Integer.parseInt(request.getParameter("pagenum"));
+		request.setAttribute("pagenum", pagenum);
 		System.out.println("프로필 업데이트 실행");
 		String nickname=request.getParameter("nickname");
 		String introduce=request.getParameter("introduce");
-		int result = new MemberService().updateProfile(nickname, introduce);
+		int result = new MyPageService().updateProfile(nickname, introduce);
 		if(result>0) {
 			
 		} else {

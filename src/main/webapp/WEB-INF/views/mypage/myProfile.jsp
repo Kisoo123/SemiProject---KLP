@@ -1,8 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kupid.member.model.dto.MemberDto, java.util.List" %>
 <% 
 	//MemberDto m = (MemberDto) session.getAttribute("loginMember");
-	MemberDto m = (MemberDto) request.getAttribute("member");
+	List<MemberDto> profile = (List<MemberDto>) request.getAttribute("memberProfile");
+	MemberDto m = profile.get(0);
+	String favorite = "";
+	
+	for(int i=0; i<profile.size(); i++){
+		favorite += profile.get(i).getGroupName();
+		if(i!=profile.size()-1){
+			favorite += ", ";
+		}
+	}
+	
 	String src = "";
 	if(m.getProfileImgOriname().equals("기본프로필.png")){
 		src=request.getContextPath()+"/image/member/"+m.getProfileImgOriname();
@@ -20,6 +31,7 @@
 	display: flex;
 	width: 100%;
 	height: 100vh;
+	justify-content: left;
 }
 .myProfile.main {
   position: relative;
@@ -269,7 +281,7 @@
                             </div>
                             <h3>관심 아티스트</h3>
                             <div class="favorite1_box">
-                            	<input type="text" name="favorite" class="favorite1" placeholder="아이유, 에스파">
+                            	<input type="text" name="favorite" id="pickArtist" class="favorite1" placeholder="관심 아티스트를 골라주세요 :)" readOnly value='<%= (profile.get(0).getGroupName()!=null)?favorite:""%>'>
                             </div>
                          </div>
                          <br>
@@ -316,9 +328,8 @@
 			$("#nicknameResult").text("* 변경할 닉네임을 입력해주세요").css("color","gray");
 		}
 	});
-	
-	$('#favorite1_box').click(e=>{
-		window.open('<%=request.getContextPath()%>/mypage/favoriteArtist.select','_blank','width:500px height: 800px');
-	});
+	<%-- $('#pickArtist').click(e=>{
+			window.open('<%=request.getContextPath()%>/mypage/favoriteArtist.select?no=<%=m.getMemberNo()%>','_blank','width=870px, height=930px');
+	}); --%>
 </script>
 </html>

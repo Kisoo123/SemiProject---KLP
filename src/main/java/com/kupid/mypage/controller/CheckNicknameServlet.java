@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.member.model.service.MemberService;
+import com.kupid.mypage.service.MyPageService;
 
 /**
  * Servlet implementation class CheckNicknameServlet
@@ -29,7 +29,7 @@ public class CheckNicknameServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nickname=request.getParameter("nickname");
-		int result = new MemberService().checkNickname(nickname);
+		int result = new MyPageService().checkNickname(nickname);
 		response.getWriter().print(result);		
 	}
 

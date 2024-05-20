@@ -21,3 +21,6 @@ INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'RIIZE', 7, to_date('23/09
 INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'IU', 1, to_date('08/09/18','RR/MM/DD'),'EDAM', 'iu.jpg');
 INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'easpa', 4, to_date('20/11/17','RR/MM/DD'),'SM', 'aespa.jpeg');
 INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'SEVENTEEN', 13, to_date('15/05/26','RR/MM/DD'),'PLEDIS', 'seventeen.jpeg');
+INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'AKMU', 2, to_date('14/04/07','RR/MM/DD'),'YG', 'akmu.jpg');
+INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'CHUU', 1, to_date('17/12/28','RR/MM/DD'),'BBC', 'chuu.jpeg');
+INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'KWON EUN BI', 1, to_date('21/08/24','RR/MM/DD'),'Woollim', 'kwon eun bi.jpeg');

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <html>
 <style>
 .sidebar-container{

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.manager.member.service.MemberService;
-import com.kupid.member.model.dto.MemberDto;
+import com.kupid.group.model.dto.GroupDto;
+import com.kupid.manager.group.service.GroupService;
 
 /**
  * Servlet implementation class GroupListServlet
@@ -44,7 +44,7 @@ public class GroupListServlet extends HttpServlet {
 			
 		}
 		
-		int totalData=new MemberService().selectMemberAllCount();
+		int totalData=new GroupService().selectGroupAllCount();
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
@@ -89,8 +89,8 @@ public class GroupListServlet extends HttpServlet {
 		request.setAttribute("pageBar", sb);
 		
 		
-		List<MemberDto> member=new MemberService().selectMemberAll(cPage,numPerpage);
-		request.setAttribute("member",member );
+		List<GroupDto> group=new GroupService().selectGroupAll(cPage,numPerpage);
+		request.setAttribute("group",group );
 		request.getRequestDispatcher("/WEB-INF/views/manager/group/grouplist.jsp").forward(request, response);
 		
 		

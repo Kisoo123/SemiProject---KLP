@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR"%>
-    <%@ page import="java.util.List,com.kupid.member.model.dto.MemberDto" %>
+    <%@ page import="java.util.List,com.kupid.group.model.dto.GroupDto" %>
 <%
-	List<MemberDto> member=(List<MemberDto>)request.getAttribute("member");
+	List<GroupDto> group=(List<GroupDto>)request.getAttribute("group");
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
 %>
 <!DOCTYPE html>
@@ -60,10 +60,12 @@ ul li:hover > a{
 	font-size:30px;
 	border :1px solid blue;
 }
-.top-categry{
-	display:flex;
-	border :1px solid blue;
-	width:100%;
+.section{
+	width:95%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 </style>
 </head>
@@ -72,9 +74,15 @@ ul li:hover > a{
 <div class="faq-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 <div class="faq-sec">
-	<div class="top-categry">
-		<h1>FAQ</h1>
-	</div>
+		<h1>GROUP</h1>
+	
+		<div>
+			<form action="<%=request.getContextPath()%>/manager/searchgroup.do">
+							<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+							<button type="submit" style="width:50px; height:50px">검색</button>
+			</form>
+		</div>
+		<section class="section">
 		<table class="table-size">
 			<tr>
 				<th>No</th>
@@ -85,8 +93,8 @@ ul li:hover > a{
 				<th>사진<th>
 			</tr>
 		
-			<%if(member!=null){ %>
-				<%for(MemberDto m : member){ %>
+			<%if(group!=null){ %>
+				<%for(GroupDto m : group){ %>
 				<tr>
 					<td><%=m.getGroupNo()%></td>
 					<td><%=m.getGroupName()%></td>
@@ -94,19 +102,28 @@ ul li:hover > a{
 					<td><%=m.getMemberCount()%></td>
 					<td><%=m.getGroupDebutday()%></td>
 					<td><%=m.getGroupImg()%></td>
-					<td><button onclick="">수정</button></td>
-					<td><button onclick="">삭제</button></td>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/groupupdate.do?no=<%=m.getGroupNo()%>')">수정</button></td>
+					<td><button onclick="deleteGroup(<%=m.getGroupNo()%>);">삭제</button></td>
 				</tr>
 				<%} 
 			}else{%>
-				<span>등록된 group가 없습니다</span>
+				<span>등록된 group이 없습니다</span>
 			<%} %>
 		</table>
-			<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/faqinsert.do')">작성</button></div>
+		</section>
+			<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/groupinsert.do')">등록</button></div>
 			<br><br><br>
 			<div><%=pagebar%></div>
 		</div>
 </div>
-
+<script>
+const deleteGroup=(n)=>{
+	if(confirm("정말 삭제 하시겠습니까?")){
+		location.assign("<%=request.getContextPath()%>/manager/groupdelete.do?no="+n)
+	}else{
+		alert("삭제가 취소되었습니다");
+	}
+}
+</script>
 </body>
 </html>

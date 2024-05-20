@@ -64,8 +64,8 @@ ul li:hover > a{
 <body>
 <div class="inq-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
-	<h1>문의</h1>
 <div class="inq-sec">
+	<h1>문의</h1>
 	<table class="table-size">
 		<tr>
 			<th>No</th>

@@ -39,7 +39,7 @@ public class MemberDAO {
 			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				mg.add(getGroup(rs));
+				mg.add(getMember(rs));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -86,11 +86,6 @@ public class MemberDAO {
 						//.profileImgRenamed(rs.getString("profile_img_renamed"))
 						.memberGrade(rs.getString("member_grade"))
 						.enrollDate(rs.getDate("enroll_date"))
-						.build();
-	}
-	
-	public static MemberDto getGroup(ResultSet rs) throws SQLException {
-		return MemberDto.builder()
 						.groupNo(rs.getInt("group_no"))
 						.groupName(rs.getString("group_name"))
 						.memberCount(rs.getInt("member_count"))
@@ -99,6 +94,8 @@ public class MemberDAO {
 						.groupImg(rs.getString("group_img"))
 						.build();
 	}
+	
+	
 	
 	
 }

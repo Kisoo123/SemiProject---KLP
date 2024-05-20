@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-	//MemberDto m = (MemberDto) session.getAttribute("loginMember"); 
+<%  
 	//MemberDto m = (MemberDto) request.getAttribute("member"); 
 %>
 
@@ -201,7 +200,7 @@
 <!-- 임시디자인 -->
 
 <div class="myInfo-container">
-<%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
     <main class="main">
         <section class="myInfo">
             <div class="flex_col">
@@ -237,6 +236,10 @@
                             <h3>구독한 아티스트</h3>
                             <div class="input_box">
                             	<p>구독한 아티스트<p>
+                            </div>
+                            <h3>멤버십</h3>
+                            <div class="input_box">
+                            	<p>멤버십 체크<p>
                             </div>
                         	 <br>
 	                		<button name="submit" class="btn btn_chane_img">삭제</button>

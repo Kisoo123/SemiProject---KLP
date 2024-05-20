@@ -40,9 +40,25 @@ public class MyPageService {
 		close(conn);
 		return result;
 	}
-	public int updateProfile(String nickname, String introduce) {
+	public int updateProfile(int no, String nickname, String introduce) {
 		Connection conn = getConnection();
-		int result = dao.updateProfile(conn, nickname, introduce);
+		int result = dao.updateProfile(conn, no, nickname, introduce);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int updateProfileImg(int no, String img) {
+		Connection conn = getConnection();
+		int result = dao.updateProfileImg(conn, no, img);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int deleteProfileImg(int no) {
+		Connection conn = getConnection();
+		int result = dao.deleteProfileImg(conn, no);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);

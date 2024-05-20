@@ -30,17 +30,12 @@ public class MyProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pagenum=0;
-		if(request.getParameter("pagenum")!=null) pagenum = Integer.parseInt(request.getParameter("pagenum"));
-		request.setAttribute("pagenum", pagenum);
+		request.setAttribute("pagenum", 1);
 //		String id = (String) request.getAttribute("loginMember");
 //		MemberDto m = new MemberService().selectMember(id);
 		
 		//임의 멤버를 가져오는 메소드
 		List<MemberDto> m = new MyPageService().selectMemberForProfile("qwerty");
-//		for(int i=0; i<m.size(); i++) {
-//			request.setAttribute("memberProfile", m.get(i));
-//		}
 		System.out.println(m.toString());
 		request.setAttribute("memberProfile", m);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")

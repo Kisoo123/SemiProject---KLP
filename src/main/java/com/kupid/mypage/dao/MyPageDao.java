@@ -91,13 +91,39 @@ public class MyPageDao {
 		}
 		return result; 
 	}
-	public int updateProfile(Connection conn, String nickname, String introduce) {
+	public int updateProfile(Connection conn,int no, String nickname, String introduce) {
 		PreparedStatement pstmt = null;
 		int result =0;
 		try{
 			pstmt = conn.prepareStatement(sql.getProperty("updateProfile"));
 			pstmt.setString(1, nickname);
 			pstmt.setString(2, introduce);
+			pstmt.setInt(3, no);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
+	}
+	public int updateProfileImg(Connection conn,int no, String img) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("updateProfileImg"));
+			pstmt.setString(1, img);
+			pstmt.setInt(2, no);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
+	}
+	public int deleteProfileImg(Connection conn,int no) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("deleteProfileImg"));
+			pstmt.setInt(1, no);
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();

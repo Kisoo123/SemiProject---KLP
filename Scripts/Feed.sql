@@ -65,6 +65,9 @@ BEGIN
     INSERT INTO feed_file VALUES (seq_feed_file_no.nextval,seq_feed_no.CURRVAL,'3232323');
 END;
 
+SELECT * FROM "MEMBER" ;
+
+select * from member where member_id='admin';
 
 
 

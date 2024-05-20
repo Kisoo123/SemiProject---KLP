@@ -169,7 +169,7 @@
                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/grouplist.do')">
                     <h3>그룹</h3>
                 </button>
-                <button class="btn2" onclick="">
+                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/memberlist.do')">
                     <h3>팬</h3>
                 </button>
            </div>

@@ -1,48 +1,39 @@
-package com.kupid.mypage.controller;
+package com.kupid.manager.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.member.model.service.MemberService;
-
 /**
- * Servlet implementation class MyInfoUpdateServlet
+ * Servlet implementation class MemberListServlet
  */
-@WebServlet(name = "profileUpdate", urlPatterns = { "/mypage/profileupdate.do" })
-public class MyProfileUpdateServlet extends HttpServlet {
+@WebServlet("/manager/memberlist.do")
+public class MemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfileUpdateServlet() {
+    public MemberListServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("프로필 업데이트 실행");
-		String nickname=request.getParameter("nickname");
-		String introduce=request.getParameter("introduce");
-		int result = new MemberService().updateProfile(nickname, introduce);
-		if(result>0) {
-			
-		} else {
-			
-		}
+		request.getRequestDispatcher("/WEB-INF/views/manager/member/managermemberInfo.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

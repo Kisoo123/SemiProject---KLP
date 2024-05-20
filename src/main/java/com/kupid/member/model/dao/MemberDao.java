@@ -35,6 +35,7 @@ public class MemberDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) m=memberBuilder(rs);
 			System.out.println(rs.getString("member_pw")+"daasd");
+			System.out.println(m.getMemberPw());
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -44,28 +45,28 @@ public class MemberDao {
 	}
 		
 	public static MemberDto memberBuilder(ResultSet rs) throws SQLException {
-		String email,phone,addressDetail,address;
-					try {
-						email=AESEncryptor.decryptData(rs.getString("email"));
-					}catch(Exception e) {
-						email=rs.getString("email");
-					}
-					try {
-						email=AESEncryptor.decryptData(rs.getString("address"));
-					}catch(Exception e) {
-						email=rs.getString("address");
-					}
-					try {
-						email=AESEncryptor.decryptData(rs.getString("member_pw"));
-					}catch(Exception e) {
-						email=rs.getString("MEMBER_PW");
-					}
-					
-					try {
-						phone=AESEncryptor.decryptData(rs.getString("phone"));
-					}catch(Exception e) {
-						phone=rs.getString("phone");
-					}
+//		String email,phone,addressDetail,address,memberPw;
+//					try {
+//						email=AESEncryptor.decryptData(rs.getString("email"));
+//					}catch(Exception e) {
+//						email=rs.getString("email");
+//					}
+//					try {
+//						email=AESEncryptor.decryptData(rs.getString("address"));
+//					}catch(Exception e) {
+//						email=rs.getString("address");
+//					}
+//					try {
+//						memberPw=AESEncryptor.decryptData(rs.getString("member_pw"));
+//					}catch(Exception e) {
+//						memberPw=rs.getString("MEMBER_PW");
+//					}
+//					
+//					try {
+//						phone=AESEncryptor.decryptData(rs.getString("phone"));
+//					}catch(Exception e) {
+//						phone=rs.getString("phone");
+//					}
 		return MemberDto.builder()
 						.memberNo(rs.getInt("member_no"))
 						.memberId(rs.getString("member_id"))

@@ -86,21 +86,6 @@ Properties sql=new Properties();
 		return m;
 	}
 	
-	public int deleteArtist(Connection conn,int no) {
-		PreparedStatement pstmt=null;
-		int result=0;
-		try {
-			pstmt=conn.prepareStatement(sql.getProperty("deleteArtist"));
-			pstmt.setInt(1, no);
-			result=pstmt.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
 	public List<MemberDto> searchArtist(Connection conn,String type,String keyword, int cPage,int numPerpage) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;

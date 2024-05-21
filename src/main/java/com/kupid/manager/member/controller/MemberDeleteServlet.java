@@ -34,10 +34,10 @@ public class MemberDeleteServlet extends HttpServlet {
 		String msg,loc;
 		if(result>0) {
 			msg="삭제성공";
-			loc="/manager/memberlist.do";
+			loc="/manager/home.do";
 		}else {
 			msg="삭제실패";
-			loc="/manager/memberlist.do";
+			loc="/manager/home.do";
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

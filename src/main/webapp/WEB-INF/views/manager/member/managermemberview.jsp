@@ -219,6 +219,14 @@
                             <div class="input_box">
 	                           <p><%=m.getMemberId() %></p>
                             </div>
+                             <h3>닉네임</h3>
+                            <div class="input_box">
+	                           <p><%=m.getNickname() %></p>
+                            </div>
+                             <h3>생일</h3>
+                            <div class="input_box">
+	                           <p><%=m.getBirth() %></p>
+                            </div>
                             <h3>성별</h3>
                             <div class="input_box">
 	                           <p><%=m.getGender() %></p>
@@ -233,19 +241,11 @@
                             </div>
                             <h3>주소</h3>
                             <div class="input_box">
-                            	<p><%=m.getAddress() %></p>
+                            	<p><%=m.getAddress() %> <%=m.getAddressDetail()%></p>
                             </div>
                              <h3>가입일</h3>
                             <div class="input_box">
                             	<p><%=m.getEnrollDate() %></p>
-                            </div>
-                            <h3>구독한 아티스트</h3>
-                            <div class="input_box">
-                            	<p>구독한 아티스트<p>
-                            </div>
-                            <h3>멤버십</h3>
-                            <div class="input_box">
-                            	<p>멤버십 체크<p>
                             </div>
                         	 <br>
 	                		<button class="btn btn_chane_img" onclick="deleteMember(<%=m.getMemberNo()%>);">회원삭제</button>

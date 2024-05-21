@@ -77,7 +77,7 @@ ul li:hover > a{
 		<h1>ARTIST</h1>
 	
 		<div>
-			<form action="<%=request.getContextPath()%>/manager/searchgroup.do">
+			<form action="<%=request.getContextPath()%>/manager/searchartist.do">
 							<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
 							<button type="submit" style="width:50px; height:50px">검색</button>
 			</form>
@@ -100,24 +100,24 @@ ul li:hover > a{
 					<td><%=m.getMemberName()%></td>
 					<td><%=m.getGroupCompany()%></td>
 					<td><%=m.getEnrollDate()%></td>
-					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/groupupdate.do?no=<%=m.getGroupNo()%>')">수정</button></td>
-					<td><button onclick="deleteGroup(<%=m.getGroupNo()%>);">삭제</button></td>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/artistupdate.do?no=<%=m.getGroupNo()%>')">수정</button></td>
+					<td><button onclick="deleteArtist(<%=m.getMemberNo()%>);">삭제</button></td>
 				</tr>
 				<%} 
 			}else{%>
-				<span>등록된 group이 없습니다</span>
+				<span>등록된 artist가 없습니다</span>
 			<%} %>
 		</table>
 		</section>
-			<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/groupinsert.do')">등록</button></div>
+			<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/artistinsert.do')">등록</button></div>
 			<br><br><br>
 			<div><%=pagebar%></div>
 		</div>
 </div>
 <script>
-const deleteGroup=(n)=>{
+const deleteArtist=(n)=>{
 	if(confirm("정말 삭제 하시겠습니까?")){
-		location.assign("<%=request.getContextPath()%>/manager/groupdelete.do?no="+n)
+		location.assign("<%=request.getContextPath()%>/manager/memberdelete.do?no="+n)
 	}else{
 		alert("삭제가 취소되었습니다");
 	}

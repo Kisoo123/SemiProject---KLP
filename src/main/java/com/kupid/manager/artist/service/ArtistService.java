@@ -36,14 +36,6 @@ public class ArtistService {
 		return member;
 	}
 	
-	public int deleteArtist(int no) {
-		Connection conn=getConnection();
-		int result=dao.deleteArtist(conn,no);
-		if(result>0) commit(conn);
-		else rollback(conn);
-		close(conn);
-		return result;
-	}
 	
 	public List<MemberDto> searchArtist(String type,String keyword,int cPage,int numPerpage){
 		Connection conn=getConnection();

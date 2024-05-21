@@ -90,7 +90,6 @@ ul li:hover > a{
 				<th>소속사</th>
 				<th>멤버수</th>
 				<th>데뷔일</th>
-				<th>사진<th>
 			</tr>
 		
 			<%if(group!=null){ %>
@@ -101,7 +100,6 @@ ul li:hover > a{
 					<td><%=m.getGroupCompany()%></td>
 					<td><%=m.getMemberCount()%></td>
 					<td><%=m.getGroupDebutday()%></td>
-					<td><%=m.getGroupImg()%></td>
 					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/groupupdate.do?no=<%=m.getGroupNo()%>')">수정</button></td>
 					<td><button onclick="deleteGroup(<%=m.getGroupNo()%>);">삭제</button></td>
 				</tr>

@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kupid.member.model.dto.MemberDto" %>
+<%	
+	int pagenum = 0;
+	if((Integer) request.getAttribute("pagenum")!=null){
+		pagenum=(Integer) request.getAttribute("pagenum");
+	}
+%>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <!-- 임시디자인 -->
 <style>
 .sidebar-container{
 	min-width: 300px;
-	margin : 0px auto;
+	margin : 0px;
 	background-color: #faf0ff;
 }
 .sidebar-container .flex_col {
@@ -124,16 +130,16 @@
 	         </div>
 	     </div>
 	     <div class="flex_col2">
-	         <button class="btn1" onclick="location.assign('<%=request.getContextPath()%>/mypage/myprofile.do')">
+	         <button class="<%=pagenum==1?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/mypage/myprofile.do?pagenum=1')">
 	             <h3>프로필</h3>
 	         </button>
-	         <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/mypage/myinfo.do')">
+	         <button class="<%=pagenum==2?"btn1":"btn2"%>" onclick="location.assign('<%=request.getContextPath()%>/mypage/myinfo.do?pagenum=2')">
 	                <h3>개인정보</h3>
 	            </button>
-	            <button class="btn2">
+	            <button class="<%=pagenum==3?"btn1":"btn2"%>" onclick="location.assign('<%=request.getContextPath()%>/mypage/myact.do?pagenum=3')">
 	                <h3>내 활동</h3>
 	            </button>
-	            <button class="btn2">
+	            <button class="<%=pagenum==4?"btn1":"btn2"%>" onclick="location.assign('<%=request.getContextPath()%>/mypage/myqna.do?pagenum=4')">
 	                <h3>내 문의</h3>
 	            </button>
 	       </div>

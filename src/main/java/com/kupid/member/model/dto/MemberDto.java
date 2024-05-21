@@ -36,5 +36,5 @@ public class MemberDto {
 	private Date groupDebutday;
 	private String groupCompany;
 	private String groupImg;
-	
+
 }

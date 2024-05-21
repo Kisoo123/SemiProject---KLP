@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +14,7 @@
 
 	<a href="<%=request.getContextPath()%>/feed/feedView.do">피드</a>
 
+	
 	<div>
 		<button onclick="location.assign('<%=request.getContextPath()%>/report/reportList.do')">신고내역</button>
 	</div>
@@ -26,7 +29,7 @@
 		<button onclick="location.assign('<%=request.getContextPath()%>/manager/faqlist.do')">faq</button>
 	</div>
 	<div>
-		<button onclick="location.assign('<%=request.getContextPath()%>/mypage/myprofile.do')">마이페이지</button>
+		<button onclick="location.assign('<%=request.getContextPath()%>/mypage/myprofile.do?pagenum=1')">마이페이지</button>
 	</div>
 	<div>
 		<button onclick="location.assign('<%=request.getContextPath()%>/manager/home.do')">관리자페이지</button>

@@ -14,14 +14,13 @@
 .myInfo-container{
 	display: flex;
 	width: 100%;
-	height: 100vh;
 }
 .myInfo.main {
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 100%;
+  width: auto;
 }
 .myInfo .section1 {
   position: relative;
@@ -36,7 +35,7 @@
   margin: 0px auto;
   width: 100%;
   min-width: 700px;
-  padding: 30px;
+  padding: 30px 70px 30px 70px;
 }
 .myInfo .title {
   position: relative;
@@ -51,17 +50,6 @@
 	padding: 15px;
 	margin-bottom: 10px;
 	min-width: 400px;
-}
-.myInfo .content_box1 {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin: 49.5px 0px 0px;
-  width: 100%;
-  background: var(--src) center center/100% 100% no-repeat;
-  border-radius: 59px 59px 59px 59px;
-  outline: 1px solid #d1ade3;
-  outline-offset: -1px;
 }
 .myInfo .flex_row {
   position: relative;
@@ -82,9 +70,22 @@
   color: black;
   text-align: center;
   background-color: #d1ade3;
-  border-radius: 8px 8px 8px 8px;
+  border-radius: 8px;
   padding: 8px 8px 8px 8px;
-  letter-spacing: -0.9px;
+}
+.myInfo .btn2 {
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-width: 75px;
+   color: black;
+   text-align: center;
+   background-color: #e9bcff;
+   border-radius: 8px;
+   padding: 4px 8px 4px 8px;
+   border: none;
+   height: 30px;
 }
 .myInfo .flex_col2 {
   position: relative;
@@ -106,6 +107,7 @@
   border-radius: 8px 8px 8px 8px;
   outline: 1px solid #e0e0e0;
   outline-offset: -1px;
+  width: 90%;
 }
 .myInfo .highlight_box {
   position: relative;
@@ -175,27 +177,18 @@
 .myInfo .inputTag:focus {
   outline: none;
 }
-.myInfo .btn1 {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 40px auto 0px;
-  width: 62px;
-  max-width: 100%;
-  color: black;
-  text-align: center;
-  background-color: #d1ade3;
-  border-radius: 8px 8px 8px 8px;
-  padding: 8px 16px 8px 16px;
-  letter-spacing: -1px;
-}
 .myInfo .flex_row1 {
   position: relative;
   display: flex;
   gap: 0px 13px;
   margin: 84px 0px 0px;
   width: 37.09%;
+}
+.myInfo .address-search{
+	display: flex;
+	gap: 15px;
+	align-items: center; /* 수직 중앙 정렬 */
+	justify-content: space-between;
 }
 </style>
 <!-- 임시디자인 -->
@@ -206,7 +199,7 @@
         <section class="myInfo">
             <div class="flex_col">
                 <h1 class="title">개인정보 수정</h1>
-                <div class="content_box1 content_box">
+                <div class="content_box">
                     <div class="flex_row">
                         <form action="" method="post">
                        	<div class="content-container">
@@ -237,8 +230,10 @@
                             <div class="input_box">
 	                            <input type="text" class="inputTag" value="<%=m.getEmail()%>">
                             </div>
-                            <h3>주소</h3>
-                            	<button onclick="">주소 검색</button>
+                            <div class="address-search">
+                            	<h3>주소</h3>
+                            	<button class="btn2" onclick="">주소 검색</button>
+                           	</div>
                             <div class="input_box">
                             	<input type="text" class="inputTag" value="<%if(m.getAddress() != null) %><%=m.getAddress()%>">
                             </div>
@@ -246,7 +241,7 @@
                             	<input type="text" class="inputTag" placeholder="상세주소 입력"  value="<%if(m.getAddressDetail() != null) %><%=m.getAddressDetail()%>">
                             </div>
                         	 <br>
-	                		<button name="submit" class="btn btn_chane_img">수정</button>
+	                		<button name="submit" class="btn">수정</button>
                         </div>
                         </form>
                     </div>

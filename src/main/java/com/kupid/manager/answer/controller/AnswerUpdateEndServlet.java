@@ -31,9 +31,8 @@ public class AnswerUpdateEndServlet extends HttpServlet {
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
 		int ansNo=Integer.parseInt(request.getParameter("no"));
-		
+
 		int result=new AnswerService().updateAnswer(ansNo,title,content);
-		
 		String msg,loc;
 		if(result>0) {
 			msg="수정성공";

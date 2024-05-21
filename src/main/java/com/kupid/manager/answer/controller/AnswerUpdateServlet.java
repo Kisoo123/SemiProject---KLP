@@ -33,11 +33,9 @@ public class AnswerUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int inqNo=Integer.parseInt(request.getParameter("no"));
-		System.out.println("inqNo : "+inqNo);
 		Inquiry inq=new InquiryService().selectInquiryByNo(inqNo);
 		request.setAttribute("inquiry", inq);
-		Answer ans=new AnswerService().selectAnswerByNo(inqNo);
-		System.out.println(ans);
+		Answer ans=new AnswerService().selectAnswerByNo(inqNo);	
 		request.setAttribute("answer", ans);
 		request.getRequestDispatcher("/WEB-INF/views/manager/inquiry/answerupdate.jsp").forward(request, response);
 		

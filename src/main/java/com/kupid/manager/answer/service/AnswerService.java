@@ -34,6 +34,7 @@ public class AnswerService {
 	public int updateAnswer(int no,String title,String content) {
 		Connection conn=getConnection();
 		int result=dao.updateAnswer(conn,no,title,content);
+		System.out.println(result);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);

@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>FAQ 수정</h2>	
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
     <main class="main">
@@ -19,7 +18,7 @@
                         <form action="<%=request.getContextPath()%>/manager/faqinsertend.do" method="post">
                        	<div class="content-container">
 							<h3>카테고리</h3>
-                       		<div>
+                       		<div >
 								<select name="category" >
         						<option value="회원" >회원</option>
         						<option value="상점" >상점</option>
@@ -27,12 +26,12 @@
         						</select>
 							</div>
                             <h3>제목</h3>
-                            	<div>
-									<input type="text" name="title" required>
+                            	<div class="input_box">
+									<input type="text" name="title" class="inputTag" required>
 								</div>
                             <h3>내용</h3>
-                            <div>
-								<textarea rows="10" cols="30" name="content" required></textarea>	
+                            <div class="input_box">
+								<textarea rows="10" cols="30" name="content" class="inputTag" required></textarea>	
 							</div>
                            	<br>
 	                		<button name="submit" class="btn">등록</button>

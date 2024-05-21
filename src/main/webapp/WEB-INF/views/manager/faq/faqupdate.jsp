@@ -11,7 +11,6 @@
 <title>faq수정</title>
 </head>
 <body>
-<h2>FAQ 수정</h2>	
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
     <main class="main">
@@ -23,8 +22,8 @@
                         <form action="<%=request.getContextPath()%>/manager/faqupdateend.do" method="post">
                        	<div class="content-container">
                        		<h3>번호</h3>
-                       		<div>
-								<input type="text" name="faqNo" value="<%=f.getFaqNo()%>" readOnly>
+                       		<div class="input_box">
+								<input type="text" name="faqNo" class="inputTag" value="<%=f.getFaqNo()%>" readOnly>
 							</div>
 							<h3>카테고리</h3>
                        		<div>
@@ -35,12 +34,12 @@
         						</select>
 							</div>
                             <h3>제목</h3>
-                            	<div>
-									<input type="text" name="title" value="<%=f.getFaqTitle()%>" required>
+                            	<div class="input_box">
+									<input type="text" name="title" class="inputTag" value="<%=f.getFaqTitle()%>" required>
 								</div>
                             <h3>내용</h3>
-                            <div>
-								<textarea rows="10" cols="30" name="content" required><%=f.getFaqContent()%></textarea>	
+                            <div class="input_box">
+								<textarea rows="10" cols="30" name="content" class="inputTag" required><%=f.getFaqContent()%></textarea>	
 							</div>
                            	<br>
 	                		<button name="submit" class="btn">수정</button>

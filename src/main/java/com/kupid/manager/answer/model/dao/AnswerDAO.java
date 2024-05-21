@@ -65,6 +65,9 @@ public class AnswerDAO {
 	public int updateAnswer(Connection conn,int no,String title,String content) {
 		PreparedStatement pstmt=null;
 		int result=0;
+		System.out.println(no);
+		System.out.println(title);
+		System.out.println(content);
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("updateAnswer"));
 			pstmt.setString(1, title);

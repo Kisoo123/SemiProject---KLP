@@ -130,6 +130,25 @@ public class MyPageDao {
 		}
 		return result; 
 	}
+	public int updateInfo(Connection conn, String id, String name, String newpw, String phone, String email,
+			String address, String addressDetail) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("updateInfo"));
+			pstmt.setString(1, name);
+			pstmt.setString(2, newpw);
+			pstmt.setString(3, phone);
+			pstmt.setString(4, email);
+			pstmt.setString(5, address);
+			pstmt.setString(6, addressDetail);
+			pstmt.setString(7, id);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	public static MemberDto memberBuilder(ResultSet rs) throws SQLException {
 		return MemberDto.builder()
 						.memberNo(rs.getInt("member_no"))
@@ -171,39 +190,4 @@ public class MyPageDao {
 				.groupImg(rs.getString("group_img"))
 				.build();
 	}
-	//임의 builder를 사용하는 메소드
-//	public MemberDto selectMember(Connection conn, String id) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		MemberDto m = null;	
-//		try {
-//				m= memberBuilder();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		return m;
-//	}
-	//db생기기 전 사용한 빌더
-//	public static MemberDto memberBuilder() throws SQLException {
-//		//임의 날짜 생성
-//		Date birth = new Date(1234567890000L);
-//		Date now = new Date(System.currentTimeMillis());
-//		return MemberDto.builder()
-//						.memberNo(1)
-//						.memberId("qwerty")
-//						.memberPw("1234")
-//						.memberName("유저일")
-//						.address("경기도 어딘가")
-//						.phone("01033333333")
-//						.email("qwerty@qwert.com")
-//						.gender("F")
-//						.birth(birth)
-//						.introduce("안녕하세욤!!!!")
-//						.nickname("이것이닉네임이다")
-//						.profileImgOriname("아이유셀카.jpg")
-//						.profileImgRenamed("")
-//						.memberGrade("1") //일단 임의 숫자 넣음
-//						.enrollDate(now)
-//						.build();
-//	}
 }

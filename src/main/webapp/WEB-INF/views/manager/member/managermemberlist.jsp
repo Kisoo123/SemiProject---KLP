@@ -82,27 +82,27 @@ ul li:hover > a{
 		<h1>
 			<div>
 				<select id="searchType">
-		       		<option value="일반" <%=searchType!=null&&searchType.equals("일반")?"selected":"" %>>일반</option>
-		        	<option value="굿즈" <%=searchType!=null&&searchType.equals("굿즈")?"selected":"" %>>굿즈</option>
-		        	<option value="행사" <%=searchType!=null&&searchType.equals("행사")?"selected":"" %>>행사</option>
+		       		<option value="member_name" <%=searchType!=null&&searchType.equals("member_name")?"selected":"" %>>이름</option>
+		        	<option value="member_id" <%=searchType!=null&&searchType.equals("member_id")?"selected":"" %>>아이디</option>
+		        	<option value="nickname" <%=searchType!=null&&searchType.equals("nickname")?"selected":"" %>>닉네임</option>
 	        	</select>
-	        	<div id="search-일반">
-					<form action="<%=request.getContextPath()%>/manager/searchNotice.do">
-						<input type="hidden" name="searchType" value="일반">
+	        	<div id="search-member_name">
+					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
+						<input type="hidden" name="searchType" value="member_name">
 						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
 						<button type="submit" style="width:50px; height:50px">검색</button>
 					</form>
 				</div>
-				<div id="search-굿즈">
-					<form action="<%=request.getContextPath()%>/manager/searchNotice.do">
-						<input type="hidden" name="searchType" value="굿즈">
+				<div id="search-member_id">
+					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
+						<input type="hidden" name="searchType" value="member_id">
 						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
 						<button type="submit" style="width:50px; height:50px">검색</button>
 					</form>
 				</div>
-				<div id="search-행사">
-					<form action="<%=request.getContextPath()%>/manager/searchNotice.do">
-						<input type="hidden" name="searchType" value="행사">
+				<div id="search-nickname">
+					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
+						<input type="hidden" name="searchType" value="nickname">
 						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
 						<button type="submit" style="width:50px; height:50px">검색</button>
 					</form>
@@ -138,12 +138,31 @@ ul li:hover > a{
 			<%} %>
 		</table>
 		</section>
-			<div class="btn"><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
+			
 			<br><br>
 			<div><%=pagebar %></div>
 		</div>
 	</div>
 </div>
-
+<script>
+		const deleteNotice=(n)=>{
+			if(confirm("정말 삭제 하시겠습니까?")){
+				location.assign("<%=request.getContextPath()%>/manager/noticedelete.do?no="+n)
+			}else{
+				alert("삭제가 취소되었습니다");
+			}
+		}
+		
+		$(()=>{
+	    	 $("#searchType").change();
+	     })
+	     
+	     
+	     $("#searchType").change(e=>{
+     			const type=e.target.value;
+     			$(e.target).parent().children("div").hide();
+     			$("#search-"+type).css("display","inline-block");
+     		})
+	</script>
 </body>
 </html>

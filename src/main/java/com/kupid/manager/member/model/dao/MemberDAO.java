@@ -1,4 +1,4 @@
-package com.kupid.manager.member.model.dao;
+ package com.kupid.manager.member.model.dao;
 
 import static com.kupid.common.JDBCTemplate.close;
 
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kupid.manager.notice.model.dao.NoticeDAO;
-import com.kupid.manager.notice.model.dto.Notice;
 import com.kupid.member.model.dto.MemberDto;
 
 public class MemberDAO {
@@ -21,7 +20,7 @@ public class MemberDAO {
 	Properties sql=new Properties();
 	
 	{
-		String path=NoticeDAO.class.getResource("/sql/sql_member.properties").getPath();
+		String path=MemberDAO.class.getResource("/sql/sql_member.properties").getPath();
 		try(FileReader fr=new FileReader(path)){
 			sql.load(fr);
 		}catch(IOException e) {
@@ -103,6 +102,55 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	public List<MemberDto> searchMember(Connection conn,String type,String keyword, int cPage,int numPerpage) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<MemberDto> members=new ArrayList<>();
+		try {
+			String sql=this.sql.getProperty("selectSearchMember");
+			sql=sql.replace("#COL", type);//컬럼값은 ?로 받을 수 없기때문에 문자열로 받아서 replace로 문자자체를 바꿈 
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,"%"+keyword+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				members.add(getMember(rs));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return members;
+	}
+	
+	public int searchMemberCount(Connection conn,String type,String keyword) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=this.sql.getProperty("searchMemberCount");
+		sql=sql.replace("#COL", type);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, type.equals("userName")?"%"+keyword+"%":keyword );
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+			
+		}catch(SQLException e) {
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	
 	public MemberDto getMember(ResultSet rs) throws SQLException {
 		return MemberDto.builder()

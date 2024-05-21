@@ -9,8 +9,8 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.kupid.manager.member.model.dao.MemberDAO;
-import com.kupid.manager.notice.model.dto.Notice;
 import com.kupid.member.model.dto.MemberDto;
+
 
 public class MemberService {
 	
@@ -44,6 +44,20 @@ public class MemberService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	
+	public List<MemberDto> searchMember(String type,String keyword,int cPage,int numPerpage){
+		Connection conn=getConnection();
+		List<MemberDto> members=dao.searchMember(conn,type,keyword,cPage,numPerpage);
+		close(conn);
+		return members;
+	}
+	
+	public int searchMemberCount(String type,String keyword) {
+		Connection conn=getConnection();
+		int count=dao.searchMemberCount(conn,type,keyword);
+		close(conn);
+		return count;
 	}
 	
 }

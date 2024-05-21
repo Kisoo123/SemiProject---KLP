@@ -1,5 +1,7 @@
 package com.kupid.feed.model.dao;
 
+import static com.kupid.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,8 +14,6 @@ import java.util.Properties;
 
 import com.kupid.feed.model.dto.Feed;
 
-import static com.kupid.common.JDBCTemplate.close;
-
 public class FeedDao {
 	
 	private Properties sql = new Properties();
@@ -25,26 +25,11 @@ public class FeedDao {
 			e.printStackTrace();
 		}
 	}
-	public int insertFeed(Connection conn, Feed f,String filePath) {
+	
+	public int selectSeqFeed(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
-		int result = 0;
 		int seqFeed=0;
-		
-		try {
-			pstmt = conn.prepareStatement(sql.getProperty("insertFeed"));
-			pstmt.setString(1,"dsads");
-			pstmt.setString(2,f.getFeedContent());
-			pstmt.setInt(3,f.getLikes());
-			pstmt.setInt(4,f.getReport());
-			
-			result = pstmt.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectSeqFeed"));
 			rs=pstmt.executeQuery();
@@ -56,12 +41,15 @@ public class FeedDao {
 			close(rs);
 			close(pstmt);
 		}
-		
-		
-		
+		return seqFeed;
+	}
+	public int insertFeedFile(Connection conn, String filePath, int seq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertFeedFile"));
-			pstmt.setInt(1, seqFeed);
+			System.out.println(pstmt.toString());
+			pstmt.setInt(1, seq);
 			pstmt.setString(2, filePath);
 			result = pstmt.executeUpdate();
 			
@@ -70,7 +58,27 @@ public class FeedDao {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+	
+	public int insertFeed(Connection conn, Feed f, int seq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
 		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertFeed"));
+			pstmt.setInt(1,seq);
+			pstmt.setString(2,"dsads");
+			pstmt.setString(3,f.getFeedContent());
+			pstmt.setInt(4,f.getLikes());
+			pstmt.setInt(5,f.getReport());
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 				
 	}

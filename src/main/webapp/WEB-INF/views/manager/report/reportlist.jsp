@@ -45,7 +45,7 @@ ul li:hover > a{
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 	<h1>신고 내역</h1>
 	<table>
 		<tr>

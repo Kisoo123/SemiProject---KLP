@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kupid.member.model.dto.MemberDto" %>    
 <%  
-	//MemberDto m = (MemberDto) request.getAttribute("member"); 
+	MemberDto m = (MemberDto) request.getAttribute("member"); 
 %>
 
 <!DOCTYPE html>
@@ -207,31 +208,36 @@
                 <h1 class="title">개인정보</h1>
                 <div class="content_box1 content_box">
                     <div class="flex_row">
-                        <form action="" method="post">
+                        
                        	<div class="content-container">
+                       		<h3><img src="<%=request.getContextPath()%>/image/member/<%=m.getProfileImgOriname()%>" width=150px height=150px></h3>                 
                             <h3>이름</h3>
                             <div class="input_box">
-	                            <p>이름</p>
+	                            <p><%=m.getMemberName() %></p>
                             </div>
                             <h3>아이디</h3>
                             <div class="input_box">
-	                           <p>아이디</p>
+	                           <p><%=m.getMemberId() %></p>
+                            </div>
+                            <h3>성별</h3>
+                            <div class="input_box">
+	                           <p><%=m.getGender() %></p>
                             </div>
                             <h3>연락처</h3>
                             <div class="input_box">
-	                            <p>연락처</p>
+	                            <p><%=m.getPhone() %></p>
                             </div>
                             <h3>이메일</h3>
                             <div class="input_box">
-	                            <p>이메일</p>
+	                            <p><%=m.getEmail() %></p>
                             </div>
                             <h3>주소</h3>
                             <div class="input_box">
-                            	<p>주소</p>
+                            	<p><%=m.getAddress() %></p>
                             </div>
                              <h3>가입일</h3>
                             <div class="input_box">
-                            	<p>가입일</p>
+                            	<p><%=m.getEnrollDate() %></p>
                             </div>
                             <h3>구독한 아티스트</h3>
                             <div class="input_box">
@@ -242,13 +248,24 @@
                             	<p>멤버십 체크<p>
                             </div>
                         	 <br>
-	                		<button name="submit" class="btn btn_chane_img">삭제</button>
+	                		<button class="btn btn_chane_img" onclick="deleteMember(<%=m.getMemberNo()%>);">회원삭제</button>
                         </div>
-                        </form>
+          
                     </div>
                 </div>
             </div>
         </section>
     </main>
 </div>
+<script>
+	const deleteMember=(n)=>{
+		if(confirm("정말 삭제 하시겠습니까?")){
+			location.assign("<%=request.getContextPath()%>/manager/memberdelete.do?no="+n);
+		}else{
+			alert("삭제가 취소되었습니다");
+		}
+	}
+</script>
+
+
 </html>

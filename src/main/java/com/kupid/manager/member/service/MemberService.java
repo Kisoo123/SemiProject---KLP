@@ -1,7 +1,9 @@
 package com.kupid.manager.member.service;
 
 import static com.kupid.common.JDBCTemplate.close;
+import static com.kupid.common.JDBCTemplate.commit;
 import static com.kupid.common.JDBCTemplate.getConnection;
+import static com.kupid.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -24,6 +26,22 @@ public class MemberService {
 	public int selectMemberAllCount() {
 		Connection conn=getConnection();
 		int result=dao.selectMemberAllCount(conn);
+		close(conn);
+		return result;
+	}
+	
+	public MemberDto selectMemberByNo(int no) {
+		Connection conn=getConnection();
+		MemberDto member=dao.selectMemberByNo(conn,no);
+		close(conn);
+		return member;
+	}
+	
+	public int deleteMember(int no) {
+		Connection conn=getConnection();
+		int result=dao.deleteMember(conn,no);
+		if(result>0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		return result;
 	}

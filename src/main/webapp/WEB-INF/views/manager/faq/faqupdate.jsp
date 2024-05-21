@@ -11,30 +11,47 @@
 <title>faq수정</title>
 </head>
 <body>
-
-<h2>FAQ 수정</h2>
-	<form action="<%=request.getContextPath()%>/manager/faqupdateend.do">
-		<div>
-		번호<input type="text" name="faqNo" value="<%=f.getFaqNo()%>" readOnly>
-		</div>
-		<div>
-		<select name="category" >
-        		<option value="회원" <%=f.getFaqCategory() !=null&&f.getFaqCategory().equals("회원")?"selected":"" %>>회원</option>
-        		<option value="상점" <%=f.getFaqCategory()!=null&&f.getFaqCategory().equals("상점")?"selected":"" %>>상점</option>
-        		<option value="커뮤니티" <%=f.getFaqCategory()!=null&&f.getFaqCategory().equals("커뮤니티")?"selected":"" %>>커뮤니티</option>
-        </select>
-        </div>
-        <div>
-			제목<input type="text" name="title" value="<%=f.getFaqTitle()%>" required>
-		</div>
-		<div>
-			내용<br>
-			<textarea rows="10" cols="30" name="content" required><%=f.getFaqContent()%></textarea>	
-		</div>
-		<div>
-			<input type="submit" value="수정">
-		</div>
-	</form>
+<h2>FAQ 수정</h2>	
+<div class="myInfo-container">
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
+    <main class="main">
+        <section class="myInfo">
+            <div class="flex_col">
+                <h1 class="title">FAQ 수정</h1>
+                <div class="content_box">
+                    <div class="flex_row">
+                        <form action="<%=request.getContextPath()%>/manager/faqupdateend.do" method="post">
+                       	<div class="content-container">
+                       		<h3>번호</h3>
+                       		<div>
+								<input type="text" name="faqNo" value="<%=f.getFaqNo()%>" readOnly>
+							</div>
+							<h3>카테고리</h3>
+                       		<div>
+								<select name="category" >
+        						<option value="회원" <%=f.getFaqCategory() !=null&&f.getFaqCategory().equals("회원")?"selected":"" %>>회원</option>
+        						<option value="상점" <%=f.getFaqCategory()!=null&&f.getFaqCategory().equals("상점")?"selected":"" %>>상점</option>
+        						<option value="커뮤니티" <%=f.getFaqCategory()!=null&&f.getFaqCategory().equals("커뮤니티")?"selected":"" %>>커뮤니티</option>
+        						</select>
+							</div>
+                            <h3>제목</h3>
+                            	<div>
+									<input type="text" name="title" value="<%=f.getFaqTitle()%>" required>
+								</div>
+                            <h3>내용</h3>
+                            <div>
+								<textarea rows="10" cols="30" name="content" required><%=f.getFaqContent()%></textarea>	
+							</div>
+                           	<br>
+	                		<button name="submit" class="btn">수정</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
 
 </body>
 </html>

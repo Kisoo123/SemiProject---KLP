@@ -26,11 +26,11 @@
         </select>
         </div>
         <div>
-			제목<input type="text" name="title" value="<%=n.getNoticeTitle()%>">
+			제목<input type="text" name="title" value="<%=n.getNoticeTitle()%>" required>
 		</div>
 		<div>
 			내용<br>
-			<textarea rows="10" cols="30" name="content"><%=n.getNoticeContent()%></textarea>	
+			<textarea rows="10" cols="30" name="content" required><%=n.getNoticeContent()%></textarea>	
 		</div>
 		<div>
 			<input type="submit" value="수정">

@@ -25,11 +25,11 @@
         </select>
         </div>
         <div>
-			제목<input type="text" name="title" value="<%=f.getFaqTitle()%>">
+			제목<input type="text" name="title" value="<%=f.getFaqTitle()%>" required>
 		</div>
 		<div>
 			내용<br>
-			<textarea rows="10" cols="30" name="content"><%=f.getFaqContent()%></textarea>	
+			<textarea rows="10" cols="30" name="content" required><%=f.getFaqContent()%></textarea>	
 		</div>
 		<div>
 			<input type="submit" value="수정">

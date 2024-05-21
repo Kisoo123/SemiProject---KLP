@@ -10,16 +10,16 @@
 	<h1>GROUP 등록</h1>
 	<form action="<%=request.getContextPath()%>/manager/groupinsertend.do">
         <div>
-			그룹명<input type="text" name="name">
+			그룹명<input type="text" name="name" required>
 		</div>
 		<div>
-			맴버수<input type="number" name="count">
+			맴버수<input type="number" name="count" required>
 		</div>
 		<div>
-			데뷔일<input type="date" name="debutday">
+			데뷔일<input type="date" name="debutday" required>
 		</div>
 		<div>
-			소속사<input type="text" name="company">
+			소속사<input type="text" name="company" required>
 		</div>
 		<div>
 			사진<input type="text" name="img">

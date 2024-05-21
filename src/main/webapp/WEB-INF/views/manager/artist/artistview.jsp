@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.kupid.member.model.dto.MemberDto" %>    
 <%  
-	MemberDto m = (MemberDto) request.getAttribute("member"); 
+	MemberDto m = (MemberDto) request.getAttribute("artist"); 
 %>
 
 <!DOCTYPE html>
@@ -210,7 +210,7 @@
                     <div class="flex_row">
                         
                        	<div class="content-container">
-                       		<%-- <h3><img src="<%=request.getContextPath()%>/image/member/<%=m.getProfileImgOriname()%>" width=150px height=150px></h3> --%>                 
+                       		<h3><img src="<%=request.getContextPath()%>/image/member/<%=m.getProfileImgOriname()%>" width=150px height=150px></h3>                 
                             <h3>이름</h3>
                             <div class="input_box">
 	                            <p><%=m.getMemberName() %></p>

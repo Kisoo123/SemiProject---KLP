@@ -33,11 +33,11 @@
         
 	<form action="<%=request.getContextPath()%>/manager/answerinsertend.do?no=<%=inq.getInqNo()%>" method="post">
         <div>
-			답변제목<input type="text" name="title">
+			답변제목<input type="text" name="title" required>
 		</div>
 		<div>
 			답변내용<br>
-			<textarea rows="10" cols="30" name="content"></textarea>	
+			<textarea rows="10" cols="30" name="content" required></textarea>	
 		</div>
 		<div>
 		<input type="submit" value="등록">

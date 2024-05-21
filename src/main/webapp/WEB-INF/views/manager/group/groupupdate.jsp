@@ -14,13 +14,13 @@
 	<h1>GROUP 수정</h1>
 	<form action="<%=request.getContextPath()%>/manager/groupupdateend.do?no=<%=g.getGroupNo()%>" method="post">
         <div>
-			그룹명<input type="text" name="name" value="<%=g.getGroupName()%>">
+			그룹명<input type="text" name="name" value="<%=g.getGroupName()%>" required>
 		</div>
 		<div>
-			맴버수<input type="number" name="count" value="<%=g.getMemberCount()%>">
+			맴버수<input type="number" name="count" value="<%=g.getMemberCount()%>" required>
 		</div>
 		<div>
-			소속사<input type="text" name="company" value="<%=g.getGroupCompany()%>">
+			소속사<input type="text" name="company" value="<%=g.getGroupCompany()%>" required>
 		</div>
 		<div>
 			사진<input type="text" name="img" value="<%=g.getGroupImg()%>">

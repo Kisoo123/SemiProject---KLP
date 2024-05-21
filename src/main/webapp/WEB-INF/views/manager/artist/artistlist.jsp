@@ -4,6 +4,8 @@
 <%
 	List<MemberDto> artist=(List<MemberDto>)request.getAttribute("artist");
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
+	String searchType=request.getParameter("searchType");
+	String searchKeyword=request.getParameter("searchKeyword");
 %>
 <!DOCTYPE html>
 <html>
@@ -75,19 +77,43 @@ ul li:hover > a{
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 <div class="faq-sec">
 		<h1>ARTIST</h1>
-	
-		<div>
-			<form action="<%=request.getContextPath()%>/manager/searchartist.do">
-							<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
-							<button type="submit" style="width:50px; height:50px">검색</button>
-			</form>
-		</div>
+		<h1>
+			<div>
+				<select id="searchType">
+		       		<option value="group_name" <%=searchType!=null&&searchType.equals("group_name")?"selected":"" %>>그룹명</option>
+		        	<option value="member_name" <%=searchType!=null&&searchType.equals("member_name")?"selected":"" %>>이름</option>
+		        	<option value="group_company" <%=searchType!=null&&searchType.equals("group_company")?"selected":"" %>>소속사</option>
+	        	</select>
+	        	<div id="search-member_name">
+					<form action="<%=request.getContextPath()%>/manager/searchArtist.do">
+						<input type="hidden" name="searchType" value="member_name">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>
+				<div id="search-group_name">
+					<form action="<%=request.getContextPath()%>/manager/searchArtist.do">
+						<input type="hidden" name="searchType" value="group_name">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>
+				<div id="search-group_company">
+					<form action="<%=request.getContextPath()%>/manager/searchArtist.do">
+						<input type="hidden" name="searchType" value="group_company">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>
+			</div> 
+		</h1>
+		
 		<section class="section">
 		<table class="table-size">
 			<tr>
 				<th>No</th>
 				<th>그룹명</th>
-				<th>멤버명</th>
+				<th>이름</th>
 				<th>소속사</th>
 				<th>등록일</th>
 			</tr>
@@ -100,7 +126,7 @@ ul li:hover > a{
 					<td><%=m.getMemberName()%></td>
 					<td><%=m.getGroupCompany()%></td>
 					<td><%=m.getEnrollDate()%></td>
-					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/artistupdate.do?no=<%=m.getGroupNo()%>')">수정</button></td>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/artistupdate.do?no=<%=m.getMemberNo()%>')">상세정보(수정)</button></td>
 					<td><button onclick="deleteArtist(<%=m.getMemberNo()%>);">삭제</button></td>
 				</tr>
 				<%} 
@@ -122,6 +148,17 @@ const deleteArtist=(n)=>{
 		alert("삭제가 취소되었습니다");
 	}
 }
+
+$(()=>{
+	 $("#searchType").change();
+})
+
+
+$("#searchType").change(e=>{
+		const type=e.target.value;
+		$(e.target).parent().children("div").hide();
+		$("#search-"+type).css("display","inline-block");
+	})
 </script>
 </body>
 </html>

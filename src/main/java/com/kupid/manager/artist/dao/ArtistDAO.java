@@ -120,7 +120,7 @@ Properties sql=new Properties();
 		sql=sql.replace("#COL", type);
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, type.equals("userName")?"%"+keyword+"%":keyword );
+			pstmt.setString(1, "%"+keyword+"%" );
 			rs=pstmt.executeQuery();
 			if(rs.next()) result=rs.getInt(1);
 			

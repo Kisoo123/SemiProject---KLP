@@ -34,11 +34,11 @@
         
 	<form action="<%=request.getContextPath()%>/manager/answerupdateend.do?no=<%=ans.getAnswerNO()%>" method="post">
         <div>
-			답변제목<input type="text" name="title" value="<%=ans.getAnswerTitle()%>">
+			답변제목<input type="text" name="title" value="<%=ans.getAnswerTitle()%>" required> 
 		</div>
 		<div>
 			답변내용<br>
-			<textarea rows="10" cols="30" name="content"><%=ans.getAnswerContent()%></textarea>	
+			<textarea rows="10" cols="30" name="content" required><%=ans.getAnswerContent()%></textarea>	
 		</div>
 		<div>
 		<input type="submit" value="수정">

@@ -17,11 +17,11 @@
 	        </select>
         </div>
         <div>
-			제목<input type="text" name="title">
+			제목<input type="text" name="title" required>
 		</div>
 		<div>
 			내용<br>
-			<textarea rows="10" cols="30" name="content"></textarea>	
+			<textarea rows="10" cols="30" name="content" required></textarea>	
 		</div>
 		<div>
 		<input type="submit" value="등록">

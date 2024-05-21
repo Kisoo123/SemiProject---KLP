@@ -32,12 +32,12 @@ public class FeedService {
 		return result;
 		
 	}
-//	public int insertFile(String filePath) {
-//		Connection conn = getConnection();
-//		int result = dao.insertFile(conn,filePath);
-//		close(conn);
-//		return result;
-//	}
 	
+	public int switchingLikes() {
+		Connection conn = getConnection();
+		int result = dao.switchingLikes(conn);
+		close(conn);
+		return result;
+	}
 	
 }

@@ -8,7 +8,6 @@ import static com.kupid.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
-import com.kupid.group.model.dto.GroupDto;
 import com.kupid.member.model.dto.MemberDto;
 import com.kupid.mypage.dao.MyPageDao;
 

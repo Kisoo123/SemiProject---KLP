@@ -1,6 +1,7 @@
 package com.kupid.member.model.service;
 
-import static com.kupid.common.JDBCTemplate.*;
+import static com.kupid.common.JDBCTemplate.close;
+import static com.kupid.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 

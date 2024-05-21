@@ -73,7 +73,7 @@
 }
 </style>
 <script>
-
+/* 피드 입력 */
 	function submitFeed() {
 		$.each($('#upfile')[0].files, function(idx, file) {
 
@@ -99,7 +99,7 @@
    const perPage = 10;
    let time=true;
    
-
+/* 스크롤 페이지 로딩 */
    const loadPage = () => {	
 	    $.ajax({
 	        type: "POST",
@@ -162,7 +162,24 @@
 	        }
 	    });
 	}
+   
+   document.addEventListener("DOMContentLoaded", function () {
+		loadPage();
+ 		window.addEventListener("scroll", function () {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const windowHeight = window.innerHeight;
+      const scrollHeight = document.documentElement.scrollHeight;
+	if (scrollTop + windowHeight >= scrollHeight - 150) {
+    		if(time){
+	      time=false;
+       	loadPage();
+	        	
+     		}
+		}
+   });
+});
 
+/* 케러셀 기능  */
    const initializeCarousel = (carousel) => {
 	    const imgListBt = carousel.find('.img_listBt');
 	    const slides = imgListBt.children();
@@ -187,47 +204,32 @@
 
 	    showSlide(index);
 	}
-
-function switchingLikes(feedNo,feed){
-	$.ajax({
-		type:"POST",
-		url:"<%=request.getContextPath()%>/feed/likesswitch.do",
-		data:{ "num": num,
-				"loginMember" :loginMember,
-				"feedNo":feedNo
-            },
-		success: $(feed).html += num;
-		
-	})
-}  
    
-let num;
-let switching = false;
+/* 좋아요 기능 */
+
+function switchingLikes(feedNo, feed, e) {
+    $.ajax({
+        type: "POST",
+        url: "<%=request.getContextPath()%>/feed/likesswitch.do",
+        data: {
+            "memberNo": '<%=loginMember.getMemberNo()%>',
+            "feedNo": feedNo
+        },
+        success: function(data) {
+            console.log(data + "data");
+            $(e.target).text("좋아요 "+data);
+        }
+    });
+}
+   
 $(document).ready(function () {
-    $(document).on('click', '.likes', (e)=> {
-    	switching = !switching;
-    	num = switching?1:-1;
-        const feedNo =$(e.target).parent().find('h3:first')[0].textContent;
-        const feed =$(e.target).parent().find('h3:first')[0];
-        switchingLikes(feedNo,feed);
-        
+    $(document).on('click', '.likes', function(e) {
+        const feedNo = $(e.target).parent().find('h3:first').text();
+        const feed = $(e.target).parent().find('h3:first');
+        switchingLikes(feedNo, feed, e);
     });
-});
-document.addEventListener("DOMContentLoaded", function () {
-		loadPage();
-  		window.addEventListener("scroll", function () {
-       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-       const windowHeight = window.innerHeight;
-       const scrollHeight = document.documentElement.scrollHeight;
-	if (scrollTop + windowHeight >= scrollHeight - 150) {
-     		if(time){
-	      time=false;
-        	loadPage();
-	        	
-      		}
-		}
-    });
-});
+}); 
+
 
 </script>
 </html>

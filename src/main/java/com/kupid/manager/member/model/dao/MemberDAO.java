@@ -88,6 +88,7 @@ public class MemberDAO {
 		return m;
 	}
 	
+	
 	public int deleteMember(Connection conn,int no) {
 		PreparedStatement pstmt=null;
 		int result=0;
@@ -224,6 +225,7 @@ public class MemberDAO {
 						//.profileImgRenamed(rs.getString("profile_img_renamed"))
 						.memberGrade(rs.getString("member_grade"))
 						.enrollDate(rs.getDate("enroll_date"))
+						
 						.build();
 	}
 	

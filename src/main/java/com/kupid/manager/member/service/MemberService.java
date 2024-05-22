@@ -37,6 +37,7 @@ public class MemberService {
 		return member;
 	}
 	
+	
 	public int deleteMember(int no) {
 		Connection conn=getConnection();
 		int result=dao.deleteMember(conn,no);

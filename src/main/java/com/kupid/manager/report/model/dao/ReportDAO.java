@@ -72,13 +72,17 @@ public class ReportDAO {
 	}
 	
 	
+	
 	public static Report getReport(ResultSet rs) throws SQLException {
 		return Report.builder()
 				.reportNo(rs.getInt("report_no"))
 				.reportCategory(rs.getString("report_category"))
 				.reportContent(rs.getString("report_content"))
 				.reportDate(rs.getDate("report_date"))
-				.reportLevel(rs.getInt("report_level"))
+				.reportingMember(rs.getInt("reporting_member"))//신고한 회원
+				.reportedMember(rs.getInt("reported_member"))//신고받은 회원
+				.reportResource(rs.getString("report_resource"))
+				.reportedId(rs.getString("member_id"))
 				.build();
 	}
 	

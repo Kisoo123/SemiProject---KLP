@@ -32,12 +32,13 @@ public class MemberViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no=Integer.parseInt(request.getParameter("no"));
+		MemberService ms=new MemberService();
 		
-		MemberDto m= new MemberService().selectMemberByNo(no);
+		MemberDto m= ms.selectMemberByNo(no);
 		request.setAttribute("member", m);
-		List<MemberDto> sm= new MemberService().selectSubscribeByNo(no);
+		List<MemberDto> sm= ms.selectSubscribeByNo(no);
 		request.setAttribute("subscribe", sm);
-		List<MemberDto> memship= new MemberService().selectMembershipByNo(no);
+		List<MemberDto> memship= ms.selectMembershipByNo(no);
 		request.setAttribute("membership", memship);
 
 		request.getRequestDispatcher("/WEB-INF/views/manager/member/managermemberview.jsp").forward(request, response);

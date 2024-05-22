@@ -115,7 +115,6 @@
 	form.append("content",$("#content".val))
 	console.log(form);
 }) */
-$("")
 
 	function submitFeed() {
 		$.each($('#upfile')[0].files, function(idx, file) {
@@ -197,6 +196,8 @@ $("")
 
 	                $div.append('<br>' + '<button id="">' + '좋아요' + '</button>');
 	                $(container).append($div);
+	                $div.append('<br>' + '<button class="comment">' + '댓글' + '</button>');
+	                $(container).append($div);
 	            });
 	            time = true;
 	            page++;
@@ -206,6 +207,41 @@ $("")
 	        }
 	    });
 	}
+   
+   $(document).on("click", "button.comment", function(e) {
+	    const $parent = $(e.target).parent();
+	    const existingDiv = $parent.find('.comment-container');
+
+	    if (existingDiv.length > 0) {
+	        existingDiv.remove();
+	    } else {
+	        const newDiv = $("<div>").addClass('comment-container').css("border", "1px solid red");
+	        const commentBt = $("<a>").text("등록").addClass('commentBt');
+	        const innerDiv = $("<div>").css("border", "1px solid blue");
+	        const textArea = $("<textarea>").css("width", "80%")
+			
+	        innerDiv.append(textArea);
+	        innerDiv.append(commentBt);
+	        newDiv.append(innerDiv);
+	        $parent.append(newDiv);
+	    }
+	});
+   
+   $(document).on("click","a.commentBt",function(){
+	   ajaxComment();
+   })
+   
+   const ajaxComment = ()=>{
+	   $.ajax({
+		   type: "POST",
+	        url: "<%=request.getContextPath()%>/feed/feedcomment.do",
+	        data: {
+	            "lo": page,
+	            "numPerPage": perPage
+	        },
+	        success
+	   })
+   }
 
    const initializeCarousel = (carousel) => {
 	    const imgListBt = carousel.find('.img_listBt');

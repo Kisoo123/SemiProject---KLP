@@ -70,7 +70,6 @@
   flex-direction: column;
   margin: 49.5px 0px 0px;
   width: 100%;
-  background: var(--src) center center/100% 100% no-repeat;
   border-radius: 59px 59px 59px 59px;
   outline: 1px solid #d1ade3;
   outline-offset: -1px;

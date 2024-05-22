@@ -1,7 +1,8 @@
-package com.kupid.mypage.controller;
+package com.kupid.mypage.profile.controller;
 
 import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +14,16 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
- * Servlet implementation class MyProfileImgUpdateServlet
+ * Servlet implementation class MyInfoUpdateServlet
  */
-@WebServlet("/mypage/profileImgDelete.do")
-public class MyProfileImgDeleteServlet extends HttpServlet {
+@WebServlet(name = "profileUpdate", urlPatterns = { "/mypage/profileupdate.do" })
+public class MyProfileUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfileImgDeleteServlet() {
+    public MyProfileUpdateServlet() {
         super();
     }
 
@@ -32,18 +33,14 @@ public class MyProfileImgDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("pagenum", 1);
 		int no = Integer.parseInt(request.getParameter("no"));
-		String beforeImg = request.getParameter("beforeImg");
-		String path = getServletContext().getRealPath("/upload/member/profile");
-		System.out.println("프로필 사진 삭제 실행");
 		
-		int result = new MyPageService().deleteProfileImg(no);
+		String nickname=request.getParameter("nickname");
+		String introduce=request.getParameter("introduce");
+		int result = new MyPageService().updateProfile(no, nickname, introduce);
 		if(result>0) {
-			System.out.println("삭제성공");
+			System.out.println("수정성공");
 		} else {
-			System.out.println("삭제실패");
-			//업로드된 새로운 파일 다시 삭제
-			File delFile=new File(path+"/"+beforeImg);
-			if(delFile.exists()) delFile.delete();
+			System.out.println("수정실패");
 		}
 		response.sendRedirect(request.getContextPath() + "/mypage/myprofile.do");
 	}

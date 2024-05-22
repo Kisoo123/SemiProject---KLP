@@ -160,9 +160,13 @@
   margin: 8px 0px 0px;
   min-width: 0px;
   height:30px;
+  padding :10px;
   border-radius: 8px 8px 8px 8px;
   outline: 1px solid #e0e0e0;
   outline-offset: -1px;
+}
+.input_box p{
+	margin-top:2px;
 }
 .myInfo .inputTag {
   width: 100%;

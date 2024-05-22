@@ -1,6 +1,7 @@
 package com.kupid.manager.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,11 @@ public class MemberViewServlet extends HttpServlet {
 		
 		MemberDto m= new MemberService().selectMemberByNo(no);
 		request.setAttribute("member", m);
-		
+		List<MemberDto> sm= new MemberService().selectSubscribeByNo(no);
+		request.setAttribute("subscribe", sm);
+		List<MemberDto> memship= new MemberService().selectMembershipByNo(no);
+		request.setAttribute("membership", memship);
+
 		request.getRequestDispatcher("/WEB-INF/views/manager/member/managermemberview.jsp").forward(request, response);
 		
 		

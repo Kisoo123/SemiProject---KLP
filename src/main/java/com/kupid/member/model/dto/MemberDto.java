@@ -36,5 +36,8 @@ public class MemberDto {
 	private Date groupDebutday;
 	private String groupCompany;
 	private String groupImg;
+	private String serialkey;//membership 시리얼키
+	private Date startday;//membership 시작일
+	private Date endday;//membership 종료일
 
 }

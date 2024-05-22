@@ -149,8 +149,62 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	public List<MemberDto> selectSubscribeByNo(Connection conn,int no){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<MemberDto> members=new ArrayList<>();
+		try {
+			String sql=this.sql.getProperty("selectSubscribeByNo");
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,no);	
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				members.add(getArtist(rs));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return members;
+	}
+	
+	public List<MemberDto> selectMembershipByNo(Connection conn,int no){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<MemberDto> members=new ArrayList<>();
+		try {
+			String sql=this.sql.getProperty("selectMembershipByNo");
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,no);	
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				members.add(getMembership(rs));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return members;
+	}
 	
 	
+	public MemberDto getMembership(ResultSet rs) throws SQLException {
+		return MemberDto.builder()
+				.serialkey(rs.getString("serialkey"))
+				.startday(rs.getDate("startday"))
+				.endday(rs.getDate("endday"))
+				.groupName(rs.getString("group_name"))
+				.build();
+	
+	}
 	
 	public MemberDto getMember(ResultSet rs) throws SQLException {
 		return MemberDto.builder()

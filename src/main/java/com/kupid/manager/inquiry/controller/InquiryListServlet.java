@@ -36,7 +36,7 @@ public class InquiryListServlet extends HttpServlet {
     
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setAttribute("pagenum", 4);
 		int cPage=1;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));

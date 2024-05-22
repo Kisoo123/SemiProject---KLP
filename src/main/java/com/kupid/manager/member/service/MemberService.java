@@ -60,4 +60,18 @@ public class MemberService {
 		return count;
 	}
 	
+	public List<MemberDto> selectSubscribeByNo(int no){
+		Connection conn=getConnection();
+		List<MemberDto> members=dao.selectSubscribeByNo(conn,no);
+		close(conn);
+		return members;
+	}
+	
+	public List<MemberDto> selectMembershipByNo(int no){
+		Connection conn=getConnection();
+		List<MemberDto> members=dao.selectMembershipByNo(conn,no);
+		close(conn);
+		return members;
+	}
+	
 }

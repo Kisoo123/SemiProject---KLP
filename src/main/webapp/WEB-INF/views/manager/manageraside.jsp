@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kupid.member.model.dto.MemberDto" %>
+<%	
+	int pagenum = 0;
+	if((Integer) request.getAttribute("pagenum")!=null){
+		pagenum=(Integer) request.getAttribute("pagenum");
+	}
+%>
 
 <!DOCTYPE html>
 <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
@@ -155,6 +162,7 @@
   position: relative;
   margin: 8px 0px 0px;
   min-width: 0px;
+  height: 20px;
   border-radius: 8px 8px 8px 8px;
   padding: 8px 16px 8px 16px;
   outline: 1px solid #e0e0e0;
@@ -319,19 +327,19 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/home.do')">
+                <button class="<%=pagenum==1?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/home.do?pagenum=1')">
                     <h3>메인화면</h3>
                 </button>
-                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/noticelist.do')">
+                <button class="<%=pagenum==2?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/noticelist.do?pagenum=2')">
                     <h3>공지사항</h3>
                 </button>
-                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/faqlist.do')">
+                <button class="<%=pagenum==3?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/faqlist.do?pagenum=3')">
                     <h3>faq</h3>
                 </button>
-                  <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/inquirylist.do')">
+                  <button class="<%=pagenum==4?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/inquirylist.do?pagenum=4')">
                     <h3>1:1문의</h3>
                 </button>
-                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/report/reportList.do')">
+                 <button class="<%=pagenum==5?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/report/reportList.do?pagenum=5')">
                     <h3>신고내역</h3>
                 </button>
            </div>
@@ -342,13 +350,13 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/artistlist.do')">
+                <button class="<%=pagenum==6?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/artistlist.do?pagenum=6')">
                     <h3>아티스트</h3>
                 </button>
-                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/grouplist.do')">
+                <button class="<%=pagenum==7?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/grouplist.do?pagenum=7')">
                     <h3>그룹</h3>
                 </button>
-                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/memberlist.do')">
+                <button class="<%=pagenum==8?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/memberlist.do?pagenum=8')">
                     <h3>팬</h3>
                 </button>
            </div>
@@ -359,10 +367,10 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="btn2">
+                <button class="<%=pagenum==9?"btn1":"btn2" %>">
                     <h3>아티스트</h3>
                 </button>
-                <button class="btn2" onclick="">
+                <button class="<%=pagenum==10?"btn1":"btn2" %>" onclick="">
                     <h3>팬</h3>
                 </button>
            </div>
@@ -373,13 +381,13 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="btn2">
+                <button class="<%=pagenum==11?"btn1":"btn2" %>">
                     <h3>배너</h3>
                 </button>
-                <button class="btn2" onclick="">
+                <button class="<%=pagenum==12?"btn1":"btn2" %>" onclick="">
                     <h3>상품</h3>
                 </button>
-                <button class="btn2" onclick="">
+                <button class="<%=pagenum==13?"btn1":"btn2" %>" onclick="">
                     <h3>결제내역</h3>
                 </button>
            </div>

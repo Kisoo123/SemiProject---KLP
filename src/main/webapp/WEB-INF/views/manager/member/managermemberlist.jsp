@@ -114,10 +114,10 @@ ul li:hover > a{
 			<tr>
 				<th>No</th>
 				<th>이름</th>
-				<th style="text-align:left;">아이디</th>
+				<th>아이디</th>
 				<th>닉네임</th>
 				<th>가입일</th>
-				<th>멤버십</th>
+				
 				
 			</tr>
 			<%if(member!=null){ %>
@@ -125,12 +125,11 @@ ul li:hover > a{
 				<tr>
 					<td style="text-align:center;"><%=m.getMemberNo()%></td>
 					<td style="text-align:center;"><%=m.getMemberName()%></td>
-					<td><%=m.getMemberId()%></td>
+					<td style="text-align:center;"><%=m.getMemberId()%></td>
 					<td style="text-align:center;"><%=m.getNickname() %></td>
 					<td style="text-align:center;"><%=m.getEnrollDate() %></td>
-					<td style="text-align:center;"><input type="checkbox"></td>
 					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/memberview.do?no=<%=m.getMemberNo()%>')">상세정보</button></td>
-					
+					<td><button onclick="deleteMember(<%=m.getMemberNo()%>);">회원삭제</button></td>
 				</tr>
 				<%} 
 			}else{%>
@@ -145,13 +144,13 @@ ul li:hover > a{
 	</div>
 </div>
 <script>
-		const deleteNotice=(n)=>{
-			if(confirm("정말 삭제 하시겠습니까?")){
-				location.assign("<%=request.getContextPath()%>/manager/noticedelete.do?no="+n)
-			}else{
-				alert("삭제가 취소되었습니다");
-			}
-		}
+const deleteMember=(n)=>{
+	if(confirm("정말 삭제 하시겠습니까?")){
+		location.assign("<%=request.getContextPath()%>/manager/memberdelete.do?no="+n);
+	}else{
+		alert("삭제가 취소되었습니다");
+	}
+}
 		
 		$(()=>{
 	    	 $("#searchType").change();

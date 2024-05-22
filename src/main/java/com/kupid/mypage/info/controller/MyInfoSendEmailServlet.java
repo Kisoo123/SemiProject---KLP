@@ -1,13 +1,17 @@
 package com.kupid.mypage.info.controller;
 
 import java.io.IOException;
+import java.util.Properties;
 import java.util.Random;
 
+import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kupid.common.MemberSendEmail;
 
 /**
  * Servlet implementation class MyInfoEmailCheckServlet
@@ -34,12 +38,11 @@ public class MyInfoSendEmailServlet extends HttpServlet {
 		request.getSession().setAttribute(no+"", code);
 		System.out.println(content);
 		
-//		String email = request.getParameter("email");
-//		MemberSendEmail mse = new MemberSendEmail(email);
-//		Session session = mse.setting(new Properties(), "kupid_79@naver.com", "kupid7979!");
+		String email = request.getParameter("email");
+		MemberSendEmail mse = new MemberSendEmail(email);
+		Session session = mse.setting(new Properties(), "kupid_79@naver.com", "kupid7979!");
 		
-//		int result = mse.SendMail(session, title, content);
-		int result = 1;
+		int result = mse.SendMail(session, title, content);
 		if(result>0) {
 			response.getWriter().print(result);
 		}

@@ -117,7 +117,7 @@ int no = (Integer)request.getAttribute("no");
 	$('input#input_email').keyup(e=>{
 		console.log(e.target.value);
 		let target = e.target.value;
-		target = target.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣@.]/g, '');
+		target = target.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣._!@#$%^&*]/g, '');
 		e.target.value = target;
 	});
 	$("#sendBtn").click(e=>{

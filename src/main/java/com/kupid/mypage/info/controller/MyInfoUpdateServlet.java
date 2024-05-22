@@ -32,12 +32,18 @@ public class MyInfoUpdateServlet extends HttpServlet {
 		
 		String name=request.getParameter("name");
 		String id=request.getParameter("id");
+		String prepw=request.getParameter("prepw");
 		String newpw=request.getParameter("newpw");
 		String phone=request.getParameter("phone");
 		String email=request.getParameter("email");
 		String address=request.getParameter("address");
 		String addressDetail=request.getParameter("addressDetail");
-		int result = new MyPageService().updateInfo(id, name, newpw, phone, email, address, addressDetail);
+		int result = 0;
+		if(newpw == null || newpw.equals("")) {
+			result = new MyPageService().updateInfo(id, name, prepw, phone, email, address, addressDetail);
+		} else {
+			result = new MyPageService().updateInfo(id, name, newpw, phone, email, address, addressDetail);
+		}
 		if(result>0) {
 			System.out.println("수정성공");
 		} else {

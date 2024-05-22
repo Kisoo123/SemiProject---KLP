@@ -130,14 +130,14 @@ public class MyPageDao {
 		}
 		return result; 
 	}
-	public int updateInfo(Connection conn, String id, String name, String newpw, String phone, String email,
+	public int updateInfo(Connection conn, String id, String name, String pw, String phone, String email,
 			String address, String addressDetail) {
 		PreparedStatement pstmt = null;
 		int result =0;
 		try{
 			pstmt = conn.prepareStatement(sql.getProperty("updateInfo"));
 			pstmt.setString(1, name);
-			pstmt.setString(2, newpw);
+			pstmt.setString(2, pw);
 			pstmt.setString(3, phone);
 			pstmt.setString(4, email);
 			pstmt.setString(5, address);

@@ -228,7 +228,7 @@
                             	<p>영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p><h5 id="pwckResult"></h5>
                             </div>
                             <div class="input_box">
-	                            <input type="password" id="prepw" class="inputTag" required placeholder="현재 비밀번호 입력">
+	                            <input type="password" id="prepw" name="prepw" class="inputTag" required placeholder="현재 비밀번호 입력">
                             </div>
                             <div class="input_box">
 	                            <input type="password" id="newpw" name="newpw" class="inputTag" placeholder="변경할 비밀번호 입력">
@@ -247,16 +247,19 @@
                             <div class="input_box readonly_box">
 	                            <input type="text" name="email" class="inputTag" id="inputEmail" readOnly value="<%=m.getEmail()%>">
                             </div>
-                            <div class="h3_btn_container">
+                           <div class="h3_btn_container">
                             	<h3>주소</h3>
                             	<button class="btn2" type="button" id="searchAddress" onclick="addressSearch();">주소 검색</button>
                            	</div>
                             <div class="input_box readonly_box">
-                            	<input type="text" class="inputTag" name="address" value="<%if(m.getAddress() != null) %><%=m.getAddress()%>">
+                            	<input type="text" id="inputAddress" class="inputTag" name="address" value="<%if(m.getAddress() != null) %><%=m.getAddress()%>">
                             </div>
                             <div class="input_box">
-                            	<input type="text" class="inputTag" name="addressDetail" placeholder="상세주소 입력"  value="<%if(m.getAddressDetail() != null) %><%=m.getAddressDetail()%>">
+                            	<input type="text" id="inputAddressDetail" class="inputTag" name="addressDetail" placeholder="상세주소 입력"  value="<%if(m.getAddressDetail() != null) %><%=m.getAddressDetail()%>">
                             </div>
+                           <!--  <div class="input_box">
+                            	<input type="text" id="sample6_postcode" placeholder="우편번호">
+                            </div> -->
                         	 <br>
 	                		<button name="submit" class="btn">수정</button>
                         </div>
@@ -324,10 +327,8 @@
 			e.preventDefault();
 			return false;
 		}
-		//현재 비밀번호가 다른 경우
-		//이메일 데이터를 수정했는데 검증이 완료되지 않은 경우
 	    // 모든 input 필드가 비어있지 않은지 확인
-/* 		let isValid=true;
+ 		let isValid=true;
 	    $("form input").each(function() {
 	        if ($(this).val().trim() === "") {
 	            alert('모든 필드를 입력해주세요.');
@@ -336,19 +337,54 @@
 	            e.preventDefault();
 	            return false; // jQuery each의 루프 종료
 	        }
-	    }); */
+	    }); 
+		//현재 비밀번호가 일치해야 제출
+		if($("#prepw").val !== m.getMemberPw()){
+            e.preventDefault();
+			return false;
+		}
 	};
 	const emailValidCk=()=>{
 		console.log('email');	
 		window.open('<%=request.getContextPath()%>/mypage/emailCheck.do?no=<%=m.getMemberNo()%>','emailVerification','width=570px, height=320px');
-	};
-	const addressSearch=()=>{
-		console.log('address');	
 	};
 	function setEmail(email){
 		console.log(email);
 		//$(document).ready();
 		$("#inputEmail").val(email);
 	}
+	<%-- const addressSearch=()=>{
+		window.open('<%=request.getContextPath()%>/mypage/addressSearch.do','addressSearch','width=570px, height=320px');	
+	}; --%>
+</script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	const addressSearch=()=>{
+		let width= 500;
+		let height= 772;
+		new daum.Postcode({
+			theme: themeObj,
+			oncomplete: data=>{
+				document.querySelector("#inputAddress").value= data.address;
+				document.querySelector("#inputAddressDetail").value= "";
+				document.querySelector("#inputAddressDetail").focus();
+			}
+		}).open({
+			left: (window.screen.width/2)-(width/2),
+			top: (window. screen.height/2)-(height/2),
+			popupTitle: '우편번호 검색',
+		});
+	};
+	var themeObj = {
+			   bgColor: "#ececec", //바탕 배경색
+			   searchBgColor: "#ffffff", //검색창 배경색
+			   contentBgColor: "ffffff", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+			   pageBgColor: "fafafa", //페이지 배경색
+			   textColor: "#333333", //기본 글자색
+			   queryTextColor: "#222222", //검색창 글자색
+			   postcodeTextColor: "#fa4256", //우편번호 글자색
+			   emphTextColor: "#008bd3", //강조 글자색
+			   outlineColor: "#e0e0e0" //테두리
+			};
 </script>
 </html>

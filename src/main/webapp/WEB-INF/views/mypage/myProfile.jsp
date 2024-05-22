@@ -340,8 +340,8 @@
 	const nowNickname = '<%=m.getNickname() %>';
 	$("#nickname").keyup(e=>{
 		console.log(e.target.value);
-		let target = e.target.value;
 		//정규식 활용한 문자열 필터링
+		let target = e.target.value;
 		target = target.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣]/g, '');
 		e.target.value = target;
 		//빈칸 입력 방지

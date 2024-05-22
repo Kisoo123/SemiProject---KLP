@@ -163,7 +163,7 @@ int no = (Integer)request.getAttribute("no");
 					if(data === '1'){
 						alert('이메일이 확인되었습니다.');
 						if (window.opener && !window.opener.closed) {
-							window.opener.setEmail($("input#codeck").val());
+							window.opener.setEmail($("#input_email").val());
 							window.close();
 						}
 					}else{

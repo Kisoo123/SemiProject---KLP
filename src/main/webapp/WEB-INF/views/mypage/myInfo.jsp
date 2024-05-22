@@ -244,8 +244,8 @@
                             	<h3>이메일</h3>
                             	<button class="btn2" type="button" onclick="emailValidCk();">이메일 검증</button>
                             </div>
-                            <div class="input_box">
-	                            <input type="text" name="email" class="inputTag" value="<%=m.getEmail()%>">
+                            <div class="input_box readonly_box">
+	                            <input type="text" name="email" class="inputTag" id="inputEmail" readOnly value="<%=m.getEmail()%>">
                             </div>
                             <div class="h3_btn_container">
                             	<h3>주소</h3>
@@ -340,9 +340,15 @@
 	};
 	const emailValidCk=()=>{
 		console.log('email');	
+		window.open('<%=request.getContextPath()%>/mypage/emailCheck.do?no=<%=m.getMemberNo()%>','emailVerification','width=570px, height=320px');
 	};
 	const addressSearch=()=>{
 		console.log('address');	
 	};
+	function setEmail(email){
+		console.log(email);
+		//$(document).ready();
+		$("#inputEmail").val(email);
+	}
 </script>
 </html>

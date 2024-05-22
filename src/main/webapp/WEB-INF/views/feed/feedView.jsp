@@ -252,7 +252,7 @@ const test = ()=>{
 	        type: "POST",
 	        url: "<%=request.getContextPath()%>/feed/feedcomment.do",
 	        data: {
-	            "loginMember": "<%=loginMember.getMemberNo()%>"
+	            "loginMember":"<%=loginMember.getMemberNo()%>"
 	            ,  
 	            "commentText": commentText,
 	            "feedNoText": feedNoText
@@ -276,9 +276,8 @@ const test = ()=>{
 	            "feedNo": feedNoText
 	        },
 	        success: function(data) {
-	            // 댓글을 작성한 댓글 컨테이너를 찾아서 댓글을 추가합니다.
 	            const $commentContainer = $('.board .comment-container');
-	            $commentContainer.empty(); // 기존 댓글을 비웁니다.
+	            $commentContainer.empty(); 
 
 	            $.each(data, function(idx, element) {
 	                const $commentDiv = $("<div>").css({

@@ -36,7 +36,7 @@ COMMENT ON COLUMN member.member_grade IS '회원등급';
 COMMENT ON COLUMN member.email IS '이메일';
 COMMENT ON COLUMN member.introduce IS '자기소개';
 
---SELECT * FROM member;
+SELECT * FROM member;
 --drop table member; 
 create sequence seq_member_no
 nocache
@@ -58,3 +58,5 @@ INSERT INTO MEMBER VALUES (seq_member_no.nextval,'admin','1234','관리자','F',
 INSERT INTO MEMBER VALUES (seq_member_no.nextval,'abcde','1234','아무개','M','01012345678',null, NULL,'abcde@naver.com',to_date('99/07/05','RR/MM/DD'),'닉네임아무개','안녕하세요, 아무개입니당..',DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO MEMBER VALUES (seq_member_no.nextval,'qwerty','asdf','김말년','M','01098765432',null,null,'qwerty@naver.com',to_date('93/02/05','RR/MM/DD'),'김말이','김말이는 맛있어',DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO MEMBER VALUES (seq_member_no.nextval,'hihiroo','1234','김안녕','F','01023454635',null,null,'hihiroo@naver.com',to_date('99/12/05','RR/MM/DD'),'heyHi','모두들 안녕하신가요',DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO MEMBER VALUES (seq_member_no.nextval,'hihiroo2','1234','김안녕','F','01023454635','경기도 안양시 만안구 안양로 33','B동 401호','hihiroo2@naver.com',to_date('99/12/05','RR/MM/DD'),'heyHi2','모두들 안녕하신가요',DEFAULT, DEFAULT, DEFAULT, null);
+INSERT INTO MEMBER VALUES (seq_member_no.nextval,'hihiroo3','1234','김안녕','F','01023454635','경기도 안양시 만안구 안양로 33','B동 401호','hihiroo2@naver.com',to_date('99/12/05','RR/MM/DD'),'heyHi3','모두들 안녕하신가요',DEFAULT, DEFAULT, DEFAULT, DEFAULT);

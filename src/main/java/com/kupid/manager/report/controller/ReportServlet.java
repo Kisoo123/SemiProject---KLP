@@ -96,7 +96,6 @@ public class ReportServlet extends HttpServlet {
 		
 		List<Report> report=rs.selectReportAll(cPage,numPerpage);
 		request.setAttribute("report", report);
-		Report r=rs.selectReporting();
 		
 		
 		request.getRequestDispatcher("/WEB-INF/views/manager/report/reportlist.jsp").forward(request, response);

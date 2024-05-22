@@ -71,6 +71,25 @@ public class ReportDAO {
 		return result;
 	}
 	
+//	public List<Report> selectReporting(Connection conn) {
+//		PreparedStatement pstmt=null;
+//		ResultSet rs=null;
+//		List<Report> report=new ArrayList<Report>();
+//		try {
+//			pstmt=conn.prepareStatement(sql.getProperty("selectReporting"));
+//			rs=pstmt.executeQuery();
+//			while(rs.next()) {
+//				report.add(Report.builder().reportingId(rs.getString("member_id")).build());
+//			}
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(pstmt);
+//			close(rs);
+//		}
+//		System.out.println(report);
+//		return report;
+//	}
 	
 	
 	public static Report getReport(ResultSet rs) throws SQLException {
@@ -82,7 +101,8 @@ public class ReportDAO {
 				.reportingMember(rs.getInt("reporting_member"))//신고한 회원
 				.reportedMember(rs.getInt("reported_member"))//신고받은 회원
 				.reportResource(rs.getString("report_resource"))
-				.reportedId(rs.getString("member_id"))
+				.reportedId(rs.getString(10))//인덱스 번호 10
+				.reportingId(rs.getString("reporting"))//인덱스 번호 11
 				.build();
 	}
 	

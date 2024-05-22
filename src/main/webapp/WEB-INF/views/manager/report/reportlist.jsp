@@ -3,6 +3,7 @@
 <%@ page import="java.util.List,com.kupid.manager.report.model.dto.Report" %>    
 <%
 	List<Report> report=(List<Report>)request.getAttribute("report");
+
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
 %>
 <!DOCTYPE html>
@@ -88,7 +89,7 @@ ul li:hover > a{
 			<tr>
 				<td><%=rp.getReportNo() %></td>
 				<td><%=rp.getReportCategory()%></td>
-				<td><%=rp.getReportingMember() %></td>
+				<td><%=rp.getReportingId()%></td>
 				<td><%=rp.getReportedId() %></td>
 				<td><%=rp.getReportDate() %></td>
 				

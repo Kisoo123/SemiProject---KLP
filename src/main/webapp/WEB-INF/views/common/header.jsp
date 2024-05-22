@@ -58,7 +58,7 @@
 					<table id="logged-in">
 						<tr>
 							<td colspan="2">
-								<%=loginMember.getMemberId() %>님, 방가방가. :)
+								<%=loginMember.getMemberId()%>님, 방가방가. :)
 							</td>
 						</tr>
 						<tr>

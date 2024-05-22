@@ -1,6 +1,7 @@
 package com.kupid.feed.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.kupid.feed.model.dto.Reply;
 import com.kupid.feed.model.service.FeedService;
-import com.kupid.member.model.dto.MemberDto;
 
 /**
- * Servlet implementation class FeedCommentServlet
+ * Servlet implementation class CommentSelectServlet
  */
-@WebServlet("/feed/feedcomment.do")
-public class FeedCommentServlet extends HttpServlet {
+@WebServlet("/feed/selectcomment.do")
+public class CommentSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FeedCommentServlet() {
+    public CommentSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +31,14 @@ public class FeedCommentServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int feedNo =Integer.parseInt(request.getParameter("feedNo"));
+		List<Reply> fc = new FeedService().selectFeedComment(feedNo);
 		
-		int loginMember = Integer.parseInt(request.getParameter("loginMember")); 
-		String comment = request.getParameter("commentText");
-		int feedNo = Integer.parseInt(request.getParameter("feedNoText"));
-		
-		int result=new FeedService().insertFeedComment(loginMember,comment,feedNo);
-		
+		response.setContentType("application/json;charset=utf-8");
+
+		Gson gson = new Gson();
+		gson.toJson(fc,response.getWriter());
 	}
 
 	/**

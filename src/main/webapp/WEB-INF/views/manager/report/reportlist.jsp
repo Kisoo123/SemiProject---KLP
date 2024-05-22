@@ -87,13 +87,12 @@ ul li:hover > a{
 		<%if(report!=null){ %>
 			<%for(Report rp : report){ %>
 			<tr>
-				<td><%=rp.getReportNo() %></td>
-				<td><%=rp.getReportCategory()%></td>
-				<td><%=rp.getReportingId()%></td>
-				<td><%=rp.getReportedId() %></td>
-				<td><%=rp.getReportDate() %></td>
-				
-				<td><button>(상세내용)처리</button></td>
+				<td style="text-align:center;"><%=rp.getReportNo() %></td>
+				<td style="text-align:center;"><%=rp.getReportCategory()%></td>
+				<td style="text-align:center;"><%=rp.getReportingId()%></td>
+				<td style="text-align:center;"><%=rp.getReportedId() %></td>
+				<td style="text-align:center;"><%=rp.getReportDate() %></td>	
+				<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/reportview.do?no=<%=rp.getReportNo()%>')">(상세내용)처리</button></td>
 			</tr>
 			<%} 
 		}else{%>

@@ -101,8 +101,8 @@ public class ReportDAO {
 				.reportingMember(rs.getInt("reporting_member"))//신고한 회원
 				.reportedMember(rs.getInt("reported_member"))//신고받은 회원
 				.reportResource(rs.getString("report_resource"))
-				.reportedId(rs.getString(10))//인덱스 번호 10
-				.reportingId(rs.getString("reporting"))//인덱스 번호 11
+				.reportedId(rs.getString(10))//인덱스 번호 10 신고받은 회원
+				.reportingId(rs.getString(11))//인덱스 번호 11 신고한 회원
 				.build();
 	}
 	

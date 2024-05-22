@@ -1,20 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>    
-    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
 
 	안녕하세요 12321ㅇㅈㅇㄴㅁㅇㅇㄴㄴ
-
-	<a href="<%=request.getContextPath()%>/feed/feedView.do">피드</a>
-
 	
+	<div>
+	<% if(loginMember == null){ %>
+		<button onclick="location.assign('<%=request.getContextPath()%>/login.do')">로그인</button>
+	<%}else{ %>
+		<h2><%=loginMember.getMemberName()%>님 안녕하세요 :)</h2>
+		<button onclick="location.assign('<%=request.getContextPath()%>/logout.do')">로그아웃</button>
+	<%} %>
+	</div>
+	<br><br><br>
+	<a href="<%=request.getContextPath()%>/feed/feedView.do">피드</a>
 	<div>
 		<button onclick="location.assign('<%=request.getContextPath()%>/report/reportList.do')">신고내역</button>
 	</div>

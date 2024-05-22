@@ -13,7 +13,7 @@ SELECT * from artist_group;
 CREATE SEQUENCE seq_group_no
 nocache
 nocycle;
-
+SELECT *FROM MEMBER;
 --그룹 등록(완료)
 INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'newJeans', 5, to_date('22/07/22','RR/MM/DD'),'ADOR', 'newjeans.jpeg');
 INSERT INTO ARTIST_GROUP values(seq_group_no.nextval, 'LE SSERAFIM', 5, to_date('22/05/02','RR/MM/DD'),'Source Music', 'le sserafim.jpeg');

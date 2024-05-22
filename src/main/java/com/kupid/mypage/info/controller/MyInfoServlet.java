@@ -1,4 +1,4 @@
-package com.kupid.mypage.controller;
+package com.kupid.mypage.info.controller;
 
 import java.io.IOException;
 

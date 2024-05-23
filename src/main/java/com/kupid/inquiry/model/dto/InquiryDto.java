@@ -11,8 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Inquiry {
+public class InquiryDto {
 	private String inqTitle;
 	private String inqContent;
 	private String inqFile;
+	private int inq_Member;
+	private Date inq_Date;
+	private int inq_No;
+
 }

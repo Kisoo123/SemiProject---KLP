@@ -1,4 +1,4 @@
-package com.kupid.inquiry.controller;
+package com.kupid.customer.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CustomerWriteServlet
+ * Servlet implementation class CustomerMainServlet
  */
-@WebServlet("/inquiry/inquiry.do")
-public class InquiryWriteServlet extends HttpServlet {
+@WebServlet("/customer/customermain.do")
+public class CustomerMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InquiryWriteServlet() {
+    public CustomerMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,8 @@ public class InquiryWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(getServletContext().getInitParameter("viewpath")+"inquiry/inquiry.jsp").forward(request, response);
+	//customer.jsp로 이동하는 로직 구현하기
+		request.getRequestDispatcher(getServletContext().getInitParameter("viewpath")+"customer/customer.jsp").forward(request, response);
 	}
 
 	/**

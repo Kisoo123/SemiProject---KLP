@@ -90,6 +90,11 @@
                 <td><%= faqData[i][2] %></td>
                 <td><%= faqData[i][3] %></td>
                 <td><%= faqData[i][4] %></td>
+                <td><%= faqData[i][5] %></td>
+                <td><%= faqData[i][6] %></td>
+                <td><%= faqData[i][7] %></td>
+                <td><%= faqData[i][8] %></td>
+                <td><%= faqData[i][9] %></td>
             </tr>
             <% } %>
         </tbody>

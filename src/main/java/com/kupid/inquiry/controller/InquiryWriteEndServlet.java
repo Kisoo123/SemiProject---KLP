@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.inquiry.model.dto.Inquiry;
+import com.kupid.inquiry.model.dto.InquiryDto;
 import com.kupid.inquiry.model.service.InquiryService;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -17,7 +17,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * Servlet implementation class NoticeWriteEndServlet
  */
-@WebServlet("/customerservicecenter/customerwriteend.do")
+@WebServlet("/inquiry/inquirywriteend.do")
 public class InquiryWriteEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -66,6 +66,8 @@ public class InquiryWriteEndServlet extends HttpServlet {
 		//나머지 정보를 가져오기
 		String title=mr.getParameter("title");
 		String content=mr.getParameter("content");
+		int inq_member=Integer.parseInt(mr.getParameter("inq_member"));
+		int inq_no=Integer.parseInt(mr.getParameter("inq_no"));
 		//업로드된 파일정보
 		//원본파일명
 		String oriname=mr.getOriginalFileName("upfile");
@@ -74,27 +76,31 @@ public class InquiryWriteEndServlet extends HttpServlet {
 		System.out.println(title+content+oriname+rename); 
 		
 		//파일 저장하기
-		Inquiry n=Inquiry.builder()
+		InquiryDto n=InquiryDto.builder()
 				.inqTitle(title)
 				.inqContent(content)
 				.inqFile(rename)
+				.inq_Member(inq_member)
+//				.inq_Date(null)
+//				.inq_No(inq_no)
 				.build();
 				
 				
 				
-		int result=new InquiryService().insertInquery(n);
+		int result=new InquiryService().insertInquiry(title,content,rename,inq_member);
 		String msg,loc;
 		if(result>0) {
 			msg="문의사항등록이 완료되었습니다";
-			loc="/inquery/inquirylist.do";
+			loc="/customer/customermain.do"; // 나중에 진형언니 내문의로 연결
 		}else {
-			msg="공지사항등록을 실패하였습니다";
-			loc="/inquery/inquirywrite.do";
+			msg="문의사항등록을 실패하였습니다";
+			loc="/inquiry/inquiry.do"; 
 			File delFile=new File(path+"/"+rename);
 			if(delFile.exists()) delFile.delete();
 			
 		}	
-		request.setAttribute(msg, loc);
+		request.setAttribute("msg",msg);
+		request.setAttribute("loc", loc);
 		request.getRequestDispatcher(getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
 		.forward(request, response);
 				

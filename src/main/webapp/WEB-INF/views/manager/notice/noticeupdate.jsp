@@ -42,7 +42,7 @@
 								<textarea rows="10" cols="30" name="content" class="inputTag" required><%=n.getNoticeContent()%></textarea>	
 							</div>
                            	<br>
-	                		<button name="submit" class="btn">등록</button>
+	                		<button name="submit" class="btn">수정</button>
                         </div>
                         </form>
                     </div>

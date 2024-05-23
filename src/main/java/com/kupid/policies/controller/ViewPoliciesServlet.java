@@ -1,29 +1,23 @@
-package com.kupid.mypage.controller;
+package com.kupid.policies.controller;
 
-import java.io.File;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.mypage.service.MyPageService;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 /**
- * Servlet implementation class MyInfoUpdateServlet
+ * Servlet implementation class ViewPoliciesServlet
  */
-@WebServlet(name = "profileUpdate", urlPatterns = { "/mypage/profileupdate.do" })
-public class MyProfileUpdateServlet extends HttpServlet {
+@WebServlet("/policies/terms")
+public class ViewPoliciesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfileUpdateServlet() {
+    public ViewPoliciesServlet() {
         super();
     }
 
@@ -31,18 +25,19 @@ public class MyProfileUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagenum", 1);
 		int no = Integer.parseInt(request.getParameter("no"));
-		
-		String nickname=request.getParameter("nickname");
-		String introduce=request.getParameter("introduce");
-		int result = new MyPageService().updateProfile(no, nickname, introduce);
-		if(result>0) {
-			System.out.println("수정성공");
-		} else {
-			System.out.println("수정실패");
+		switch(no)
+		{
+		case 1 : 
+			request.getRequestDispatcher("/WEB-INF/views/common/policies/terms.jsp")
+			.forward(request, response); break;
+		case 2 : 
+			request.getRequestDispatcher("/WEB-INF/views/common/policies/privacy.jsp")
+			.forward(request, response); break;
+		case 3:
+			request.getRequestDispatcher("/WEB-INF/views/common/policies/marketing.jsp")
+			.forward(request, response); break;
 		}
-		response.sendRedirect(request.getContextPath() + "/mypage/myprofile.do");
 	}
 
 	/**

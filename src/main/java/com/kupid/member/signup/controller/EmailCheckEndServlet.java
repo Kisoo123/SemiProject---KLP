@@ -1,28 +1,23 @@
-package com.kupid.mypage.controller;
+package com.kupid.member.signup.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.member.model.dto.MemberDto;
-import com.kupid.mypage.service.MyPageService;
-
 /**
- * Servlet implementation class MyProfileServlet
+ * Servlet implementation class MyInfoEmailCheckEndServlet
  */
-@WebServlet("/mypage/myprofile.do")
-public class MyProfileServlet extends HttpServlet {
+@WebServlet("/member/signupemailCheckEnd.do")
+public class EmailCheckEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfileServlet() {
+    public EmailCheckEndServlet() {
         super();
     }
 
@@ -30,16 +25,20 @@ public class MyProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagenum", 1);
-//		String id = (String) request.getAttribute("loginMember");
-//		MemberDto m = new MemberService().selectMember(id);
+		String email = request.getParameter("email");
 		
-		//임의 멤버를 가져오는 메소드
-		List<MemberDto> m = new MyPageService().selectMemberForProfile("qwerty");
-		System.out.println(m.toString());
-		request.setAttribute("memberProfile", m);
-		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
-		.forward(request, response);
+		int code = (Integer)request.getSession().getAttribute(email+"");
+		System.out.println("인증코드 : " + code);
+		int value = Integer.parseInt(request.getParameter("value"));
+		System.out.println("사용자 입력값 : "+value);
+		
+		int result = 0;
+		if(value == code) {
+			result = 1;
+			System.out.println("이메일 인증완료");
+			request.getSession().removeAttribute(email+"");
+		}
+		response.getWriter().print(result);
 	}
 
 	/**

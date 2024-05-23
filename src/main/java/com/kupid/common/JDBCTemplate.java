@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+import com.kupid.common.JDBCTemplate;
 
 public class JDBCTemplate {
 	public static Connection getConnection() {

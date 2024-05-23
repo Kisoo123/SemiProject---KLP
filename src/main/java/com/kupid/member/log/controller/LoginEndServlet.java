@@ -1,4 +1,4 @@
-package com.kupid.member.controller;
+package com.kupid.member.log.controller;
 
 import java.io.IOException;
 
@@ -17,14 +17,14 @@ import com.kupid.member.model.service.MemberService;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet(name="login",urlPatterns="/login.do")
-public class LoginServlet extends HttpServlet {
+@WebServlet(urlPatterns="/loginEnd.do")
+public class LoginEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public LoginEndServlet() {
         super();
     }
 
@@ -70,7 +70,6 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

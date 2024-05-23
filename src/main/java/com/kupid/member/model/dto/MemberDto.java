@@ -39,5 +39,4 @@ public class MemberDto {
 	private String serialkey;//membership 시리얼키
 	private Date startday;//membership 시작일
 	private Date endday;//membership 종료일
-
 }

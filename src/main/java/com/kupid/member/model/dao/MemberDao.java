@@ -41,7 +41,63 @@ public class MemberDao {
 			close(pstmt);
 		}return m;
 	}
-		
+	//닉네임 중복 조회: count(*)
+	public int checkNickname(Connection conn, String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("checkNickname"));
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
+	}
+	//아이디 중복 조회
+	public int checkId(Connection conn, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("checkId"));
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
+	}
+	public int insertMember(Connection conn, MemberDto m) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result =0;
+		try{
+			//(seq_member_no.nextval,'abcde','1234','아무개','M','01012345678',주소, 상세주소,이메일,생일,'닉네임','소개(디폴트',기본프로필DEFAULT, 회원등급일반DEFAULT, 등록일DEFAULT, 아티스트그룹번호 null);
+			pstmt = conn.prepareStatement(sql.getProperty("insertMember"));
+			pstmt.setString(1, m.getMemberId());
+			pstmt.setString(2, m.getMemberPw());
+			pstmt.setString(3, m.getMemberName());
+			pstmt.setString(4, m.getGender());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getAddressDetail());
+			pstmt.setString(8, m.getEmail());
+			pstmt.setDate(9, m.getBirth());
+			pstmt.setString(10, m.getNickname());
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
+	}
 	public static MemberDto memberBuilder(ResultSet rs) throws SQLException {
 //		String email,phone,addressDetail,address,memberPw;
 //					try {

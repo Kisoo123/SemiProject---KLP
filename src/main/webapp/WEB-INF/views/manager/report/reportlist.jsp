@@ -3,6 +3,7 @@
 <%@ page import="java.util.List,com.kupid.manager.report.model.dto.Report" %>    
 <%
 	List<Report> report=(List<Report>)request.getAttribute("report");
+
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
 %>
 <!DOCTYPE html>
@@ -42,35 +43,74 @@ ul li:hover{
 ul li:hover > a{
    color:#FFF; /* 글자색*/
 }
+.report-container{
+	display: flex;
+	
+}
+.report-sec{
+	width:85%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.table-size{
+	width:85%;
+	height:650px;
+	font-size:30px;
+	border :1px solid blue;
+}
+.section{
+	width:95%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 </style>
 </head>
 <body>
+<div class="report-container">
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
+	<div class="report-sec">
 	<h1>신고 내역</h1>
-	<table>
+	<section class="section">
+	<table class="table-size">
 		<tr>
 			<th>신고번호</th>
 			<th>카테고리</th>
-			<th>신고내용</th>
+			<th>신고한회원</th>
+			<th>신고받은회원</th>
 			<th>신고날짜</th>
-			<th>신고레벨</th>
+			<th>처리결과</th>
 		</tr>
 	
 		<%if(report!=null){ %>
 			<%for(Report rp : report){ %>
 			<tr>
-				<td><%=rp.getReportNo() %></td>
-				<td><%=rp.getReportCategory()%></td>
-				<td><%=rp.getReportContent() %></td>
-				<td><%=rp.getReportDate() %></td>
-				<td><%=rp.getReportLevel() %></td>
-				<td><button>???</button></td>
+				<td style="text-align:center;"><%=rp.getReportNo() %></td>
+				<td style="text-align:center;"><%=rp.getReportCategory()%></td>
+				<td style="text-align:center;"><%=rp.getReportingId()%></td>
+				<td style="text-align:center;"><%=rp.getReportedId() %></td>
+				<td style="text-align:center;"><%=rp.getReportDate() %></td>	
+				<td style="text-align:center;">
+				<%if(rp.getReportResult()!=null){ %>
+					<%=rp.getReportResult() %>
+				<%}else{ %>
+					<p>처리중...</p>
+				<%} %>
+				
+				</td>	
+				<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/reportview.do?no=<%=rp.getReportNo()%>')">(상세내용)처리</button></td>
 			</tr>
 			<%} 
 		}else{%>
 			<span>신고내역이 없습니다</span>
 		<%} %>
 	</table>
+	</section>
 		<div><%=pagebar %></div>
-	
+		</div>
+	</div>
 </body>
 </html>

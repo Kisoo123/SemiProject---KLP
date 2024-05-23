@@ -12,11 +12,14 @@ CREATE TABLE MEMBER (
     nickname VARCHAR2(50) NOT NULL,
     introduce VARCHAR2(300) DEFAULT '안녕하세요! 반가워요!' NOT NULL,
     profile_img_Oriname VARCHAR2(50) DEFAULT '기본프로필.png',
-    member_grade VARCHAR2(20) DEFAULT '회원' CHECK (member_grade IN ('회원', '아티스트', '관리자')),
+    member_grade VARCHAR2(20) DEFAULT '회원' CHECK (member_grade IN ('회원', '아티스트', '관리자','탈퇴')),
     enroll_date DATE DEFAULT SYSDATE,
     UNIQUE (member_id),
     UNIQUE (nickname)
 );
+INSERT TABLE MEMBER INTO member_grade VALUES('탈퇴');
+CHECK (member_grade IN ('회원', '아티스트', '관리자','탈퇴'))
+
 
 ALTER TABLE member MODIFY (nickname VARCHAR2(50));
 
@@ -55,6 +58,36 @@ INSERT INTO MEMBER VALUES (seq_member_no.nextval,'admin','1234','관리자','F',
 --INSERT INTO MEMBER VALUES (seq_member_no,'admin','1234','관리자','F',"","",'admin@naver.com','01012345678',to_date('96/07/05','RR/MM/DD'),'관리자','',DEFAULT,'관리자',to_date('24/05/05','RR/MM/DD'));
 
 --일반회원(등록완료)
-INSERT INTO MEMBER VALUES (seq_member_no.nextval,'abcde','1234','아무개','M','01012345678',null, NULL,'abcde@naver.com',to_date('99/07/05','RR/MM/DD'),'닉네임아무개','안녕하세요, 아무개입니당..',DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO MEMBER VALUES (seq_member_no.nextval,'qwerty','asdf','김말년','M','01098765432',null,null,'qwerty@naver.com',to_date('93/02/05','RR/MM/DD'),'김말이','김말이는 맛있어',DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO MEMBER VALUES (seq_member_no.nextval,'hihiroo','1234','김안녕','F','01023454635',null,null,'hihiroo@naver.com',to_date('99/12/05','RR/MM/DD'),'heyHi','모두들 안녕하신가요',DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO MEMBER VALUES (seq_member_no.nextval,'abcde','1234','아무개','M','01012345678',null, NULL,'abcde@naver.com',to_date('99/07/05','RR/MM/DD'),'닉네임아무개','안녕하세요, 아무개입니당..',DEFAULT, DEFAULT, DEFAULT,DEFAULT);
+INSERT INTO MEMBER VALUES (seq_member_no.nextval,'qwerty','asdf','김말년','M','01098765432',null,null,'qwerty@naver.com',to_date('93/02/05','RR/MM/DD'),'김말이','김말이는 맛있어',DEFAULT, DEFAULT, DEFAULT,DEFAULT);
+INSERT INTO MEMBER VALUES (seq_member_no.nextval,'hihiroo','1234','김안녕','F','01023454635',null,null,'hihiroo@naver.com',to_date('99/12/05','RR/MM/DD'),'heyHi','모두들 안녕하신가요',DEFAULT, DEFAULT, DEFAULT,DEFAULT);
+INSERT INTO MEMBER VALUES (seq_member_no.nextval,'abcdeFG','1234','아무개','M','01012345678',null, NULL,'abcde@naver.com',to_date('99/07/05','RR/MM/DD'),'닉네임아123','안녕하세요, 아무개입니당..',DEFAULT, '탈퇴', DEFAULT,DEFAULT);
+
+SELECT constraint_name
+FROM user_constraints
+WHERE table_name = 'MEMBER'
+AND constraint_type IN ('C');
+
+SELECT
+    uc.constraint_name,
+    uc.table_name AS referencing_table,
+    ucc.column_name AS referencing_column
+FROM
+    user_constraints uc
+JOIN
+    user_cons_columns ucc
+ON
+    uc.constraint_name = ucc.constraint_name
+WHERE
+    uc.constraint_type = 'R'
+AND
+    uc.r_constraint_name = 'MEMBER_MEMBER_GRADE_C';
+   
+ALTER TABLE MEMBER DROP CONSTRAINT MEMBER_MEMBER_GRADE_C; 제약조건 삭제 하는 구문
+
+
+
+
+
+
+

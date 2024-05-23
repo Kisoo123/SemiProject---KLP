@@ -8,6 +8,7 @@ import static com.kupid.common.JDBCTemplate.commit;
 import static com.kupid.common.JDBCTemplate.rollback;
 import static com.kupid.common.JDBCTemplate.close;
 
+import com.kupid.manager.penalty.model.dto.Penalty;
 import com.kupid.manager.report.model.dao.ReportDAO;
 import com.kupid.manager.report.model.dto.Report;
 
@@ -23,6 +24,7 @@ public class ReportService {
 		return report;
 	}
 	
+	
 	public int selectReportAllCount() {
 		Connection conn=getConnection();
 		int result=dao.selectReportAllCount(conn);
@@ -30,5 +32,23 @@ public class ReportService {
 		return result;
 	}
 	
+	public Report selectReportByNo(int no) {
+		Connection conn=getConnection();
+		Report report=dao.selectReportByNo(conn,no);
+		close(conn);
+		return report;
+	}
+	
+	public int insertPenalty(Penalty p) {
+		Connection conn=getConnection();
+		int result=dao.insertPenalty(conn,p);
+		if(result>0) {
+			dao.updateReportResult(conn,p);
+			commit(conn);
+		}
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 	
 }

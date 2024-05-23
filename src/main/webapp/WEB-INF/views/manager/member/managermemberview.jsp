@@ -17,9 +17,7 @@
 	display: flex;
 	width: 100%;
 }
-.input_box p{
-	margin-top:2px;
-}
+
 </style>
 <!-- 임시디자인 -->
 

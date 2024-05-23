@@ -17,7 +17,6 @@ public class MemberService {
 		Connection conn=getConnection();
 		MemberDto m=dao.selectMemberById(conn, userId);
 		if(m==null||!m.getMemberPw().equals(password)) m=null;
-		
 		close(conn);
 		return m;
 	}

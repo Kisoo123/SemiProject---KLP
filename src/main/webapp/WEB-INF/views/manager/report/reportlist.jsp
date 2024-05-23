@@ -42,17 +42,45 @@ ul li:hover{
 ul li:hover > a{
    color:#FFF; /* 글자색*/
 }
+.report-container{
+	display: flex;
+	
+}
+.report-sec{
+	width:85%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.table-size{
+	width:85%;
+	height:650px;
+	font-size:30px;
+	border :1px solid blue;
+}
+.section{
+	width:95%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 </style>
 </head>
 <body>
+<div class="report-container">
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
+	<div class="report-sec">
 	<h1>신고 내역</h1>
-	<table>
+	<section class="section">
+	<table class="table-size">
 		<tr>
 			<th>신고번호</th>
 			<th>카테고리</th>
-			<th>신고내용</th>
+			<th>신고한회원</th>
+			<th>신고받은회원</th>
 			<th>신고날짜</th>
-			<th>신고레벨</th>
 		</tr>
 	
 		<%if(report!=null){ %>
@@ -60,17 +88,20 @@ ul li:hover > a{
 			<tr>
 				<td><%=rp.getReportNo() %></td>
 				<td><%=rp.getReportCategory()%></td>
-				<td><%=rp.getReportContent() %></td>
+				<td><%=rp.getReportingMember() %></td>
+				<td><%=rp.getReportedId() %></td>
 				<td><%=rp.getReportDate() %></td>
-				<td><%=rp.getReportLevel() %></td>
-				<td><button>???</button></td>
+				
+				<td><button>(상세내용)처리</button></td>
 			</tr>
 			<%} 
 		}else{%>
 			<span>신고내역이 없습니다</span>
 		<%} %>
 	</table>
+	</section>
 		<div><%=pagebar %></div>
-	
+		</div>
+	</div>
 </body>
 </html>

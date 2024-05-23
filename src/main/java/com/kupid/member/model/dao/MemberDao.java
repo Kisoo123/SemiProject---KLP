@@ -41,7 +41,40 @@ public class MemberDao {
 			close(pstmt);
 		}return m;
 	}
-		
+	//닉네임 중복 조회: count(*)
+	public int checkNickname(Connection conn, String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("checkNickname"));
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
+	}
+	//아이디 중복 조회
+	public int checkId(Connection conn, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("checkId"));
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result; 
+	}
 	public static MemberDto memberBuilder(ResultSet rs) throws SQLException {
 //		String email,phone,addressDetail,address,memberPw;
 //					try {

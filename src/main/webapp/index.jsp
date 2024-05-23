@@ -8,7 +8,6 @@
 </head>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>  
 	안녕하세요 12321ㅇㅈㅇㄴㅁㅇㅇㄴㄴ
 	 
 	<div>

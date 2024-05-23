@@ -7,8 +7,8 @@ CREATE TABLE subscribe (
 
 SELECT * from subscribe;
 SELECT * from ARTIST_GROUP ;
-
 SELECT * from MEMBER;
+
 CREATE SEQUENCE seq_subscribe_no
 nocache
 nocycle;
@@ -44,3 +44,9 @@ where member_id='qwerty';
 select member_no, member_id, group_name, group_img from member 
 					left JOIN SUBSCRIBE using(member_no) 
 					right JOIN ARTIST_GROUP ON subscribe.GROUP_NO = artist_group.GROUP_NO;
+
+ALTER TABLE MEMBER DROP CONSTRAINT 제약조건명 제약조건(컬럼명)
+
+SELECT UC.CONSTRAINT_NAME, UC.TABLE_NAME, CONSTRAINT_TYPE, COLUMN_NAME
+FROM USER_CONSTRAINTS UC JOIN USER_CONS_COLUMNS UCC ON UC.CONSTRAINT_NAME = UCC.CONSTRAINT_NAME
+WHERE UC.TABLE_NAME = 'member'; 

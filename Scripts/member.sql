@@ -9,7 +9,7 @@ CREATE TABLE MEMBER (
     address_detail varchar2(200),
     email VARCHAR2(20) NOT NULL,
     birth DATE NOT NULL,
-    nickname VARCHAR2(20) NOT NULL,
+    nickname VARCHAR2(50) NOT NULL,
     introduce VARCHAR2(300) DEFAULT '안녕하세요! 반가워요!' NOT NULL,
     profile_img_Oriname VARCHAR2(50) DEFAULT '기본프로필.png',
     member_grade VARCHAR2(20) DEFAULT '회원' CHECK (member_grade IN ('회원', '아티스트', '관리자')),
@@ -18,7 +18,7 @@ CREATE TABLE MEMBER (
     UNIQUE (nickname)
 );
 
-
+ALTER TABLE member MODIFY (nickname VARCHAR2(50));
 
 COMMENT ON COLUMN member.member_no IS '회원번호';
 COMMENT ON COLUMN member.member_id IS '회원아이디';

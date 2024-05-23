@@ -45,9 +45,10 @@
                             <div class="input_box">
 	                            <p><%=r.getReportDate() %></p>
                             </div>
-                            
                             <br>
                             <form action="<%=request.getContextPath()%>/manager/penalty.do" method="post">
+                            	<input type="hidden" name="reportNo" value="<%=r.getReportNo()%>">
+                            	<input type="hidden" name="memberNo" value="<%=r.getReportedMember()%>">
 	                            <div class="input_box" style="height:200px">
 		                            <h3>신고받은 회원<h4><%=r.getReportedId() %></h4></h3>
 		                            penalty 선택 :

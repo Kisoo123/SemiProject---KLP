@@ -162,7 +162,7 @@
   position: relative;
   margin: 8px 0px 0px;
   min-width: 0px;
-  height: 20px;
+
   border-radius: 8px 8px 8px 8px;
   padding: 8px 16px 8px 16px;
   outline: 1px solid #e0e0e0;
@@ -339,7 +339,7 @@
                   <button class="<%=pagenum==4?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/inquirylist.do?pagenum=4')">
                     <h3>1:1문의</h3>
                 </button>
-                 <button class="<%=pagenum==5?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/report/reportList.do?pagenum=5')">
+                 <button class="<%=pagenum==5?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/reportlist.do?pagenum=5')">
                     <h3>신고내역</h3>
                 </button>
            </div>

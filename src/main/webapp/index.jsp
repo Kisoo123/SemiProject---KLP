@@ -10,7 +10,7 @@
 <body>
 
 	안녕하세요 12321ㅇㅈㅇㄴㅁㅇㅇㄴㄴ
-	
+	 
 	<div>
 	<% if(loginMember == null){ %>
 		<button onclick="location.assign('<%=request.getContextPath()%>/login.do')">로그인</button>

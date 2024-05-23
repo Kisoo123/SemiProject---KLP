@@ -201,7 +201,7 @@ const test = ()=>{
 	                    initializeCarousel(img_list);
 	                }
 
-	                $div.append('<br>' + '<button id="">' + '좋아요' + '</button>');
+	                $div.append('<br>' + '<button class="likes">' + '좋아요' + '</button>');
 	                $div.append('<br>' + '<button class="comment">' + '댓글' + '</button>');
 	                $div.append('<br>' + '<button class="reportBt">' + '신고' + '</button>');
 	                $(container).append($div);

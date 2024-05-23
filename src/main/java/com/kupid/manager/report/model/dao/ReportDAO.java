@@ -71,25 +71,26 @@ public class ReportDAO {
 		return result;
 	}
 	
-//	public List<Report> selectReporting(Connection conn) {
-//		PreparedStatement pstmt=null;
-//		ResultSet rs=null;
-//		List<Report> report=new ArrayList<Report>();
-//		try {
-//			pstmt=conn.prepareStatement(sql.getProperty("selectReporting"));
-//			rs=pstmt.executeQuery();
-//			while(rs.next()) {
-//				report.add(Report.builder().reportingId(rs.getString("member_id")).build());
-//			}
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			close(pstmt);
-//			close(rs);
-//		}
-//		System.out.println(report);
-//		return report;
-//	}
+	public Report selectReportByNo(Connection conn,int no) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Report report=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectReportByNo"));
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				report=getReport(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return report;
+	}
+	
 	
 	
 	public static Report getReport(ResultSet rs) throws SQLException {

@@ -23,12 +23,6 @@ public class ReportService {
 		return report;
 	}
 	
-//	public List<Report> selectReporting() {
-//		Connection conn=getConnection();
-//		List<Report> report=dao.selectReporting(conn);
-//		close(conn);
-//		return report;
-//	}
 	
 	public int selectReportAllCount() {
 		Connection conn=getConnection();
@@ -37,5 +31,11 @@ public class ReportService {
 		return result;
 	}
 	
+	public Report selectReportByNo(int no) {
+		Connection conn=getConnection();
+		Report report=dao.selectReportByNo(conn,no);
+		close(conn);
+		return report;
+	}
 	
 }

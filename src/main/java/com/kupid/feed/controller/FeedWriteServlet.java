@@ -38,6 +38,7 @@ public class FeedWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				//파일업로드 경로
 				String path=getServletContext().getRealPath("/upload/feed");
+				System.out.println(path);
 				File dir=new File(path);
 				if(!dir.exists()) dir.mkdirs();
 				
@@ -51,6 +52,7 @@ public class FeedWriteServlet extends HttpServlet {
 				DefaultFileRenamePolicy dfrp=new DefaultFileRenamePolicy();
 				
 				//멀티파트 리퀘스트 객체 만들기
+				
 				MultipartRequest mr=new MultipartRequest(request,path,maxSize,encode,dfrp);
 				
 				//나머지 정보를 가져오기
@@ -67,19 +69,22 @@ public class FeedWriteServlet extends HttpServlet {
 				
 				while(formNames.hasMoreElements()) {
 				
-					//원본파일명
-					String oriname=mr.getOriginalFileName("upfile");
-					//리네임파일명
-					String rename=mr.getFilesystemName("upfile");
-					String filePath = request.getContextPath()+"/upload/feed"+"/"+rename;
+//					//원본파일명
+//					String oriname=mr.getOriginalFileName("upfile");
+//					//리네임파일명
+//					String rename=mr.getFilesystemName("upfile");
+//					String filePath = request.getContextPath()+"/upload/feed"+"/"+rename;
 					
 					
 					String name = formNames.nextElement();
 					String fileSavePath = request.getContextPath()+ "/upload/feed" + File.separator + name;
 					
 					
+					System.out.println(name + "name");
+					System.out.println(fileSavePath + "fileSavePath");
 	//				int fileResult = new FeedService().insertFile(filePath);
 					fileNames.add(fileSavePath);
+					
 				}
 				
 				new FeedService().insertProcess(f, fileNames);

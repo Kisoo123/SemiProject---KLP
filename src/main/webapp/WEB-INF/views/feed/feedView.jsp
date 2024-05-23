@@ -2,11 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.List,java.text.SimpleDateFormat
 ,com.kupid.feed.model.dto.Feed
-,com.kupid.feed.model.service.FeedService"  %>
+,com.kupid.feed.model.service.FeedService
+,com.kupid.member.model.dto.MemberDto"  %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<% MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");%>
+
 <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <title>Insert title here</title>
 </head>
@@ -21,6 +24,8 @@
 				<textarea class="form-control" cols="40" rows="5" name="content" id="content"></textarea>
 			</div>
 			<button type="submit">제출</button>
+				<button onclick="test()">테스트용 버튼</button>
+			
 		</form>
 <%-- <a onclick = "likeClick()"> 좋아요 <%= %></a> --%>
 	</div> 
@@ -39,7 +44,6 @@
 	
 	<div class="container" id="container">
 	</div>  
-	
     
 </body>
 <style>
@@ -106,6 +110,9 @@
 }
 </style>
 <script>
+const test = ()=>{
+	console.log(<%=loginMember.getMemberNo()%>);
+}
 /* $("#submitButton").click(e=>{
 	const form = new FormData();
 	const files = ($("#upfile")[0].files);
@@ -115,7 +122,6 @@
 	form.append("content",$("#content".val))
 	console.log(form);
 }) */
-$("")
 
 	function submitFeed() {
 		$.each($('#upfile')[0].files, function(idx, file) {
@@ -196,6 +202,7 @@ $("")
 	                }
 
 	                $div.append('<br>' + '<button id="">' + '좋아요' + '</button>');
+	                $div.append('<br>' + '<button class="comment">' + '댓글' + '</button>');
 	                $(container).append($div);
 	            });
 	            time = true;
@@ -206,7 +213,94 @@ $("")
 	        }
 	    });
 	}
+   
+   $(document).on("click", "button.comment", function(e) {
+	    const $parent = $(e.target).parent();
+	    const existingDiv = $parent.find('.comment-container');
 
+	    if (existingDiv.length > 0) {
+	        existingDiv.remove();
+	    } else {
+	        const newDiv = $("<div>").addClass('comment-container').css("border", "1px solid red");
+	        const commentBt = $("<a>").text("등록").addClass('commentBt');
+	        const innerDiv = $("<div>").css("border", "1px solid blue");
+	        const textArea = $("<textarea>").css("width", "80%")
+			
+	        innerDiv.append(textArea);
+	        innerDiv.append(commentBt);
+	        newDiv.append(innerDiv);
+	        $parent.append(newDiv);
+	    }
+	});
+   
+   $(document).on("click", "a.commentBt", function(e) {
+	    const $button = $(e.target);
+	    const $board = $button.closest('.board');
+	    const $feedNo = $board.find('.feedNo');
+	    const $textArea = $button.closest('div').find('textarea');
+
+	    let commentText = $textArea.val();
+	    const feedNoText = $feedNo.text();
+
+	    ajaxComment(commentText, feedNoText);
+
+	    $textArea.val("");
+	});
+
+	const ajaxComment = (commentText, feedNoText) => {
+	    $.ajax({
+	        type: "POST",
+	        url: "<%=request.getContextPath()%>/feed/feedcomment.do",
+	        data: {
+	            "loginMember":"<%=loginMember.getMemberNo()%>"
+	            ,  
+	            "commentText": commentText,
+	            "feedNoText": feedNoText
+	        },
+	        success: function() {
+	            selectComment(feedNoText);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('Error submitting comment:', error);
+	        }
+	    });
+	};
+	
+	
+
+	const selectComment = (feedNoText) => {
+	    $.ajax({
+	        type: "POST",
+	        url: "<%=request.getContextPath()%>/feed/feedcomment.do",
+	        data: {
+	            "feedNo": feedNoText
+	        },
+	        success: function(data) {
+	            const $commentContainer = $('.board .comment-container');
+	            $commentContainer.empty(); 
+
+	            $.each(data, function(idx, element) {
+	                const $commentDiv = $("<div>").css({
+	                    "border": "1px solid red",
+	                    "width": "800px",
+	                    'overflow': 'hidden'
+	                }).addClass("comment-item");
+
+	                $commentDiv.append('<h3>' + element.replyNumber + '</h3>');
+	                $commentDiv.append('<h3>' + element.feedNo + '</h3>');
+	                $commentDiv.append('<h3>' + element.replyDate + '</h3>');
+	                $commentDiv.append('<h3>' + element.likes + '</h3>');
+	                $commentDiv.append('<h3>' + element.memberNo + '</h3>');
+	                $commentDiv.append('<h3>' + element.replyContent + '</h3>');
+
+	                $commentContainer.append($commentDiv);
+	            });
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('Error fetching comments:', error);
+	        }
+	    });
+	};
    const initializeCarousel = (carousel) => {
 	    const imgListBt = carousel.find('.img_listBt');
 	    const slides = imgListBt.children();

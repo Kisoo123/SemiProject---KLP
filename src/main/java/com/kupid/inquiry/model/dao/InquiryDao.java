@@ -15,7 +15,8 @@ import com.kupid.manager.inquiry.model.dao.InquiryDAO;
 public class InquiryDao {
 	private Properties sql= new Properties();
 	{
-		String path=InquiryDAO.class.getResource("/sql/inquiry/inquiry.properties").getPath();
+		String path=InquiryDao.class.getResource("/sql/inquiry/sql_inquiry.properties").getPath();
+		
 		try(FileReader fr=new FileReader(path)){
 			sql.load(fr);
 		}catch(IOException e) {

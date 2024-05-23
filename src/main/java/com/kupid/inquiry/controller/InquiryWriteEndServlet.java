@@ -67,7 +67,7 @@ public class InquiryWriteEndServlet extends HttpServlet {
 		String title=mr.getParameter("title");
 		String content=mr.getParameter("content");
 		int inq_member=Integer.parseInt(mr.getParameter("inq_member"));
-		int inq_no=Integer.parseInt(mr.getParameter("inq_no"));
+	
 		//업로드된 파일정보
 		//원본파일명
 		String oriname=mr.getOriginalFileName("upfile");
@@ -76,15 +76,11 @@ public class InquiryWriteEndServlet extends HttpServlet {
 		System.out.println(title+content+oriname+rename); 
 		
 		//파일 저장하기
-		InquiryDto n=InquiryDto.builder()
-				.inqTitle(title)
-				.inqContent(content)
-				.inqFile(rename)
-				.inq_Member(inq_member)
-//				.inq_Date(null)
-//				.inq_No(inq_no)
-				.build();
-				
+		/*
+		 * InquiryDto n=InquiryDto.builder() .inqTitle(title) .inqContent(content)
+		 * .inqFile(rename) .inq_Member(inq_member) // .inq_Date(null) //
+		 * .inq_No(inq_no) .build();
+		 */
 				
 				
 		int result=new InquiryService().insertInquiry(title,content,rename,inq_member);

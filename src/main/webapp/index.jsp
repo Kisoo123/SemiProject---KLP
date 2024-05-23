@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<%@include file="\WEB-INF\views\common\header.jsp" %>
 <body>
 
 	안녕하세요 12321ㅇㅈㅇㄴㅁㅇㅇㄴㄴ

@@ -32,7 +32,7 @@
 		</tr>
 		<tr>
 			<th>회원 번호</th>
-		<td><input class="form-control" type="number" name="inq_member" value="<%=loginMember.getMemberNo()%>"></td>
+		<td><input class="form-control" type="text" name="inq_member" value="<%=loginMember.getMemberNo()%>"></td>
 		</tr>
 		
 			

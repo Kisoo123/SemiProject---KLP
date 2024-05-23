@@ -43,11 +43,13 @@
             margin: 0 5px;
         }
         .faq-section {
+            text-align: center;
   		    padding: 20px;
 		}
 		
 		.faq-section h1 {
 		    text-align: left;
+            text-align: center;
 		}
 		
 		.faq-buttons {
@@ -114,11 +116,7 @@
     </div>
 
     <script src="scripts.js"></script>
-    <div class="pagination">
-        <button type="button" onclick="prevPage()">이전</button>
-     
-        <button type="button" onclick="nextPage()">다음</button>
-    </div>
+ 
     <script>
         // 검색 기능 구현 
         function searchProblem() {
@@ -129,31 +127,17 @@
 
         // 버튼 클릭 이벤트
         function handlePayment() {
-            alert('결제관련 도움말로 이동');
+            alert('회원관련 도움말로 이동');
         }
 
         function handleAccount() {
-            alert('계정관련 도움말로 이동');
-        }
-
-        function handleDelivery() {
-            alert('배송관련 도움말로 이동');
+            alert('상점관련 도움말로 이동');
         }
 
         function handleCommunity() {
             alert('커뮤니티 관련 도움말로 이동');
         }
 
-        
-        function prevPage() {
-            // 이전 페이지로 이동하는 로직 구현
-            alert('이전 페이지로 이동');
-        }
-
-        function nextPage() {
-            // 다음 페이지로 이동하는 로직 구현
-            alert('다음 페이지로 이동');
-        }
         const faqData = {
         	    member: [
         	        "회원 가입 방법",

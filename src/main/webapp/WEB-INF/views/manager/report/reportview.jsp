@@ -45,14 +45,20 @@
                             <div class="input_box">
 	                            <p><%=r.getReportDate() %></p>
                             </div>
+                            
                             <br>
-                            <div class="input_box" style="height:200px">
-                            <h3>신고받은 회원<h4><%=r.getReportedId() %></h4></h3>
-                            <input type="radio" name="penalty" value="stop">정지
-                            <input type="radio" name="penalty" value="withdraw">탈퇴
-                            <br>
-	                		<button class="btn btn_chane_img">처리</button>
-	                		</div>
+                            <form action="<%=request.getContextPath()%>/manager/penalty.do" method="post">
+	                            <div class="input_box" style="height:200px">
+		                            <h3>신고받은 회원<h4><%=r.getReportedId() %></h4></h3>
+		                            penalty 선택 :
+		                            <input type="radio" name="penalty" value="stop">정지
+		                            <input type="radio" name="penalty" value="unactive">탈퇴
+		                            <input type="radio" name="penalty" value="pass">pass
+		                            <br><br>
+		                            <p><button type="submit" class="btn btn_chane_img">처리</button></p>
+		                		</div>
+			             
+	                		</form>
                         </div>
           
                     </div>

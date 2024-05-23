@@ -4,7 +4,29 @@ SELECT * FROM MEMBER m JOIN SUBSCRIBE S USING(MEMBER_NO) JOIN ARTIST_GROUP AG ON
 SELECT * FROM SUBSCRIBE;
 SELECT * FROM MEMBERSHIP;
 SELECT * FROM REPORT;
-SELECT * FROM PENALTY;
+SELECT * FROM "MEMBER";
+
+SELECT constraint_name
+FROM user_constraints
+WHERE table_name = 'MEMBER'
+AND constraint_type IN ('C');
+
+SELECT
+    uc.constraint_name,
+    uc.table_name AS referencing_table,
+    ucc.column_name AS referencing_column
+FROM
+    user_constraints uc
+JOIN
+    user_cons_columns ucc
+ON
+    uc.constraint_name = ucc.constraint_name
+WHERE
+    uc.constraint_type = 'R'
+AND
+    uc.r_constraint_name = 'SYS_C007727';
+   
+ALTER TABLE MEMBER DROP CONSTRAINT SYS_C007727;
 
 SELECT MEMBER_ID FROM REPORT RE LEFT JOIN MEMBER ON MEMBER_NO=REPORTED_MEMBER;
 SELECT MEMBER_ID FROM REPORT RE LEFT JOIN MEMBER ON MEMBER_NO=REPORTING_MEMBER;
@@ -15,10 +37,25 @@ CREATE TABLE PENALTY(
 	PENALTY_NO PRIMARY KEY,
 	REPORT_NO REFERENCES REPORT(REPORT_NO),
 	MEMBER_NO REFERENCES MEMBER(MEMBER_NO),
-	PENALTY_CATEGORY CHECK IN('unactive','resign'),
+	PENALTY_CATEGORY CHECK IN('unactive','resign','pass'),
 	PENALTY_START_DATE DATE DEFAULT SYSDATE,
 	PENALTY_END_DATE DATE
 );
 
+ALTER TABLE MEMBER DROP CONSTRAINT 
+
+ALTER TABLE MEMBER
+ADD CONSTRAINT MEMBER_MEMBER_GRADE_C CHECK (member_grade IN ('회원', '아티스트', '관리자', '탈퇴'));
+
+ALTER TABLE REPORT ADD REPORT_RESULT VARCHAR(100);
+
 CREATE SEQUENCE SEQ_PENALTY;
 
+select *
+from ALL_CONSTRAINTS 
+where table_name = MEMBER;
+
+DROP TABLE REPORT;
+
+SELECT * FROM "MEMBER";
+INSERT INTO MEMBER VALUES (seq_member_no.nextval,'abcdeFG','1234','아무개','M','01012345678',null, NULL,'abcde@naver.com',to_date('99/07/05','RR/MM/DD'),'닉네임아123','안녕하세요, 아무개입니당..',DEFAULT, '탈퇴', DEFAULT,DEFAULT);

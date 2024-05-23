@@ -21,5 +21,6 @@ public class Report {
 	private String reportResource;
 	private String reportedId;
 	private String reportingId;
+	private String reportResult;
 
 }

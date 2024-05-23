@@ -216,9 +216,7 @@ const test = ()=>{
 	}
    
    $(document).on("click", "button.reportBt", function() {
-	   $.ajax({
-		   url:
-	   })
+	   let popup = window.open("<%=request.contextPath()%>/WEB-INF/views/feed/feedView.jsp")
 	});
    
    $(document).on("click", "button.comment", function(e) {

@@ -16,7 +16,7 @@
 <body>
 	<div>
 		 <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();">
-			<%-- <input type ="hidden" name="writer" value="<%=로그인정보%>"> --%>
+			<input type ="hidden" name="writer" value="<%=loginMember.getMemberId()%>">
 			<div>
 				<input type ="file" id="upfile" multiple>
 			</div>
@@ -203,6 +203,7 @@ const test = ()=>{
 
 	                $div.append('<br>' + '<button id="">' + '좋아요' + '</button>');
 	                $div.append('<br>' + '<button class="comment">' + '댓글' + '</button>');
+	                $div.append('<br>' + '<button class="reportBt">' + '신고' + '</button>');
 	                $(container).append($div);
 	            });
 	            time = true;
@@ -213,6 +214,16 @@ const test = ()=>{
 	        }
 	    });
 	}
+   
+   $(document).on("click", "button.reportBt", function(e) {
+	    const $button = $(e.target);
+	    const $board = $button.closest('.board');
+	    const $feedNo = $board.find('.feedNo');
+	    const feedNoText = $feedNo.text();
+	    
+	    let url = '<%=request.getContextPath()%>/feed/feedreportview.do?feedno=' + feedNoText;
+	    let popup = window.open(url, "popup", "width=400, height=300, left=100, top=50");
+	});
    
    $(document).on("click", "button.comment", function(e) {
 	    const $parent = $(e.target).parent();

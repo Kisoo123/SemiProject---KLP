@@ -1,4 +1,4 @@
-package com.kupid.mypage.info.controller;
+package com.kupid.feed.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import com.kupid.member.model.service.MemberService;
+
 /**
- * Servlet implementation class MyInfoEmailCheckEndServlet
+ * Servlet implementation class FeedReportServlet
  */
-@WebServlet("/mypage/emailCheckEnd.do")
-public class MyInfoEmailCheckEndServlet extends HttpServlet {
+@WebServlet("/feed/feedreportview.do")
+public class FeedReportViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyInfoEmailCheckEndServlet() {
+    public FeedReportViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,27 +29,18 @@ public class MyInfoEmailCheckEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
-		System.out.println("사용자 번호 : "+no);
+		int feedno = Integer.parseInt(request.getParameter("feedno"));
+		System.out.println(feedno);
+		request.setAttribute("feedno", feedno);
+		request.getRequestDispatcher("/WEB-INF/views/feed/feedReportView.jsp").forward(request, response);
 		
-		int code = (Integer)request.getSession().getAttribute(no+"");
-		System.out.println("인증코드 : " + code);
-		int value = Integer.parseInt(request.getParameter("value"));
-		System.out.println("사용자 입력값 : "+value);
-		
-		int result = 0;
-		if(value == code) {
-			result = 1;
-			System.out.println("이메일 인증완료");
-			request.getSession().removeAttribute(no+"");
-		}
-		response.getWriter().print(result);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

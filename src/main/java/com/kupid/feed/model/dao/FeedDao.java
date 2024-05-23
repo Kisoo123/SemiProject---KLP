@@ -28,6 +28,44 @@ public class FeedDao {
 		}
 	}
 
+	public int insertFeedReport(Connection conn, String category, String content, int reportMemberNo, int reportedMemberNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println(reportMemberNo+" "+reportedMemberNo);
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertFeedReport"));
+			pstmt.setInt(1,reportMemberNo);
+			pstmt.setInt(2,reportedMemberNo);
+			pstmt.setString(3,category);
+			pstmt.setString(4,content);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int selectMemberByFeedNo(Connection conn, int reportedfeedNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectMemberByFeedNo"));
+			pstmt.setInt(1,reportedfeedNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	public int insertLikes(Connection conn,int memberNo,int feedNo) {
 		PreparedStatement pstmt = null;
@@ -67,7 +105,7 @@ public class FeedDao {
 			return result;
 		}
 
-				public List<Reply> selectFeedComment(Connection conn,int feedNo){
+		public List<Reply> selectFeedComment(Connection conn,int feedNo){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<Reply> result = new ArrayList<>();
@@ -180,17 +218,18 @@ public class FeedDao {
 		return result;
 	}
 	
-	public int insertFeed(Connection conn, Feed f, int seq) {
+	public int insertFeed(Connection conn, Feed f, int seq,int memberNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertFeed"));
 			pstmt.setInt(1,seq);
-			pstmt.setString(2,"dsads");
-			pstmt.setString(3,f.getFeedContent());
-			pstmt.setInt(4,f.getLikes());
-			pstmt.setInt(5,f.getReport());
+			pstmt.setInt(2,memberNo);
+			pstmt.setString(3,f.getFeedWriterName());
+			pstmt.setString(4,f.getFeedContent());
+			pstmt.setInt(5,0);
+			pstmt.setInt(6,0);
 			
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
@@ -200,6 +239,25 @@ public class FeedDao {
 		}
 		return result;
 				
+	}
+	public int selectMemberNoById(Connection conn, String memberName) {
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		int memberNo=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectMemberNoById"));
+			pstmt.setString(1,memberName);
+			rs=pstmt.executeQuery();
+			rs.next();
+			memberNo=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return memberNo;
+		
 	}
 	
 	

@@ -74,7 +74,7 @@
             </tr>
         </thead>
         <tbody>
-            <% 
+ <%--            <% 
                 // 데이터베이스에서 FAQ 목록을 불러와야함
                 String[][] faqData = {
                     {"1", "카테고리 1", "제목 1", "2024-05-01", "100"},
@@ -96,7 +96,7 @@
                 <td><%= faqData[i][8] %></td>
                 <td><%= faqData[i][9] %></td>
             </tr>
-            <% } %>
+            <% } %> --%>
         </tbody>
     </table>
     <div class="pagination">
@@ -105,8 +105,10 @@
         <button type="button" onclick="nextPage()">다음</button>
     </div>
     <div class="footer">
-        <button type="button" onclick="contactSupport()">고객센터</button>
-        <button type="button" onclick="oneToOneInquiry()">1대1 문의</button>
+        <button type="button" 
+        onclick="location.assign('<%=request.getContextPath()%>/customer/customermain.do')">고객센터 바로가기</button>
+        <button type="button" 
+         onclick="location.assign('<%=request.getContextPath()%>/inquiry/inquiry.do')">1:1 문의하기</button>
     </div>
     <script>
      
@@ -128,15 +130,9 @@
             alert('다음 페이지로 이동');
         }
 
-        // 고객센터 버튼 클릭 이벤트
-        function contactSupport() {
-            alert('고객센터로 이동');
-        }
+  
 
-        // 1대1 문의 버튼 클릭 이벤트 
-        function oneToOneInquiry() {
-            alert('1대1 문의 페이지로 이동');
-        }
+
     </script>
 </body>
 </html>

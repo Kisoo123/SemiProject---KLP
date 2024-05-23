@@ -26,14 +26,15 @@
 			<td><input class="form-control" type="file" name="upfile" ></td>
 		</tr>
 		<tr>
+			<th>회원 번호</th>
+			<td><input class="form-control" type="text" name="inq_member" value="<%=loginMember.getMemberNo()%>"></td>
+		</tr>
+		<tr>
 			<th colspan="2">
 				<input class="form-control" type="submit" value ="접수하기"  onclick="">
 			</th>
 		</tr>
-		<tr>
-			<th>회원 번호</th>
-		<td><input class="form-control" type="text" name="inq_member" value="<%=loginMember.getMemberNo()%>"></td>
-		</tr>
+
 		
 			
 		

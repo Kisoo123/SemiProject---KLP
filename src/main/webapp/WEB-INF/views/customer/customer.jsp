@@ -106,13 +106,17 @@
             <button onclick="showFAQ('store')">상점</button>
             <button onclick="showFAQ('community')">커뮤니티</button>
         </div>
+        <div>
+        	<button class="btn btn-outline-primary" 
+        	onclick="location.assign('<%=request.getContextPath()%>/faq/faq.do')">FAQ 바로가기</button>
+        </div>
         <div id="faq-list" class="faq-list"></div>
     </div>
 
     <div class="help-section">
         <h2>도움이 필요하신가요?</h2>
         <button class="btn btn-outline-primary"
-        onclick="location.assign('<%=request.getContextPath()%>/inquiry/inquirywrite.do')">문의하기</button>
+        onclick="location.assign('<%=request.getContextPath()%>/inquiry/inquiry.do')">문의하기</button>
     </div>
 
     <script src="scripts.js"></script>

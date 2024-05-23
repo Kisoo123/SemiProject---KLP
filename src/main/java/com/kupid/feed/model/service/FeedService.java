@@ -13,9 +13,16 @@ import java.util.List;
 import com.kupid.feed.model.dao.FeedDao;
 import com.kupid.feed.model.dto.Feed;
 import com.kupid.feed.model.dto.LikeFeed;
+import com.kupid.feed.model.dto.Reply;
 public class FeedService {
 	private FeedDao dao = new FeedDao();
 	
+	public List<Reply> selectFeedComment(int feedNo) {
+		Connection conn = getConnection();
+		List<Reply> fc = dao.selectFeedComment(conn,feedNo);
+		close(conn);
+		return fc;
+	}
 	
 
 	public int switchingLikes(int memberNo,int feedNo) {
@@ -67,6 +74,14 @@ public class FeedService {
 //		return result;
 //	}
 //	
+	public int insertFeedComment(int loginMember,String comment,int feedNo) {
+		Connection conn = getConnection();
+		int result = dao.insertFeedComment(conn,loginMember,comment,feedNo);
+		close(conn);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
 	public List<Feed> selectFeedAll(int cPage,int numPerpage){
 		Connection conn=getConnection();
 		List<Feed> result=dao.selectFeedAll(conn,cPage,numPerpage);

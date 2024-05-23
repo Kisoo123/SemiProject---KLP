@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kupid.feed.model.dto.Feed;
+import com.kupid.feed.model.dto.Reply;
 import com.kupid.feed.model.service.FeedService;
 
 /**
- * Servlet implementation class InfiniteScrollServlet
+ * Servlet implementation class CommentSelectServlet
  */
-@WebServlet("/feed/InfiniteScroll.do")
-public class InfiniteScrollServlet extends HttpServlet {
+@WebServlet("/feed/selectcomment.do")
+public class CommentSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InfiniteScrollServlet() {
+    public CommentSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +32,14 @@ public class InfiniteScrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cPage=1;
-		try {
-			cPage=Integer.parseInt(request.getParameter("cPage"));
-		}catch(NumberFormatException e) {}
+		int feedNo =Integer.parseInt(request.getParameter("feedNo"));
+		List<Reply> fc = new FeedService().selectFeedComment(feedNo);
 		
-		int numPerpage=10;
-		try {
-			numPerpage=Integer.parseInt(request.getParameter("numPerpage"));			
-		}catch(NumberFormatException e) {}
-		
-		 List<Feed> feeds=new FeedService().selectFeedAll(cPage,numPerpage);
+		response.setContentType("application/json;charset=utf-8");
 
-			
-//			int totalData=new FeedService().selectFeedCount();
-//			int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-			
-			response.setContentType("application/json;charset=utf-8");
-
-			Gson gson = new Gson();
-			gson.toJson(feeds,response.getWriter());
-
-       }
-	
+		Gson gson = new Gson();
+		gson.toJson(fc,response.getWriter());
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

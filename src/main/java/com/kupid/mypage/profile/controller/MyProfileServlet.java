@@ -32,9 +32,8 @@ public class MyProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("pagenum", 1);
 //		String id = (String) request.getAttribute("loginMember");
-//		MemberDto m = new MemberService().selectMember(id);
 		
-		//임의 멤버를 가져오는 메소드
+		//임의 멤버
 		List<MemberDto> m = new MyPageService().selectMemberForProfile("qwerty");
 		System.out.println(m.toString());
 		request.setAttribute("memberProfile", m);

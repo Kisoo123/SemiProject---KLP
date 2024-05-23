@@ -195,12 +195,17 @@
 	margin: 0px;
 	padding: 0px;
 }
-.myInfo .h3_btn_container> p, h5{
+.myInfo .h3_btn_container> p, .myInfo .h3_btn_container>h5{
 	margin-bottom: 5px;
 	margin-top: -5px;
 }
 .myInfo .readonly_box{
 	background-color: #ededed;
+}
+.myInfo .result-container{
+	display: flex;
+	gap: 10px;
+	align-items: center;
 }
 </style>
 <!-- 임시디자인 -->
@@ -217,15 +222,17 @@
                        	<div class="content-container">
                             <h3>이름</h3>
                             <div class="input_box">
-	                            <input type="text" name="name" class="inputTag" value="<%=m.getMemberName()%>">
+	                            <input type="text" name="name" class="inputTag" id="name" value="<%=m.getMemberName()%>">
                             </div>
                             <h3>아이디</h3>
                             <div class="input_box readonly_box">
 	                            <input type="text" name="id" class="inputTag" value="<%=m.getMemberId()%>" readOnly>
                             </div>
-                            <h3>비밀번호</h3>
+                            <div class="result-container">
+                            <h3>비밀번호</h3><h5 id="pwckResult"></h5>
+                            </div>
                             <div class="h3_btn_container">
-                            	<p>영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p><h5 id="pwckResult"></h5>
+                            	<p>영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p>
                             </div>
                             <div class="input_box">
 	                            <input type="password" id="prepw" name="prepw" class="inputTag" required placeholder="현재 비밀번호 입력">
@@ -271,6 +278,12 @@
     </main>
 </div>
 <script>
+	$("#name").keyup(e=>{
+		let target = e.target.value;
+		target = target.replace(/[^가-힣]/g, '');
+		e.target.value = target;
+		console.log(target);
+	});
 	$("#prepw").keyup(e=>{
 		let target = e.target.value;
 		target = target.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣!@#$%^&*]/g, '');
@@ -284,7 +297,7 @@
 		e.target.value = target;
 		const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{4,20}$/;
 		if(regex.test(e.target.value)){
-			$(".h3_btn_container>p").text('사용가능한 비밀번호입니다.').css("color","#c552ff");
+			$(".h3_btn_container>p").text('영문, 숫자, 특수문자가 포함된 4~20글자 사용가능').css("color",'black');
 		}else{
 			$(".h3_btn_container>p").text('영문, 숫자, 특수문자가 포함된 4~20글자만 사용가능합니다.').css("color","#ff5e5e");
 		}
@@ -297,12 +310,19 @@
 		let target = input;
 		target = target.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣!@#$%^&*]/g, '');
 		input = target;
-		if(input ===$("#newpw").val()){
-			$("#pwckResult").text('비밀번호가 일치합니다.').css("color","#c552ff");
-			$("#newpwck").parent().removeClass('input_box_fail');
-		}else{
-			$("#pwckResult").text('비밀번호가 일치하지 않습니다.').css("color","#ff5e5e");
-			$("#newpwck").parent().addClass('input_box_fail');
+		if($("#newpw").val() !== ""){
+			if(input ===$("#newpw").val()){
+				$("#pwckResult").text('비밀번호가 일치합니다.').css("color","#c552ff");
+				$("#newpwck").parent().removeClass('input_box_fail');
+				if($("#newpwck").blur()){
+					$("#pwckResult").text('');
+				}
+			}else{
+				$("#pwckResult").text('비밀번호가 일치하지 않습니다.').css("color","#ff5e5e");
+				$("#newpwck").parent().addClass('input_box_fail');
+			}
+		} else{
+			$("#pwckResult").text('');
 		}
 	});
 	const fnInputCk=(e)=>{

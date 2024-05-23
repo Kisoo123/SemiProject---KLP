@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.kupid.member.model.dto.MemberDto, java.util.List" %>
 <% 
-	//MemberDto m = (MemberDto) session.getAttribute("loginMember");
 	List<MemberDto> profile = (List<MemberDto>) request.getAttribute("memberProfile");
 	MemberDto m = profile.get(0);
 	String favorite = "";

@@ -1,4 +1,4 @@
-package com.kupid.member.controller;
+package com.kupid.member.log.controller;
 
 import java.io.IOException;
 

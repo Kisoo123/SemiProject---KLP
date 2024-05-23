@@ -1,4 +1,4 @@
-package com.kupid.member.controller;
+package com.kupid.member.signup.controller;
 
 import java.io.IOException;
 
@@ -7,19 +7,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.kupid.member.model.service.MemberService;
 
 /**
- * Servlet implementation class LoginServelt
+ * Servlet implementation class CheckNicknameServlet
  */
-@WebServlet("/logout.do")
-public class LogoutServelt extends HttpServlet {
+@WebServlet("/member/checkid.do")
+public class CheckIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServelt() {
+    public CheckIdServlet() {
         super();
     }
 
@@ -27,15 +28,9 @@ public class LogoutServelt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		HttpSession session = request.getSession();
-		session.invalidate();
-		//메인페이지로 응답
-//		response.sendRedirect(request.getContextPath());
-		request.setAttribute("msg", "로그아웃 완료!");
-		request.setAttribute("loc", "/");
-		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
-		.forward(request, response);
+		String id =request.getParameter("id");
+		int result = new MemberService().checkId(id);
+		response.getWriter().print(result);		
 	}
 
 	/**

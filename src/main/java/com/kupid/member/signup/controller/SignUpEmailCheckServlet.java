@@ -1,26 +1,23 @@
-package com.kupid.mypage.profile.controller;
+package com.kupid.member.signup.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.member.model.service.MemberService;
-
 /**
- * Servlet implementation class CheckNicknameServlet
+ * Servlet implementation class MyInfoEmailCheckServlet
  */
-@WebServlet("/mypage/checknickname.do")
-public class CheckNicknameServlet extends HttpServlet {
+@WebServlet("/member/signupemailCheck.do")
+public class SignUpEmailCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckNicknameServlet() {
+    public SignUpEmailCheckServlet() {
         super();
     }
 
@@ -28,9 +25,10 @@ public class CheckNicknameServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nickname=request.getParameter("nickname");
-		int result = new MemberService().checkNickname(nickname);
-		response.getWriter().print(result);		
+		String email = (request.getParameter("email"));
+		request.setAttribute("email", email);
+		request.getRequestDispatcher("/WEB-INF/views/member/emailCheck.jsp")
+		.forward(request, response);
 	}
 
 	/**

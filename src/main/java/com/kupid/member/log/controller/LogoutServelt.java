@@ -1,4 +1,4 @@
-package com.kupid.member.controller;
+package com.kupid.member.log.controller;
 
 import java.io.IOException;
 
@@ -7,21 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.kupid.member.model.dto.MemberDto;
-import com.kupid.mypage.service.MyPageService;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class MyProfileServlet
+ * Servlet implementation class LoginServelt
  */
-@WebServlet(urlPatterns="/login.do")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/logout.do")
+public class LogoutServelt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public LogoutServelt() {
         super();
     }
 
@@ -29,7 +27,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/member/login.jsp")
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		session.invalidate();
+		//메인페이지로 응답
+//		response.sendRedirect(request.getContextPath());
+		request.setAttribute("msg", "로그아웃 완료!");
+		request.setAttribute("loc", "/");
+		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
 		.forward(request, response);
 	}
 

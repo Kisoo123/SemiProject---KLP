@@ -1,8 +1,8 @@
 package com.kupid.feed.model.service;
 
-import static com.kupid.common.JDBCTemplate.getConnection;
 import static com.kupid.common.JDBCTemplate.close;
 import static com.kupid.common.JDBCTemplate.commit;
+import static com.kupid.common.JDBCTemplate.getConnection;
 import static com.kupid.common.JDBCTemplate.rollback;
 
 import java.io.File;
@@ -12,10 +12,33 @@ import java.util.List;
 
 import com.kupid.feed.model.dao.FeedDao;
 import com.kupid.feed.model.dto.Feed;
+import com.kupid.feed.model.dto.LikeFeed;
 public class FeedService {
 	private FeedDao dao = new FeedDao();
 	
 	
+
+	public int switchingLikes(int memberNo,int feedNo) {
+		Connection conn = getConnection();
+		int countClick = dao.selectLikes(conn, memberNo, feedNo); 
+		int result = 0;
+		int likes = 0;
+		if(countClick==0) {
+			 result= dao.insertLikes(conn,memberNo,feedNo);
+			 likes = dao.selectFeedLikes(conn,feedNo);
+			 if(result>0) commit(conn);
+				else rollback(conn);
+			 return likes;
+		}else {
+			 result = dao.deleteLikes(conn,memberNo,feedNo);
+			 likes = dao.selectFeedLikes(conn,feedNo);
+			 if(result>0) commit(conn);
+				else rollback(conn);
+			 return likes;
+			 
+		}
+		
+	}
 	
 	public int insertProcess(Feed f, List<String> filePath) {
 		Connection conn = getConnection();
@@ -58,12 +81,12 @@ public class FeedService {
 		return result;
 		
 	}
-//	public int insertFile(String filePath) {
+	
+//	public int switchingLikes() {
 //		Connection conn = getConnection();
-//		int result = dao.insertFile(conn,filePath);
+//		int result = dao.switchingLikes(conn);
 //		close(conn);
 //		return result;
 //	}
-	
 	
 }

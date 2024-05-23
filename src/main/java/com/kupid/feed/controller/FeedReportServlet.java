@@ -1,19 +1,19 @@
 package com.kupid.feed.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import com.kupid.member.model.service.MemberService;
+import com.kupid.feed.model.service.FeedService;
 
 /**
  * Servlet implementation class FeedReportServlet
  */
-@WebServlet("/feed/feedreport.do")
+@WebServlet("/feed/feedReport.do")
 public class FeedReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,10 +29,11 @@ public class FeedReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String nickname=request.getParameter("nickname");
-		int result = new MemberService().checkNickname(nickname);
-		response.getWriter().print(result);		
+		String category = request.getParameter("category");
+		String content = request.getParameter("content");
+		int reportMemberNo = Integer.parseInt(request.getParameter("reportMemberNo"));
+		int reportedfeedNo = Integer.parseInt(request.getParameter("reportedfeedNo"));
+		new FeedService().insertFeedReport(category,content,reportMemberNo,reportedfeedNo);
 	}
 
 	/**

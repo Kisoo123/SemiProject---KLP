@@ -1,50 +1,46 @@
-package com.kupid.mypage.profile.controller;
+package com.kupid.feed.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.member.model.dto.MemberDto;
-import com.kupid.mypage.service.MyPageService;
+
+import com.kupid.member.model.service.MemberService;
 
 /**
- * Servlet implementation class MyProfileServlet
+ * Servlet implementation class FeedReportServlet
  */
-@WebServlet("/mypage/myprofile.do")
-public class MyProfileServlet extends HttpServlet {
+@WebServlet("/feed/feedreportview.do")
+public class FeedReportViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfileServlet() {
+    public FeedReportViewServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagenum", 1);
-//		String id = (String) request.getAttribute("loginMember");
+		int feedno = Integer.parseInt(request.getParameter("feedno"));
+		System.out.println(feedno);
+		request.setAttribute("feedno", feedno);
+		request.getRequestDispatcher("/WEB-INF/views/feed/feedReportView.jsp").forward(request, response);
 		
-		//임의 멤버
-		List<MemberDto> m = new MyPageService().selectMemberForProfile("qwerty");
-		System.out.println(m.toString());
-		request.setAttribute("memberProfile", m);
-		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
-		.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

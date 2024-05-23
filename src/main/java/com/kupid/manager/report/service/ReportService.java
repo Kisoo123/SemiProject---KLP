@@ -45,6 +45,9 @@ public class ReportService {
 		if(result>0) {
 			dao.updateReportResult(conn,p);
 			commit(conn);
+			if(p.getPenaltyCategory().equals("unactive")) {
+				dao.memberGradeUpdate(conn,p);
+			}
 		}
 		else rollback(conn);
 		close(conn);

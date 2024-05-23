@@ -149,14 +149,14 @@
 	<div class="flex_col">
 		<div class="join_container">
 	    <h1 class="title">회원가입</h1>
-			<form action="<%=request.getContextPath() %>/loginEnd.do" method="post" style="margin-bottom: 0px">
+			<form action="<%=request.getContextPath() %>/member/enrollmemberend.do" method="post" style="margin-bottom: 0px" onsubmit='fnSignupCk(event);'>
 				<div class="part">
 					<div class="result-container">
 					<h3>아이디</h3>
 					<h5 id="idResult"></h5>
 					</div>
 			        <div class="input_box">
-				         <input required type="text" class="inputTag" value="" name="id" id="id"  placeholder="아이디 입력">
+				         <input required type="text" class="inputTag" name="id" id="id"  placeholder="아이디 입력">
 			        </div>
 		        </div>
 		        <!-- <div class="part-none">
@@ -188,6 +188,13 @@
 			      	<input required type="text"  placeholder="이름" class="inputTag" name="name" id="name">
 			    </div>
 			    </div>
+		        <div class="part">
+				<h3>생년월일</h3>
+			     <div class="input_box">
+			      	<input required type="date"  class="inputTag" name="birth" id="birth">
+<!-- 			      	<input required type="date"  placeholder="" class="inputTag" name="name" id="name"> -->
+			    </div>
+			    </div>
 			    <div class="part">
 				<h3>성별</h3>
 				<div class="radio_box">
@@ -199,10 +206,10 @@
 					<input type='radio' name='gender' id="male" value='male'>
 					<label for="male">남성</label>
 					</div>
-					<div>
+					<!-- <div>
 					<input type='radio' name='gender' id="none" value='none'>
 					<label for="none">모름</label>
-					</div>
+					</div> -->
 				</div>
 				</div>
 				<div class="part">
@@ -232,33 +239,30 @@
 		      		<input type="text" id="inputAddressDetail" class="inputTag" name="addressDetail" placeholder="상세주소 입력"  value="">
 		     	</div>
 		     	</div>
-		     	<div class="part">
+		     	<!-- <div class="part">
 				<h3>관심 아티스트 (선택)</h3>
 		        <div class="input_box">
-		        	<input type="text" name="favorite" id="pickArtist" class="inputTag" style="color: #828282" placeholder="관심 아티스트를 골라주세요" value=''>
+		        	<input type="text" name="favorite" id="pickArtist" class="inputTag" style="color: #828282" readOnly placeholder="관심 아티스트를 골라주세요" value=''>
 		        </div>
-		        </div>
+		        </div> -->
 	     		<div class="flex_col2">
 	     			<div>
 			    		<input type='checkbox' name='ckAll' id="ckAll"><label for="ckAll"> (필수, 선택) 전체 동의</label>
 			    	</div>
 			    	<div>
-			        	<input required type='checkbox' name='ck1' id="ck1"><label for="ck1"><a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms"> (필수) 개인회원 약관 동의</a></label>
+			        	<input required type='checkbox' name='ck1' id="ck1"><label for="ck1"><a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=1"> (필수) 개인회원 약관 동의</a></label>
 			        </div>
 			        <div>
-			        	<input required type='checkbox' name='ck2' id='ck2'><label for="ck2"> <a class="ck" target="_blank" rel="noopener noreferrer" href=""> (필수) 개인정보 수집 및 이용 약관에 동의</a></label>
+			        	<input required type='checkbox' name='ck2' id='ck2'><label for="ck2"> <a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=2"> (필수) 개인정보 수집 및 이용 약관에 동의</a></label>
 			        </div>
 			        <div>
-			        <input type='checkbox' name='ck3' id='ck3'><label for="ck3"> <a class="ck" target="_blank" rel="noopener noreferrer" href=""> (선택) 마케팅 정보 수신 동의 - 이메일</a></label>
+			        <input type='checkbox' name='ck3' id='ck3'><label for="ck3"> <a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=3"> (선택) 마케팅 정보 수신 동의 - 이메일, SMS/MMS</a></label>
 			    	</div>
-			    	<div>
-			    		<input type='checkbox' name='ck4' id="ck4"><label for="ck4"> <a class="ck" target="_blank" rel="noopener noreferrer" href="">(선택) 마케팅 정보 수신 동의 - SMS/MMS</a></label>
-					</div>
 			</div>
 			<br>
 	    	<div class="btn_container">
 		        <button class="btn" id="submit">회원가입</button>
-		       	<button class="btn" type="button" id="cancel">취소</button>
+		       	<button class="btn" type="button" id="cancelBtn">취소</button>
 	       </div>
 	    </form>
         </div>
@@ -389,11 +393,50 @@
 			alert('이메일 주소를 먼저 입력해주세요.')
 		}
 	};
+	$("#cancelBtn").click(e=>{
+		let result = confirm('실행을 취소할까요?');
+		if(result==true) {
+			alert('메인으로 돌아갑니다'); 
+			location.assign('<%=request.getContextPath()%>/');
+		}
+	});
 	function setEmail(email){
 		console.log(email);
 		$(document).ready();
 		$("#inputEmail").val(email);
+		$("#inputEmail").attr('readOnly', true);
+		$("#inputEmail").parent().addClass("readonly_box");
 	};
+	const fnSignupCk =(e)=>{
+		const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{4,20}$/;
+		//비밀번호 암호화 전까지 잠시 보류
+		/* if(!regex.test($("#newpw").val())){
+			alert('영문, 숫자, 특수문자가 포함된 4~20글자 비밀번호가 아닙니다.');
+			e.preventDefault();
+			$("#newpw").focus();
+			return false;
+		} */
+		if($("#pwck").val()!== $("#pw").val()){
+			alert('비밀번호 확인 값이 일치하지 않습니다.');
+			$("#pwch").focus();
+			e.preventDefault();
+			return false;
+		}
+	    // 모든 input 필드가 비어있지 않은지 확인
+ 		let isValid=true;
+	    $("form input").each(function() {
+	        if ($(this).val().trim() === "") {
+	            alert('내용을 입력해주세요.');
+	            $(this).focus();
+	            isValid = false;
+	            e.preventDefault();
+	            return false; // jQuery each의 루프 종료
+	        }
+	    }); 
+	};
+	<%-- #("#pickArtist").click(e=>{
+		window.open('<%=request.getContextPath()%>/member/favoriteArtist.select','_blank','width=870px, height=930px');
+	}); --%>
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

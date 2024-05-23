@@ -151,12 +151,14 @@ String email =(String) (request.getAttribute("email"));
 		if($("input#codeck").value ===""){
 			alert('값을 입력해주세요.');
 		}else{
-			$.ajax({
-				url: "<%=request.getContextPath()%>/mypage/emailCheckEnd.do",
+			let encodeEmail = encodeURIComponent($("#input_email").val());
+			$.post({
+				url: "<%=request.getContextPath()%>/member/signupemailCheckEnd.do",
 				data: {
 					"value": $("input#codeck").val(),
-					"email" : '<%=email%>' 
+					"email" : '<%=email%>',
 				},
+				method : "post",
 				success: data=>{
 					console.log(data);
 					if(data === '1'){

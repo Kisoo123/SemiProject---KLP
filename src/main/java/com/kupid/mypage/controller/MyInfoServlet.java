@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kupid.member.model.dto.MemberDto;
-import com.kupid.mypage.service.MyPageService;
+import com.kupid.member.model.service.MemberService;
 
 /**
  * Servlet implementation class MyProfileServlet
@@ -32,11 +32,9 @@ public class MyInfoServlet extends HttpServlet {
 //		int no = Integer.parseInt(request.getAttribute("no"));
 //		String id = (String) request.getAttribute("loginMember");
 //		MemberDto m = new MemberService().selectMember(id);
-		int pagenum = 0;
-		if(request.getParameter("pagenum")!=null) pagenum = Integer.parseInt(request.getParameter("pagenum"));
-		request.setAttribute("pagenum", pagenum);
+		
 		//해당 아이디의 멤버를 가져오는 메소드
-		MemberDto m = new MyPageService().selectMember("qwerty");
+		MemberDto m = new MemberService().selectMember("qwerty");
 		request.setAttribute("member", m);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/myInfo.jsp")
 		.forward(request, response);

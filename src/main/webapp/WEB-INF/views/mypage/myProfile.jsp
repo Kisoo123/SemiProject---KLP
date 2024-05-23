@@ -1,23 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kupid.member.model.dto.MemberDto, java.util.List" %>
 <% 
 	//MemberDto m = (MemberDto) session.getAttribute("loginMember");
-	List<MemberDto> profile = (List<MemberDto>) request.getAttribute("memberProfile");
-	MemberDto m = profile.get(0);
-	String favorite = "";
-	
-	for(int i=0; i<profile.size(); i++){
-		favorite += profile.get(i).getGroupName();
-		if(i!=profile.size()-1){
-			favorite += ", ";
-		}
-	}
+	MemberDto m = (MemberDto) request.getAttribute("member");
 	String src = "";
 	if(m.getProfileImgOriname().equals("기본프로필.png")){
 		src=request.getContextPath()+"/image/member/"+m.getProfileImgOriname();
 	}else{
-		src=request.getContextPath()+"/upload/member/profile/"+m.getProfileImgOriname();
+		src=m.getProfileImgOriname();
 	}
 %>
 <!DOCTYPE html>
@@ -28,9 +18,8 @@
 <style>
 .myprofile-container{
 	display: flex;
-	width: 100vh;
+	width: 100%;
 	height: 100vh;
-	justify-content: left;
 }
 .myProfile.main {
   position: relative;
@@ -50,7 +39,7 @@
   align-items: center;
   margin: 0px auto;
   width: 825px;
-  padding: 30px 70px 30px 70px;
+  padding: 30px;
 }
 .myProfile .title {
   position: relative;
@@ -70,6 +59,7 @@
   flex-direction: column;
   margin: 49.5px 0px 0px;
   width: 100%;
+  background: var(--src) center center/100% 100% no-repeat;
   border-radius: 59px 59px 59px 59px;
   outline: 1px solid #d1ade3;
   outline-offset: -1px;
@@ -88,7 +78,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px 0px;
+  gap: 56px 0px;
   width: 297px;
   min-width: 0px;
 }
@@ -105,17 +95,8 @@
   align-items: center; /* 수직 중앙 정렬 */
 }
 .myProfile .profile_img {
-	width: 100%;
+	width: 80%;
 	height: auto;
-}
-.myProfile .profile_img_default {
-	width: 60%;
-	height: auto;
-}
-.myProfile .btn_container{
-	display: flex;
-	justify-content: space-between;
- 	gap: 10px;
 }
 .myProfile .btn {
   position: relative;
@@ -131,9 +112,6 @@
   border-radius: 8px 8px 8px 8px;
   padding: 8px 8px 8px 8px;
   letter-spacing: -0.9px;
-}
-.myProfile .btn2 {
-  background-color: #dcdcdc;
 }
 .myProfile .flex_col2 {
   position: relative;
@@ -259,10 +237,8 @@
   color: #828282;
   text-align: center;
 }
-.myProfile .readonly_box{
-	background-color: #ededed;
-}
 </style>
+<!-- 임시디자인 -->
 
 <div class="myprofile-container">
 <%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
@@ -274,27 +250,14 @@
                     <div class="flex_row">
                         <div class="flex_col1">
                         	<div class="profile_img_container">
-                            	<img class='<%=(m.getProfileImgOriname().equals("기본프로필.png"))?"profile_img_default":"profile_img" %>' src="<%=src %>" id="profile_img">
+                            	<img class="profile_img" src="<%=src %>" alt="profile_img">
                            	</div>
-                           	<div class="btn_container">
-	                            <button class="btn btn_chane_img" id="changeImg">사진 변경</button>
-	                            <%if(!m.getProfileImgOriname().equals("기본프로필.png")){ %>
-		                            <form>
-		                            	<button class="btn btn_chane_img" id="deleteImg">사진 삭제</button>
-		                            </form>
-	                            <%} %>
-                            </div>
-                             <form id="imgChange" action='<%=request.getContextPath() %>/mypage/profileImgUpdate.do' method="post" enctype="multipart/form-data">
-	                       		<input type="text" name="no" value="<%=m.getMemberNo()%>" style="display:none">
-	                            <input id="now_profile_img" type="text" name="nowImg" value="<%=m.getProfileImgOriname() %>" style="display: none">
-	                            <input id="upload_profile_img" type="file" name="upfile" style="display: none">
-                            </form>
+                            <button class="btn btn_chane_img" id="changeImg">사진 변경</button>
                         </div>
                         <form action='<%=request.getContextPath() %>/mypage/profileupdate.do' method="post">
                        	<div class="content-container">
-                       		<input type="text" name="no" value="<%=m.getMemberNo()%>" style="display:none">
                        		<div class="nickname-container">
-                            	<h3>닉네임</h3>
+                            <h3>닉네임</h3>
                             	<h5 id="nicknameResult"></h5>
                            	</div>
                             <div class="favorite1_box">
@@ -305,12 +268,12 @@
 	                            <textarea name="introduce" cols="55" rows="5" class="favorite1" placeholder="소개를 적어주세요 :)" style="resize: none" ><%=m.getIntroduce()%></textarea>
                             </div>
                             <h3>관심 아티스트</h3>
-                            <div class="favorite1_box readonly_box">
-                            	<input type="text" name="favorite" id="pickArtist" class="favorite1" style="color: #828282" placeholder="관심 아티스트를 골라주세요 :)" readOnly value='<%= (profile.get(0).getGroupName()!=null)?favorite:""%>'>
+                            <div class="favorite1_box">
+                            	<input type="text" name="favorite" class="favorite1" placeholder="아이유, 에스파">
                             </div>
                          </div>
                          <br>
-	                		<button name="submit" class="btn btn_chane_img">적용</button>
+	                		<button name="submit" class="btn btn_chane_img">수정</button>
                         </form>
                     </div>
                 </div>
@@ -320,20 +283,7 @@
 </div>
 <script>
 	$("#changeImg").click(e=>{
-		$("#upload_profile_img").click();
-	});
-	$("#upload_profile_img").change(e=>{
-		console.dir(e.target.files[0]);
-		const img = e.target.files[0];
-		var reader = new FileReader();
-		reader.readAsDataURL(img);
-		reader.onload=()=> $('#profile_img').removeClass("profile_img_default").addClass("profile_img").attr('src',reader.result);
-		$("#imgChange").submit();
-	});
-	$("#deleteImg").click(e=>{
-		$(e.target).parent().append($("<input>").attr({'name':'no', 'value':'<%=m.getMemberNo()%>'}).css('display', 'none'));
-		$(e.target).parent().append($("<input>").attr({'name':'beforeImg', 'value':'<%=m.getProfileImgOriname()%>'}).css('display', 'none'));
-		$(e.target).parent().attr({'action':'<%=request.getContextPath() %>/mypage/profileImgDelete.do','method':'post'}).submit();
+		console.log('hi');
 	});
 	
 	const nowNickname = '<%=m.getNickname() %>';
@@ -365,8 +315,5 @@
 			$("#nicknameResult").text("* 변경할 닉네임을 입력해주세요").css("color","gray");
 		}
 	});
-	<%-- $('#pickArtist').click(e=>{
-			window.open('<%=request.getContextPath()%>/mypage/favoriteArtist.select?no=<%=m.getMemberNo()%>','_blank','width=870px, height=930px');
-	}); --%>
 </script>
 </html>

@@ -1,7 +1,6 @@
 package com.kupid.mypage.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kupid.member.model.dto.MemberDto;
-import com.kupid.mypage.service.MyPageService;
+import com.kupid.member.model.service.MemberService;
 
 /**
  * Servlet implementation class MyProfileServlet
@@ -30,14 +29,13 @@ public class MyProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagenum", 1);
+//		int no = Integer.parseInt(request.getAttribute("no"));
 //		String id = (String) request.getAttribute("loginMember");
 //		MemberDto m = new MemberService().selectMember(id);
 		
 		//임의 멤버를 가져오는 메소드
-		List<MemberDto> m = new MyPageService().selectMemberForProfile("qwerty");
-		System.out.println(m.toString());
-		request.setAttribute("memberProfile", m);
+		MemberDto m = new MemberService().selectMember("qwerty");
+		request.setAttribute("member", m);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
 		.forward(request, response);
 	}

@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kupid.feed.model.dto.Feed;
+import com.kupid.feed.model.dto.LikeFeed;
+import com.kupid.feed.model.dto.Reply;
 
 public class FeedDao {
 	
@@ -24,6 +26,104 @@ public class FeedDao {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	
+	public int insertLikes(Connection conn,int memberNo,int feedNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertLikes"));
+			pstmt.setInt(1,memberNo);
+			pstmt.setInt(2,feedNo);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int selectLikes(Connection conn,int memberNo,int feedNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectLikes"));
+			pstmt.setInt(1,memberNo);
+			pstmt.setInt(2,feedNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				result=rs.getInt(1);
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
+
+				public List<Reply> selectFeedComment(Connection conn,int feedNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Reply> result = new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectFeedCount"));
+			pstmt.setInt(1, feedNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Reply r=getReply(rs);
+				result.add(r);
+
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int selectFeedLikes(Connection conn,int feedNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectFeedLikes"));
+			pstmt.setInt(1,feedNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteLikes(Connection conn,int memberNo,int feedNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteLikes"));
+			pstmt.setInt(1,memberNo);
+			pstmt.setInt(2,feedNo);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	public int selectSeqFeed(Connection conn) {
@@ -42,6 +142,25 @@ public class FeedDao {
 			close(pstmt);
 		}
 		return seqFeed;
+	}
+	
+	public int insertFeedComment(Connection conn,int loginMember,String comment,int feedNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertFeedComment"));
+			System.out.println(pstmt.toString());
+			pstmt.setInt(1, feedNo);
+			pstmt.setString(2, comment);
+			pstmt.setInt(3, loginMember);
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	public int insertFeedFile(Connection conn, String filePath, int seq) {
 		PreparedStatement pstmt = null;
@@ -152,6 +271,24 @@ public class FeedDao {
 				.likes(rs.getInt("LIKES"))
 				.report(rs.getInt("REPORT"))
 				.filePath(rs.getString("FILE_PATH"))
+				.build();
+	}
+	public static LikeFeed getLikeFeed(ResultSet rs) throws SQLException{
+		return LikeFeed.builder()
+				.memberNo(rs.getInt("MEMBERNO"))
+				.feedNo(rs.getInt("FEED_NO"))
+				.likes(rs.getInt("LIKES"))
+				.likesSwitch(rs.getInt("LIKES_SWITCH"))
+				.build();	}
+	
+	public static Reply getReply(ResultSet rs) throws SQLException{
+		return Reply.builder()
+				.replyNumber(rs.getInt("reply_number"))
+				.feedNo(rs.getInt("feed_no"))
+				.replyDate(rs.getDate("reply_date"))
+				.likes(rs.getInt("likes"))
+				.memberNo(rs.getInt("memberno"))
+				.replyContent(rs.getString("reply_content"))
 				.build();
 	}
 }

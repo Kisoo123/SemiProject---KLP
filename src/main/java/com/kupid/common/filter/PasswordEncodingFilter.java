@@ -17,7 +17,7 @@ import com.kupid.common.PasswordEncoder;
 /**
  * Servlet Filter implementation class PasswordEncodingFilter
  */
-@WebFilter(servletNames = {/*"login",*/ "enrollMember"})
+@WebFilter(servletNames = {"login", "enrollMember"})
 public class PasswordEncodingFilter extends HttpFilter implements Filter {
        
     /**

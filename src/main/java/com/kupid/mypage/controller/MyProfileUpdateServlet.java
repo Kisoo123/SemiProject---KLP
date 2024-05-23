@@ -1,6 +1,5 @@
 package com.kupid.mypage.controller;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -9,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.mypage.service.MyPageService;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.kupid.member.model.service.MemberService;
 
 /**
  * Servlet implementation class MyInfoUpdateServlet
@@ -31,18 +28,15 @@ public class MyProfileUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagenum", 1);
-		int no = Integer.parseInt(request.getParameter("no"));
-		
+		System.out.println("프로필 업데이트 실행");
 		String nickname=request.getParameter("nickname");
 		String introduce=request.getParameter("introduce");
-		int result = new MyPageService().updateProfile(no, nickname, introduce);
+		int result = new MemberService().updateProfile(nickname, introduce);
 		if(result>0) {
-			System.out.println("수정성공");
+			
 		} else {
-			System.out.println("수정실패");
+			
 		}
-		response.sendRedirect(request.getContextPath() + "/mypage/myprofile.do");
 	}
 
 	/**

@@ -38,6 +38,9 @@ public class GroupDao {
 		}
 		return g; 
 	}
+	
+	
+	
 	public static GroupDto groupBuilder(ResultSet rs) throws SQLException{
 		return GroupDto.builder()
 				.groupNo(rs.getInt("group_no"))

@@ -30,7 +30,7 @@
 						<tr>
 							<td>
 								<input type="text" name="userId" id="userId"
-								value="<%=saveId!=null?saveId:"" %>"
+								value="<%=saveid!=null?saveid:"" %>"
 								placeholder="아이디입력">
 							</td>
 							<td></td>
@@ -47,7 +47,7 @@
 						<tr>
 							<td colspan="2">
 								<input type="checkbox" name="saveId" 
-								id="saveId" <%=saveId!=null?"checked":"" %>>
+								id="saveId" <%=saveid!=null?"checked":"" %>>
 								<label for="saveId">아이디저장</label>
 								<input type="button" value="회원가입"
 								onclick="location.assign('<%=request.getContextPath()%>/member/enrollmember.do')">

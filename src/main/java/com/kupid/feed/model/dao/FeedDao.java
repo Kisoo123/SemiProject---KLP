@@ -57,6 +57,15 @@ public class FeedDao {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				result=rs.getInt(1);
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
 
 				public List<Reply> selectFeedComment(Connection conn,int feedNo){
 		PreparedStatement pstmt=null;
@@ -270,7 +279,8 @@ public class FeedDao {
 				.feedNo(rs.getInt("FEED_NO"))
 				.likes(rs.getInt("LIKES"))
 				.likesSwitch(rs.getInt("LIKES_SWITCH"))
-				.build();		
+				.build();	}
+	
 	public static Reply getReply(ResultSet rs) throws SQLException{
 		return Reply.builder()
 				.replyNumber(rs.getInt("reply_number"))

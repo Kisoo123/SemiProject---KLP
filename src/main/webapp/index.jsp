@@ -31,6 +31,7 @@
 	<div>
 		<button onclick="location.assign('<%=request.getContextPath()%>/manager/home.do')">관리자페이지</button>
 	</div>
+	안녕하세요 박진형  
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </html>

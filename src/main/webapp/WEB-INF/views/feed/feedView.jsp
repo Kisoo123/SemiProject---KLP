@@ -214,7 +214,7 @@ const test = ()=>{
 	        }
 	    });
 	}
-   
+   /* 신고기능 */
    $(document).on("click", "button.reportBt", function(e) {
 	    const $button = $(e.target);
 	    const $board = $button.closest('.board');
@@ -225,93 +225,98 @@ const test = ()=>{
 	    let popup = window.open(url, "popup", "width=400, height=300, left=100, top=50");
 	});
    
-   $(document).on("click", "button.comment", function(e) {
-	    const $parent = $(e.target).parent();
-	    const existingDiv = $parent.find('.comment-container');
+   /* 댓글작성기능 */
+$(document).on("click", "button.comment", function(e) {
+    const $parent = $(e.target).parent();
+    const existingDiv = $parent.find('.comment-container');
 
-	    if (existingDiv.length > 0) {
-	        existingDiv.remove();
-	    } else {
-	        const newDiv = $("<div>").addClass('comment-container').css("border", "1px solid red");
-	        const commentBt = $("<a>").text("등록").addClass('commentBt');
-	        const innerDiv = $("<div>").css("border", "1px solid blue");
-	        const textArea = $("<textarea>").css("width", "80%")
-			
-	        innerDiv.append(textArea);
-	        innerDiv.append(commentBt);
-	        newDiv.append(innerDiv);
-	        $parent.append(newDiv);
-	    }
-	});
-   
-   $(document).on("click", "a.commentBt", function(e) {
-	    const $button = $(e.target);
-	    const $board = $button.closest('.board');
-	    const $feedNo = $board.find('.feedNo');
-	    const $textArea = $button.closest('div').find('textarea');
+    if (existingDiv.length > 0) {
+        existingDiv.remove();
+    } else {
+        const newDiv = $("<div>").addClass('comment-container').css("border", "1px solid red");
+        const commentBt = $("<a>").text("등록").addClass('commentBt');
+        const innerDiv = $("<div>").css("border", "1px solid blue");
+        const textArea = $("<textarea>").css("width", "80%");
 
-	    let commentText = $textArea.val();
-	    const feedNoText = $feedNo.text();
+        innerDiv.append(textArea);
+        innerDiv.append(commentBt);
+        newDiv.append(innerDiv);
+        $parent.append(newDiv);
 
-	    ajaxComment(commentText, feedNoText);
+        const feedNo = $parent.find('.feedNo').text();
+        selectComment(feedNo);
+    }
+});
 
-	    $textArea.val("");
-	});
+$(document).on("click", "a.commentBt", function(e) {
+    const $button = $(e.target);
+    const $board = $button.closest('.board');
+    const $feedNo = $board.find('.feedNo');
+    const $textArea = $button.closest('div').find('textarea');
 
-	const ajaxComment = (commentText, feedNoText) => {
-	    $.ajax({
-	        type: "POST",
-	        url: "<%=request.getContextPath()%>/feed/feedcomment.do",
-	        data: {
-	            "loginMember":"<%=loginMember.getMemberNo()%>"
-	            ,  
-	            "commentText": commentText,
-	            "feedNoText": feedNoText
-	        },
-	        success: function() {
-	            selectComment(feedNoText);
-	        },
-	        error: function(xhr, status, error) {
-	            console.error('Error submitting comment:', error);
-	        }
-	    });
-	};
-	
-	
+    let commentText = $textArea.val();
+    const feedNoText = $feedNo.text();
 
-	const selectComment = (feedNoText) => {
-	    $.ajax({
-	        type: "POST",
-	        url: "<%=request.getContextPath()%>/feed/feedcomment.do",
-	        data: {
-	            "feedNo": feedNoText
-	        },
-	        success: function(data) {
-	            const $commentContainer = $('.board .comment-container');
-	            $commentContainer.empty(); 
+    ajaxComment(commentText,feedNoText);
+    $textArea.val("");
+});
 
-	            $.each(data, function(idx, element) {
-	                const $commentDiv = $("<div>").css({
-	                    "border": "1px solid red",
-	                    "width": "800px",
-	                    'overflow': 'hidden'
-	                }).addClass("comment-item");
+const ajaxComment = (commentText, feedNoText) => {
+    $.ajax({
+        type: "POST",
+        url: "<%=request.getContextPath()%>/feed/feedcomment.do",
+        data: {
+            "loginMember": "<%=loginMember.getMemberNo()%>",  
+            "commentText": commentText,
+            "feedNoText": feedNoText
+        },
+        success: function(data) {
+            selectComment(feedNoText);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error submitting comment:', error);
+        }
+    });
+};
 
-	                $commentDiv.append('<h3>' + element.replyNumber + '</h3>');
-	                $commentDiv.append('<h3>' + element.feedNo + '</h3>');
-	                $commentDiv.append('<h3>' + element.replyDate + '</h3>');
-	                $commentDiv.append('<h3>' + element.likes + '</h3>');
-	                $commentDiv.append('<h3>' + element.memberNo + '</h3>');
-	                $commentDiv.append('<h3>' + element.replyContent + '</h3>');
 
-	                $commentContainer.append($commentDiv);
-	            });
-	        },
-	        error: function(xhr, status, error) {
-	            console.error('Error fetching comments:', error);
-	        }
-	    });
-	};
+
+const selectComment = (feedNoText) => {
+    $.ajax({
+        type: "POST",
+        url: "<%=request.getContextPath()%>/feed/feedcommentselect.do",
+        data: {
+            "feedNoText": feedNoText
+        },
+        success: function(data) {
+            const $board = $('.board').filter(function() {
+                return $(this).find('.feedNo').text() === feedNoText;
+            });
+
+            const $commentContainer = $board.find('.comment-container');
+
+            $.each(data, function(idx, element) {
+                const $commentDiv = $("<div>").css({
+                    "border": "1px solid red",
+                    "width": "800px",
+                    'overflow': 'hidden'
+                }).addClass("comment-item");
+
+                /* $commentDiv.append('<h3>' + element.replyNumber + '</h3>'); */
+                $commentDiv.append('<h3>' + element.feedNo + '</h3>');
+                $commentDiv.append('<h3>' + element.replyDate + '</h3>');
+                /* $commentDiv.append('<h3>' + element.likes + '</h3>'); */
+                $commentDiv.append('<h3>' + element.memberNo + '</h3>');
+                $commentDiv.append('<h3>' + element.replyContent + '</h3>');
+
+                $commentContainer.append($commentDiv);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching comments:', error);
+        }
+    });
+};
    const initializeCarousel = (carousel) => {
 	    const imgListBt = carousel.find('.img_listBt');
 	    const slides = imgListBt.children();
@@ -323,7 +328,7 @@ const test = ()=>{
 	        if (idx >= totalSlides) idx = 0;
 	        if (idx < 0) idx = totalSlides - 1;
 	        imgListBt.css('transform', 'translateX(' + (-idx * slideWidth) + 'px)');
-	        index = idx;  // Update the global index after correction
+	        index = idx;
 	    }
 
 	    carousel.find('.prev').click(() => {
@@ -334,7 +339,6 @@ const test = ()=>{
 	        showSlide(index + 1);
 	    });
 
-	    // Initial display of the first slide
 	    showSlide(index);
 	}
 // 좋아요 기능

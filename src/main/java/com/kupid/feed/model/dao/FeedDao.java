@@ -349,4 +349,5 @@ public class FeedDao {
 				.replyContent(rs.getString("reply_content"))
 				.build();
 	}
+	
 }

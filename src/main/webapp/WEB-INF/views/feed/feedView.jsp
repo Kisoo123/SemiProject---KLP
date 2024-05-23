@@ -203,6 +203,7 @@ const test = ()=>{
 
 	                $div.append('<br>' + '<button id="">' + '좋아요' + '</button>');
 	                $div.append('<br>' + '<button class="comment">' + '댓글' + '</button>');
+	                $div.append('<br>' + '<button class="reportBt">' + '신고' + '</button>');
 	                $(container).append($div);
 	            });
 	            time = true;
@@ -213,6 +214,12 @@ const test = ()=>{
 	        }
 	    });
 	}
+   
+   $(document).on("click", "button.reportBt", function() {
+	   $.ajax({
+		   url:
+	   })
+	});
    
    $(document).on("click", "button.comment", function(e) {
 	    const $parent = $(e.target).parent();

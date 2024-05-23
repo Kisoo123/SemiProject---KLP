@@ -9,7 +9,16 @@
 <body>
 
 	안녕하세요 12321ㅇㅈㅇㄴㅁㅇㅇㄴㄴ
-
+	 
+	<div>
+	<% if(loginMember == null){ %>
+		<button onclick="location.assign('<%=request.getContextPath()%>/login.do')">로그인</button>
+	<%}else{ %>
+		<h2><%=loginMember.getMemberName()%>님 안녕하세요 :)</h2>
+		<button onclick="location.assign('<%=request.getContextPath()%>/logout.do')">로그아웃</button>
+	<%} %>
+	</div>
+	<br><br><br>
 	<a href="<%=request.getContextPath()%>/feed/feedView.do">피드</a>
 
 	<div>

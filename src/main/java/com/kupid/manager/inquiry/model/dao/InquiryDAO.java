@@ -72,7 +72,7 @@ Properties sql=new Properties();
 	public static Inquiry getInquiry(ResultSet rs) throws SQLException{
 		return Inquiry.builder()
 				.inqNo(rs.getInt("inq_no"))
-				.memberRef(rs.getInt("memberRef"))
+				.inqMember(rs.getString("inq_member"))
 				.inqTitle(rs.getString("inq_title"))
 				.inqContent(rs.getString("inq_content"))
 				.inqDate(rs.getDate("inq_date"))

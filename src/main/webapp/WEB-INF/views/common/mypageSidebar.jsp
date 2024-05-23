@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kupid.member.model.dto.MemberDto" %>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <!-- 임시디자인 -->
 <style>
 .sidebar-container{
 	min-width: 300px;
 	margin : 0px auto;
 	background-color: #faf0ff;
-	justify-content: left;
 }
 .sidebar-container .flex_col {
   width : 90%;

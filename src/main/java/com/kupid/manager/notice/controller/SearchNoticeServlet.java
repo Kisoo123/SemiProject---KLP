@@ -32,10 +32,7 @@ public class SearchNoticeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		String type=request.getParameter("searchCategory");
-		String keyword=request.getParameter("searchKeyword");
-		
+
 		int cPage=1;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -48,6 +45,12 @@ public class SearchNoticeServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			
 		}
+		
+		String type=request.getParameter("searchType");
+		String keyword=request.getParameter("searchKeyword");
+		System.out.println(type);
+		System.out.println(keyword);
+		
 		
 		List<Notice> searchNotices=new NoticeService().searchNotice(type,keyword,cPage,numPerpage);
 		

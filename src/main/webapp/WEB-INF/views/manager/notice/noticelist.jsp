@@ -4,12 +4,15 @@
 <%
 	List<Notice> notices=(List<Notice>)request.getAttribute("notice");
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
+	String searchType=request.getParameter("searchType");
+	String searchKeyword=request.getParameter("searchKeyword");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <style>
 ul{
    /* width:80%; */
@@ -47,7 +50,7 @@ ul li:hover > a{
 	
 }
 .notice-sec{
-	width:100%;
+	width:85%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -66,27 +69,48 @@ ul li:hover > a{
 	justify-content: center;
 	align-items: center;
 }
-#btn{
+.btn{
 	float: right;
 }
 
+div#search-일반{display:inline-block;}
+div#search-굿즈{display:none;}
+div#search-행사{display:none;}
 </style>
 </head>
 <body>
 <div class="notice-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 	<div class="notice-sec">
+		<h1>공지사항</h1>
 		<h1>
 			<div>
-				<form action="<%=request.getContextPath()%>/manager/searchNotice.do">
-					<select id="searchType" name="searchCategory">
-	        		<option value="일반">일반</option>
-	        		<option value="굿즈" >굿즈</option>
-	        		<option value="행사" >행사</option>
-	        		</select>
-					<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
-					<button type="submit" style="width:50px; height:50px">검색</button>
-				</form>
+				<select id="searchType">
+		       		<option value="일반" <%=searchType!=null&&searchType.equals("일반")?"selected":"" %>>일반</option>
+		        	<option value="굿즈" <%=searchType!=null&&searchType.equals("굿즈")?"selected":"" %>>굿즈</option>
+		        	<option value="행사" <%=searchType!=null&&searchType.equals("행사")?"selected":"" %>>행사</option>
+	        	</select>
+	        	<div id="search-일반">
+					<form action="<%=request.getContextPath()%>/manager/searchNotice.do">
+						<input type="hidden" name="searchType" value="일반">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>
+				<div id="search-굿즈">
+					<form action="<%=request.getContextPath()%>/manager/searchNotice.do">
+						<input type="hidden" name="searchType" value="굿즈">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>
+				<div id="search-행사">
+					<form action="<%=request.getContextPath()%>/manager/searchNotice.do">
+						<input type="hidden" name="searchType" value="행사">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>
 			</div> 
 		</h1>
 		<section class="section">
@@ -114,7 +138,7 @@ ul li:hover > a{
 			<%} %>
 		</table>
 		</section>
-			<div id="btn"><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
+			<div class="btn"><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
 			<br><br>
 			<div><%=pagebar %></div>
 	</div>
@@ -127,6 +151,18 @@ ul li:hover > a{
 				alert("삭제가 취소되었습니다");
 			}
 		}
+		
+		$(()=>{
+	    	 $("#searchType").change();
+	     })
+	     
+	     
+	     $("#searchType").change(e=>{
+     			const type=e.target.value;
+     			$(e.target).parent().children("div").hide();
+     			/* $("#search-container>div").hide(); */
+     			$("#search-"+type).css("display","inline-block");
+     		})
 	</script>
 	
 </body>

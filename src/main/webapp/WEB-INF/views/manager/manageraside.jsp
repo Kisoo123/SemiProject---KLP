@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="btn2">
+                <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/home.do')">
                     <h3>메인화면</h3>
                 </button>
                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/manager/noticelist.do')">

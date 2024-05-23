@@ -2,6 +2,10 @@ package com.kupid.feed.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +38,7 @@ public class FeedWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				//파일업로드 경로
 				String path=getServletContext().getRealPath("/upload/feed");
+				System.out.println(path);
 				File dir=new File(path);
 				if(!dir.exists()) dir.mkdirs();
 				
@@ -47,30 +52,48 @@ public class FeedWriteServlet extends HttpServlet {
 				DefaultFileRenamePolicy dfrp=new DefaultFileRenamePolicy();
 				
 				//멀티파트 리퀘스트 객체 만들기
+				
 				MultipartRequest mr=new MultipartRequest(request,path,maxSize,encode,dfrp);
 				
 				//나머지 정보를 가져오기
 				String writer=mr.getParameter("writer");
 				String content=mr.getParameter("content");
 				
-				//원본파일명
-				String oriname=mr.getOriginalFileName("upfile");
-				//리네임파일명
-				String rename=mr.getFilesystemName("upfile");
+				Enumeration<String> formNames = mr.getFileNames();
+				List<String> fileNames = new ArrayList<String>();
 				
 				Feed f = Feed.builder()
 						.feedWriterName(writer)
 						.feedContent(content)
-						.filePath(rename)
 						.build();
 				
-				int result=new FeedService().insertFeed(f);
+				while(formNames.hasMoreElements()) {
 				
-				if(result==0) {
-					File delFile=new File(path+"/"+rename);
-					if(delFile.exists()) delFile.delete();
+//					//원본파일명
+//					String oriname=mr.getOriginalFileName("upfile");
+//					//리네임파일명
+//					String rename=mr.getFilesystemName("upfile");
+//					String filePath = request.getContextPath()+"/upload/feed"+"/"+rename;
+					
+					
+					String name = formNames.nextElement();
+					String fileSavePath = request.getContextPath()+ "/upload/feed" + File.separator + name;
+					
+					
+					System.out.println(name + "name");
+					System.out.println(fileSavePath + "fileSavePath");
+	//				int fileResult = new FeedService().insertFile(filePath);
+					fileNames.add(fileSavePath);
+					
 				}
-				request.getRequestDispatcher("feedView.do").forward(request, response);
+				
+				new FeedService().insertProcess(f, fileNames);
+
+				
+				
+				
+
+				request.getRequestDispatcher("/feed/feedwriteend.do").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

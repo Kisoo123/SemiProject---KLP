@@ -19,15 +19,6 @@ public class ReportService {
 	public List<Report> selectReportAll(int cPage,int numPerpage){
 		Connection conn=getConnection();
 		List<Report> report=dao.selectReportAll(conn,cPage,numPerpage);
-		
-		close(conn);
-		return report;
-	}
-	
-	public Report selectReporting() {
-		Connection conn=getConnection();
-		Report report=dao.selectReporting(conn);
-
 		close(conn);
 		return report;
 	}

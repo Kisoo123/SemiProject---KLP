@@ -32,10 +32,6 @@ public class ReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ReportService rs=new ReportService();
-		
-		request.setAttribute("pagenum", 5);
 		int cPage=1;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -49,7 +45,7 @@ public class ReportServlet extends HttpServlet {
 			
 		}
 		
-		int totalData=rs.selectReportAllCount();
+		int totalData=new ReportService().selectReportAllCount();
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
@@ -94,11 +90,8 @@ public class ReportServlet extends HttpServlet {
 		request.setAttribute("pageBar", sb);
 		
 		
-		List<Report> report=rs.selectReportAll(cPage,numPerpage);
+		List<Report> report=new ReportService().selectReportAll(cPage,numPerpage);
 		request.setAttribute("report", report);
-		Report r=rs.selectReporting();
-		
-		
 		request.getRequestDispatcher("/WEB-INF/views/manager/report/reportlist.jsp").forward(request, response);
 	}
 

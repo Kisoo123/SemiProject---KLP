@@ -18,8 +18,7 @@ public class Report {
 	private Date reportDate;
 	private int reportingMember;
 	private int reportedMember;
-	private String reportResource;
-	private String reportedId;
-	private String reportingId;
-
+	private int reportResource;
+	private String reportResult;
+	private int reportLevel;
 }

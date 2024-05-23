@@ -28,11 +28,5 @@ public class InquiryService {
 		return result;
 	}
 	
-	public Inquiry selectInquiryByNo(int no) {
-		Connection conn=getConnection();
-		Inquiry result=dao.selectInquiryByNo(conn, no);
-		close(conn);
-		return result;
-	}
 	
 }

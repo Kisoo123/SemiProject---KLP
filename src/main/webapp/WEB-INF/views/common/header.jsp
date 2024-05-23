@@ -6,12 +6,22 @@
 <%
 	MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
 	Cookie[] cookies = request.getCookies();
-	String saveId = null;
+	String saveid = null;
 	for(Cookie c : cookies) {
 		//쿠키에 저장된 네임과 밸류 가져오기
 		if(c.getName().equals("saveid")){
-			saveId = c.getValue();
+			saveid = c.getValue();
 		}
 	}
 	String servletHistory=request.getParameter("return");
 %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

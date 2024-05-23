@@ -2,10 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.List,java.text.SimpleDateFormat
 ,com.kupid.feed.model.dto.Feed
-,com.kupid.feed.model.service.FeedService
-,com.kupid.member.model.dto.MemberDto
-"  %>
-<% MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");%>
+,com.kupid.feed.model.service.FeedService"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +22,18 @@
 			</div>
 			<button type="submit">제출</button>
 		</form>
+<%-- <a onclick = "likeClick()"> 좋아요 <%= %></a> --%>
 	</div> 
+
+		
+<!-- 	<div>
+		<input type ="file" name="upfile" id="upfile" multiple>
+	</div>
+	<div>
+		<textarea class="form-control" cols="40" rows="5" name="content" id="content"></textarea>
+	</div>
+	<button id="submitButton">제출</button> -->
+	
 
     <div id="result"></div>
 	
@@ -35,6 +43,31 @@
     
 </body>
 <style>
+/*  .slider_btn a {
+    position: absolute;
+    background-color: #fff;
+    line-height: 50;
+    text-align: center;
+} 
+
+	.slider_btn a.prev {
+	    left: 0;
+	}
+	.slider_btn a.next {
+	    right: 0;
+	}
+	#container{
+		justify-content:center;
+		 display:flex;
+		 align-items: center;
+		 flex-direction: column;
+	}
+	.img_listBt{
+			 display:flex;
+		justify-content:center;
+				 align-items: center;
+		
+	} */
 	
 	.img_list {
     position: relative;
@@ -73,7 +106,17 @@
 }
 </style>
 <script>
-/* 피드 입력 */
+/* $("#submitButton").click(e=>{
+	const form = new FormData();
+	const files = ($("#upfile")[0].files);
+	for(let i=0;i<files.length;i++){
+		form.append("upfile"+i,files[i]);
+	}
+	form.append("content",$("#content".val))
+	console.log(form);
+}) */
+$("")
+
 	function submitFeed() {
 		$.each($('#upfile')[0].files, function(idx, file) {
 
@@ -99,7 +142,7 @@
    const perPage = 10;
    let time=true;
    
-/* 스크롤 페이지 로딩 */
+
    const loadPage = () => {	
 	    $.ajax({
 	        type: "POST",
@@ -148,10 +191,11 @@
 	                    slider_btn.append($('<a>').html('다음').attr('class', 'next'));
 	                    img_list.append(slider_btn);
 
+	                    // Initialize carousel
 	                    initializeCarousel(img_list);
 	                }
 
-	                $div.append('<br>' + '<button class="likes">' + '좋아요' + '</button>');
+	                $div.append('<br>' + '<button id="">' + '좋아요' + '</button>');
 	                $(container).append($div);
 	            });
 	            time = true;
@@ -162,24 +206,7 @@
 	        }
 	    });
 	}
-   
-   document.addEventListener("DOMContentLoaded", function () {
-		loadPage();
- 		window.addEventListener("scroll", function () {
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const windowHeight = window.innerHeight;
-      const scrollHeight = document.documentElement.scrollHeight;
-	if (scrollTop + windowHeight >= scrollHeight - 150) {
-    		if(time){
-	      time=false;
-       	loadPage();
-	        	
-     		}
-		}
-   });
-});
 
-/* 케러셀 기능  */
    const initializeCarousel = (carousel) => {
 	    const imgListBt = carousel.find('.img_listBt');
 	    const slides = imgListBt.children();
@@ -191,7 +218,7 @@
 	        if (idx >= totalSlides) idx = 0;
 	        if (idx < 0) idx = totalSlides - 1;
 	        imgListBt.css('transform', 'translateX(' + (-idx * slideWidth) + 'px)');
-	        index = idx;
+	        index = idx;  // Update the global index after correction
 	    }
 
 	    carousel.find('.prev').click(() => {
@@ -202,34 +229,37 @@
 	        showSlide(index + 1);
 	    });
 
+	    // Initial display of the first slide
 	    showSlide(index);
 	}
-   
-/* 좋아요 기능 */
 
-function switchingLikes(feedNo, feed, e) {
-    $.ajax({
-        type: "POST",
-        url: "<%=request.getContextPath()%>/feed/likesswitch.do",
-        data: {
-            "memberNo": '<%=loginMember.getMemberNo()%>',
-            "feedNo": feedNo
-        },
-        success: function(data) {
-            console.log(data + "data");
-            $(e.target).text("좋아요 "+data);
-        }
-    });
-}
-   
-$(document).ready(function () {
-    $(document).on('click', '.likes', function(e) {
-        const feedNo = $(e.target).parent().find('h3:first').text();
-        const feed = $(e.target).parent().find('h3:first');
-        switchingLikes(feedNo, feed, e);
-    });
-}); 
 
+/* function switchingLikes(){
+	$.ajax({
+		type:"POST",
+		url:,
+		data:,
+		success:
+		
+	})
+} */
+   
+
+document.addEventListener("DOMContentLoaded", function () {
+		loadPage();
+  		window.addEventListener("scroll", function () {
+       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+       const windowHeight = window.innerHeight;
+       const scrollHeight = document.documentElement.scrollHeight;
+	if (scrollTop + windowHeight >= scrollHeight - 150) {
+     		if(time){
+	      time=false;
+        	loadPage();
+	        	
+      		}
+		}
+    });
+});
 
 </script>
 </html>

@@ -14,10 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Inquiry {
 	private int inqNo;
-	private int inqMember;//참조 memberNo 문의한 회원번호
+	private String inqMember;//참조 memberNo 문의한 회원번호
 	private String inqTitle;
 	private String inqContent;
 	private Date inqDate;
-	private String writer;
-	private boolean answer;//답변유무
 }

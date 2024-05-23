@@ -30,14 +30,4 @@ public class MemberDto {
 	private String profileImgRenamed; //재정의 이름 일단 만들어둠(수업에서 배운 내용 활용)
 	private String memberGrade;
 	private Date enrollDate; //sql date 사용
-	private int groupNo;//그룹 foreignkey
-	private String groupName;
-	private int memberCount;
-	private Date groupDebutday;
-	private String groupCompany;
-	private String groupImg;
-	private String serialkey;//membership 시리얼키
-	private Date startday;//membership 시작일
-	private Date endday;//membership 종료일
-
 }

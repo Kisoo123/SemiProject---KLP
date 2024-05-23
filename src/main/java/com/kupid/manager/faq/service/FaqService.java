@@ -64,18 +64,4 @@ public class FaqService {
 		return result;
 	}
 	
-	public List<Faq> searchFaq(String type,String keyword,int cPage,int numPerpage){
-		Connection conn=getConnection();
-		List<Faq> faq=dao.searchFaq(conn,type,keyword,cPage,numPerpage);
-		close(conn);
-		return faq;
-	}
-	
-	public int searchFaqCount(String type,String keyword) {
-		Connection conn=getConnection();
-		int count=dao.searchFaqCount(conn,type,keyword);
-		close(conn);
-		return count;
-	}
-	
 }

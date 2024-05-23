@@ -32,6 +32,7 @@ public class ReportViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no=Integer.parseInt(request.getParameter("no"));
 		Report r=new ReportService().selectReportByNo(no);
+		request.setAttribute("report", r);
 		request.getRequestDispatcher("/WEB-INF/views/manager/report/reportview.jsp").forward(request, response);
 	}
 

@@ -10,6 +10,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+.input_box p{
+	margin-top:2px;
+}
+</style>
 <body>
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
@@ -32,19 +37,22 @@
                             <div class="input_box">
 	                           <p><%=r.getReportingId() %></p>
                             </div>
-                            <h3>신고받은 회원</h3>
-                            <div class="input_box">
-	                           <p><%=r.getReportedId() %></p>
-                            </div>
                             <h3>신고 내용</h3>
-                            <div class="input_box">
-	                            <textarea readOnly><%=r.getReportContent() %></textarea>
+                            <div class="input_box" style="height:150px">
+	                           <p><%=r.getReportContent()%></p>
                             </div>
                             <h3>신고 날짜</h3>
                             <div class="input_box">
 	                            <p><%=r.getReportDate() %></p>
                             </div>
-	                		<button class="btn btn_chane_img">회원삭제</button>
+                            <br>
+                            <div class="input_box" style="height:200px">
+                            <h3>신고받은 회원<h4><%=r.getReportedId() %></h4></h3>
+                            <input type="radio" name="penalty" value="stop">정지
+                            <input type="radio" name="penalty" value="withdraw">탈퇴
+                            <br>
+	                		<button class="btn btn_chane_img">처리</button>
+	                		</div>
                         </div>
           
                     </div>

@@ -77,7 +77,7 @@ public class ReportDAO {
 		Report report=null;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectReportByNo"));
-			
+			pstmt.setInt(1, no);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				report=getReport(rs);

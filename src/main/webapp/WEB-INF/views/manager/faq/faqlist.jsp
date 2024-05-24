@@ -20,7 +20,7 @@ ul{
    margin:auto;
 }
 ul li { 
-   list-style-type: none; 
+   list-style-type: none;  
    width: 8em; 
    height: 2em;
    float: left; 

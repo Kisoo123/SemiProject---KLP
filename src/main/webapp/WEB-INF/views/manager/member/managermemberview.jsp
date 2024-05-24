@@ -16,7 +16,7 @@
 .myInfo-container{
 	display: flex;
 	width: 100%;
-}
+}  
 
 </style>
 <!-- 임시디자인 -->

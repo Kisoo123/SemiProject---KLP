@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kupid.member.model.dto.MemberDto;
 import com.kupid.mypage.service.MyPageService;
@@ -29,13 +30,12 @@ public class MyInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		int no = Integer.parseInt(request.getAttribute("no"));
-//		String id = (String) request.getAttribute("loginMember");
-//		MemberDto m = new MemberService().selectMember(id);
 		request.setAttribute("pagenum", 2);
+		HttpSession session=request.getSession();
+		MemberDto m = (MemberDto) session.getAttribute("loginMember");
 		//해당 아이디의 멤버를 가져오는 메소드
-		MemberDto m = new MyPageService().selectMember("admin");
-		request.setAttribute("member", m);
+		MemberDto result = new MyPageService().selectMember(m.getMemberId());
+		request.setAttribute("member", result);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/myInfo.jsp")
 		.forward(request, response);
 	}

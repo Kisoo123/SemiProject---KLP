@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-	//MemberDto m = (MemberDto) session.getAttribute("loginMember"); 
-	MemberDto m = (MemberDto) request.getAttribute("member"); 
-%>
 
 <!DOCTYPE html>
 <html>
@@ -14,6 +10,7 @@
 .myInfo-container{
 	display: flex;
 	width: 100%;
+	justify-content: left;
 }
 .myInfo.main {
   position: relative;
@@ -35,8 +32,8 @@
   margin: 0px auto;
   width: 100%;
   min-width: 700px;
-  padding: 30px 70px 30px 70px;
 }
+
 .myInfo .title {
   position: relative;
   display: flex;
@@ -107,59 +104,16 @@
   border-radius: 8px 8px 8px 8px;
   outline: 1px solid #e0e0e0;
   outline-offset: -1px;
-  width: 90%;
-}
-.myInfo .highlight_box {
-  position: relative;
-  margin: 8px 0px 8px 16px;
-  width: 45px;
-}
-.myInfo .highlight {
   width: 100%;
-  font: 500 16px/1.5 "Inter", Helvetica, Arial, serif;
-  color: black;
-  background-color: transparent;
-  border: 0px;
-  padding: 0px;
-  letter-spacing: -1px;
-  vertical-align: top;
 }
-.myInfo .highlight:focus {
-  outline: none;
-}
-.myInfo .introduce {
+/* .myInfo .favorite {
   position: relative;
   margin: 32px 0px 0px;
   color: black;
-}
-.myInfo .textarea_box {
-  position: relative;
-  margin: 8px 0px 0px;
-  border-radius: 8px 8px 8px 8px;
-  padding: 8px 16px 123px 16px;
-  outline: 1px solid #e0e0e0;
-  outline-offset: -1px;
-}
-.myInfo .textarea {
-  width: 100%;
-  color: black;
-  background-color: transparent;
-  border: 0px;
-  padding: 0px;
-  letter-spacing: -0.8px;
-  vertical-align: top;
-}
-.myInfo .textarea:focus {
-  outline: none;
-}
-.myInfo .favorite {
-  position: relative;
-  margin: 32px 0px 0px;
-  color: black;
-}
+} */
 .myInfo .input_box {
   position: relative;
-  margin: 8px 0px 0px;
+  margin: 8px;
   min-width: 0px;
   border-radius: 8px 8px 8px 8px;
   padding: 8px 16px 8px 16px;
@@ -209,24 +163,24 @@
 }
 </style>
 <!-- 임시디자인 -->
-
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
     <main class="main">
-        <section class="myInfo">
-            <div class="flex_col">
+        <section class="myInfo d-flex">
+            <div class="flex_col p-5">
                 <h1 class="title">개인정보 수정</h1>
-                <div class="content_box">
+                <div class="content_box p-5 right">
                     <div class="flex_row">
                         <form action="<%=request.getContextPath() %>/mypage/infoupdate.do" method="post" onsubmit="fnInputCk(event);" >
-                       	<div class="content-container">
+                       	<div class="content-container flex flex-fill">
                             <h3>이름</h3>
-                            <div class="input_box">
-	                            <input type="text" name="name" class="inputTag" id="name" value="<%=m.getMemberName()%>">
+                            <div class="input_box mt-3 mb-4">
+	                            <input type="text" name="name" class="inputTag" id="name" value="<%=loginMember.getMemberName()%>">
                             </div>
                             <h3>아이디</h3>
-                            <div class="input_box readonly_box">
-	                            <input type="text" name="id" class="inputTag" value="<%=m.getMemberId()%>" readOnly>
+                            <div class="input_box readonly_box mt-3 mb-4">
+	                            <input type="text" name="id" class="inputTag" value="<%=loginMember.getMemberId()%>" readOnly>
                             </div>
                             <div class="result-container">
                             <h3>비밀번호</h3><h5 id="pwckResult"></h5>
@@ -234,35 +188,35 @@
                             <div class="h3_btn_container">
                             	<p>영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p>
                             </div>
-                            <div class="input_box">
+                            <div class="input_box mt-3 mb-3">
 	                            <input type="password" id="prepw" name="prepw" class="inputTag" required placeholder="현재 비밀번호 입력">
                             </div>
-                            <div class="input_box">
+                            <div class="input_box mt-3">
 	                            <input type="password" id="newpw" name="newpw" class="inputTag" placeholder="변경할 비밀번호 입력">
                             </div>
-                            <div class="input_box">
+                            <div class="input_box mt-3 mb-4">
 	                            <input type="password" id="newpwck" class="inputTag" placeholder="비밀번호 확인">
                             </div>
                             <h3>연락처</h3>
-                            <div class="input_box">
-	                            <input type="text" name="phone" class="inputTag" value="<%=m.getPhone()%>">
+                            <div class="input_box mt-3 mb-4">
+	                            <input type="text" name="phone" class="inputTag" value="<%=loginMember.getPhone()%>">
                             </div>
                             <div class="h3_btn_container">
                             	<h3>이메일</h3>
                             	<button class="btn2" type="button" onclick="emailValidCk();">이메일 검증</button>
                             </div>
-                            <div class="input_box readonly_box">
-	                            <input type="text" name="email" class="inputTag" id="inputEmail" readOnly value="<%=m.getEmail()%>">
+                            <div class="input_box readonly_box mt-3 mb-4">
+	                            <input type="text" name="email" class="inputTag" id="inputEmail" readOnly value="<%=loginMember.getEmail()%>">
                             </div>
                            <div class="h3_btn_container">
                             	<h3>주소</h3>
                             	<button class="btn2" type="button" id="searchAddress" onclick="addressSearch();">주소 검색</button>
                            	</div>
-                            <div class="input_box readonly_box">
-                            	<input type="text" id="inputAddress" class="inputTag" name="address" value="<%if(m.getAddress() != null) %><%=m.getAddress()%>">
+                            <div class="input_box readonly_box mt-3 mb-3">
+                            	<input type="text" id="inputAddress" class="inputTag" name="address" value="<%if(loginMember.getAddress() != null) %><%=loginMember.getAddress()%>">
                             </div>
-                            <div class="input_box">
-                            	<input type="text" id="inputAddressDetail" class="inputTag" name="addressDetail" placeholder="상세주소 입력"  value="<%if(m.getAddressDetail() != null) %><%=m.getAddressDetail()%>">
+                            <div class="input_box mt-3 mb-3">
+                            	<input type="text" id="inputAddressDetail" class="inputTag" name="addressDetail" placeholder="상세주소 입력"  value="<%if(loginMember.getAddressDetail() != null) %><%=loginMember.getAddressDetail()%>">
                             </div>
                            <!--  <div class="input_box">
                             	<input type="text" id="sample6_postcode" placeholder="우편번호">
@@ -366,7 +320,7 @@
 	};
 	const emailValidCk=()=>{
 		console.log('email');	
-		window.open('<%=request.getContextPath()%>/mypage/emailCheck.do?no=<%=m.getMemberNo()%>','emailVerification','width=570px, height=320px');
+		window.open('<%=request.getContextPath()%>/mypage/emailCheck.do?no=<%=loginMember.getMemberNo()%>','emailVerification','width=570px, height=320px');
 	};
 	function setEmail(email){
 		console.log(email);

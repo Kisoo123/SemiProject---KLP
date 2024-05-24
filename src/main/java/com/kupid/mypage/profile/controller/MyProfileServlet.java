@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
 
 import com.kupid.member.model.dto.MemberDto;
 import com.kupid.mypage.service.MyPageService;
@@ -31,12 +34,12 @@ public class MyProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("pagenum", 1);
-//		String id = (String) request.getAttribute("loginMember");
+		HttpSession session=request.getSession();
+		MemberDto m = (MemberDto) session.getAttribute("loginMember");
 		
-		//임의 멤버
-		List<MemberDto> m = new MyPageService().selectMemberForProfile("qwerty");
+		List<MemberDto> result = new MyPageService().selectMemberForProfile(m.getMemberId());
 		System.out.println(m.toString());
-		request.setAttribute("memberProfile", m);
+		request.setAttribute("memberProfile", result);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
 		.forward(request, response);
 	}

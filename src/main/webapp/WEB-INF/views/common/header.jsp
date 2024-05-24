@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "com.kupid.member.model.dto.MemberDto" %>
+<!-- 제이쿼리 -->
 <script src = "<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+<!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <%
@@ -17,6 +19,13 @@
 	String servletHistory=request.getParameter("return");
 %>
 <style>
+	/* 폰트 */
+	@font-face {
+	     font-family: 'DungGeunMo';
+	     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+	     font-weight: normal;
+	     font-style: normal;
+	}
 	.header_icon{
 		display: flex;
 		width: 37px;
@@ -37,8 +46,15 @@
 		display: flex;
 		width: 130px;
 	}
+	body{
+     font-family: 'DungGeunMo';
+     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+     letter-spacing: -0.36px;
+	}
 </style>
-<header class="p-2 mb-3 border-bottom d-flex">
+<header class="p-2 border-bottom d-flex">
       <div class="d-flex flex-wrap align-items-center w-100">
         <a class="d-flex align-items-center mb-2 ms-2 mb-lg-0 link-body-emphasis text-decoration-none" href="<%=request.getContextPath() %>/">
         <img src="<%=request.getContextPath() %>/image/logo/KUPID.png" id="logo" alt="logo" class="header_logo">
@@ -57,7 +73,7 @@
 
         <div class="dropdown text-end me-4">
 	     <% if(loginMember == null){ %>
-          <a href="<%=request.getContextPath() %>/login.do" class="d-block link-body-emphasis text-decoration-none me-2" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="<%=request.getContextPath()%>/login.do" class="d-block link-body-emphasis text-decoration-none me-2" aria-expanded="false">
             <img src="<%=request.getContextPath()%>/image/icon/profile.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
 	     <%}else{ %>
@@ -65,7 +81,7 @@
 	            <img src="<%=request.getContextPath()%>/upload/member/profile/<%=loginMember.getProfileImgOriname() %>" alt="mdo" width="32" height="32" class="rounded-circle">
 	          </a>
 	          <ul class="dropdown-menu text-small">
-	            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/myprofile.do?pagenum=1">내 프로필</a></li>
+	            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/myprofile.do?pagenum=1">My KUPID</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 	          </ul>
@@ -74,3 +90,6 @@
       </div>
     </div>
   </header>
+  <script>
+  	
+  </script>

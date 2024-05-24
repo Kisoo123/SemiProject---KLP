@@ -160,6 +160,7 @@
   border-radius: 8px 8px 8px 8px;
   outline: 1px solid #e0e0e0;
   outline-offset: -1px;
+  width: 100%;
 }
 .myProfile .highlight_box {
   position: relative;
@@ -262,10 +263,10 @@
 	background-color: #ededed;
 }
 </style>
-
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <div class="myprofile-container">
 <%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
-    <main class="untitled-page main">
+    <main class="main">
         <section class="myProfile">
             <div class="flex_col">
                 <h1 class="title">내 프로필</h1>

@@ -19,7 +19,7 @@ ul{
    display:table;
    padding:0px;
    margin:auto;
-}
+} 
 ul li { 
    list-style-type: none; 
    width: 8em; 

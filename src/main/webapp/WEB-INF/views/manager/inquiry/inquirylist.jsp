@@ -14,7 +14,7 @@
 ul{
    /* width:80%; */
    display:table;
-   padding:0px;
+   padding:0px; 
    margin:auto;
 }
 ul li { 

@@ -16,5 +16,5 @@
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 
 </div>
-</body>
+</body> 
 </html>

@@ -201,7 +201,7 @@ const test = ()=>{
 	                    initializeCarousel(img_list);
 	                }
 
-	                $div.append('<br>' + '<button id="">' + '좋아요' + '</button>');
+	                $div.append('<br>' + '<button class="likes">' + '좋아요' + '</button>');
 	                $div.append('<br>' + '<button class="comment">' + '댓글' + '</button>');
 	                $div.append('<br>' + '<button class="reportBt">' + '신고' + '</button>');
 	                $(container).append($div);
@@ -337,17 +337,30 @@ const test = ()=>{
 	    // Initial display of the first slide
 	    showSlide(index);
 	}
+// 좋아요 기능
+   function switchingLikes(feedNo, feed, e) {
+	    $.ajax({
+	        type: "POST",
+	        url: "<%=request.getContextPath()%>/feed/likesswitch.do",
+	        data: {
+	            "memberNo": '<%=loginMember.getMemberNo()%>',
+	            "feedNo": feedNo
+	        },
+	        success: function(data) {
+	            console.log(data + "data");
+	            $(e.target).text("좋아요 "+data);
+	        }
+	    });
+	}
+	   
+	$(document).ready(function () {
+	    $(document).on('click', '.likes', function(e) {
+	        const feedNo = $(e.target).parent().find('h3:first').text();
+	        const feed = $(e.target).parent().find('h3:first');
+	        switchingLikes(feedNo, feed, e);
+	    });
+	}); 
 
-
-/* function switchingLikes(){
-	$.ajax({
-		type:"POST",
-		url:,
-		data:,
-		success:
-		
-	})
-} */
    
 
 document.addEventListener("DOMContentLoaded", function () {
